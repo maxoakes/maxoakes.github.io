@@ -1,0 +1,460 @@
+/* Global */
+:root {
+    --navbar-height: 60px;
+    --banner-height: 60px;
+    
+    --color-background-primary: #1f2530;
+    --color-background-secondary: #3d5a80;
+    --color-background-tertiary: #293241;
+    --color-accent: #ff6a44;
+    --color-text-primary: #e0fbfc;
+    --color-text-visible: #ffffe9;
+    /* Text primary is always on Background secondary */
+    /* Accent should be very different */
+
+    --font-title: 'Raleway';
+    --font-text: 'Karla';
+    --font-accent: 'Sora';
+    --font-small: 'Noto Sans JP';
+    --font-tiny: 'Mulish';
+
+    --color-skill-lang: #b40000;
+    --color-skill-tool: #00c400;
+    --color-skill-other: #0000ac;
+}
+
+/* Major color theme */
+.solid-background {
+    /* Backup */
+    background: var(--color-background-primary);
+    width: 100%;
+}
+header {
+    background-color: var(--color-background-primary);
+}
+#resume {
+    background-color: var(--color-background-secondary);
+}
+#projects {
+    background-color: var(--color-background-tertiary);
+}
+
+/* Global Elements */
+hr {
+    width: 99%;
+    border-color: var(--color-text-primary);
+    border-top: 1px;
+}
+
+hr.accent {
+    width: 50%;
+    max-width: 200px;
+    border: 1px solid var(--color-accent);
+}
+
+h1, h2, p, a, li { /* All font */
+    color: var(--color-text-primary);
+    font-family: var(--font-text), "Tahoma", sans-serif;
+    list-style-type: circle;
+}
+
+ul {
+    margin: 8px 0;
+    padding: 0 0 0 16px;
+}
+
+li::marker {
+    color: var(--color-accent);
+}
+
+a, a:hover, a:visited, a:active { /* All links */
+    text-decoration: none;
+    color: var(--color-accent);
+}
+
+/* Global Classes */
+.center-note {
+    width: fit-content;
+    margin: auto;
+    display: block;
+    text-align: center;
+    font-size: smaller;
+}
+
+.title-banner
+{
+    width: 100%;
+    height: var(--banner-height);
+    padding: var(--banner-height) 0;
+    margin: 0;
+}
+
+.content-section-title {
+    margin: 0;
+    padding: 0;
+    
+    font-weight: lighter;
+    text-align: center;
+    font-size: xx-large;
+    text-transform: uppercase;
+}
+
+.glass-background {
+    backdrop-filter: blur(8px);
+    width: 100%;
+}
+
+.glass-background * {
+    color: var(--color-text-visible);
+}
+
+.content-box {
+    padding: 0 0 20px 0;
+    /* border-radius: 16px; */
+}
+
+.narrow {
+    margin: auto;
+    width: 80%;
+    max-width: 1000px;
+}
+
+/* Skill Tags */
+span.skill {
+    white-space: nowrap;
+    padding: 4px 8px;
+    font-family: var(--font-tiny), sans-serif;
+    font-size: smaller;
+    font-weight: lighter;
+    /* border: 2px solid var(--color-accent); */
+    border-radius: 20px;
+    margin: 5px 1px;
+    line-height: 28px;
+}
+
+span.language {
+    
+    border-color: var(--color-skill-lang);
+    background-color: var(--color-skill-lang);
+}
+
+span.tool {
+    border-color: var(--color-skill-tool);
+    background-color: var(--color-skill-tool);
+}
+
+span.other {
+    border-color: var(--color-skill-other);
+    background-color: var(--color-skill-other);
+}
+
+/* For the static banner and background */
+body {
+    margin: 0;
+}
+
+.static > * {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.background {
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(
+            200deg,
+            transparent,
+            var(--color-background-secondary)),
+        url("asset/background.jpg");
+    /* background-image: url("asset/background.jpg"); */
+    filter: grayscale(60%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+header {
+    z-index: 1;
+    height: var(--navbar-height);
+    display: inline;
+}
+
+.full-name {
+    float: left;
+    margin-left: 2%;
+    letter-spacing: 1px;
+    font-family: var(--font-title), sans-serif;
+    text-transform: uppercase;
+    font-size: 30pt;
+}
+
+header > * {
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+
+    font-weight: lighter;
+    line-height: 40px;
+    padding: 10px 0 10px 0;
+    
+}
+
+header a {
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: var(--font-accent), sans-serif;
+    font-weight: bolder;
+}
+
+header a:hover {
+    background-color: var(--color-accent);
+}
+
+header a, header a:hover, header a:visited, header a:active {
+    color: var(--color-text-primary);
+}
+
+/* Intro/Title section */
+#home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.intro-text {
+    text-align: center;
+    width: 50%;
+    max-width: 600px;
+    height: 50%;
+    padding: 30px;
+    margin-top: var(--banner-height);
+    border-radius: 20px;
+}
+
+.introduction-sentence {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-accent), sans-serif;
+    font-size: 30px;
+    font-weight: lighter;
+    text-align: center;
+}
+
+/* Resume */
+.resume-section-title {
+    font-size: small;
+    font-family: var(--font-accent), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.resume-position-details {
+    line-height: 30px;
+    vertical-align: baseline;
+    margin: 0;
+}
+
+.resume-logo {
+    display: block;
+    float: left;
+    margin-left: -80px;
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+}
+
+.white-icon-background {
+    background-color: white;
+}
+
+.round-icon {
+    border-radius: 50%;
+}
+
+.company, .position {
+    font-weight: bolder;
+}
+
+.company {
+    font-size: larger;
+}
+
+.duration, .location {
+    float: right;
+    font-style: italic;
+}
+
+.resume-item {
+    padding-bottom: 30px;
+}
+
+/* Project tiles */
+#projects {
+    height: max-content;
+}
+
+.project-container
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding-bottom: 80px;
+    max-width: 1400px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.project-box
+{
+    display: grid;
+    grid-template-rows: 200px auto;
+    grid-template-columns: minmax(200px, 400px);
+    box-shadow: 2px 2px 10px black;
+}
+
+.project-box .image {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.project-box .description {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    background-color: var(--color-background-secondary);
+    padding: 10px 30px;
+    font-size: smaller;
+}
+
+.project-box .description * {
+    font-family: var(--font-small), sans-serif;
+    letter-spacing: 1px;
+}
+
+.project-title {
+    font-weight: bold;
+    font-size: larger;
+    padding-right: 12px;
+    vertical-align: baseline;
+}
+
+.image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+#steam-compare .image {
+    background-image: url("asset/steam-compare.jpg");
+    background-position: bottom;
+}
+
+#gamepad-driver .image {
+    background-image: url("asset/gamepad-driver.jpg");
+}
+
+#javachat .image {
+    background-color: lightseagreen;
+    background-image: url("asset/java-chat.png");
+    background-size: contain;
+}
+
+#cruelsun .image {
+    background-image: url("asset/cruelsun.jpg");
+    background-position: center;
+}
+
+#stargate .image {
+    background-image: url("asset/stargate-closeup.jpg");
+}
+
+#terrain-gen .image {
+    background-image: url("asset/terrain-gen.jpg");
+}
+
+@media only screen and (max-width: 800px) {
+    .resume-logo {
+        display: none;
+    }
+
+    .narrow {
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    header a {
+        font-size: smaller;
+    }
+
+    .full-name {
+        font-size: large;
+    }
+
+    .intro-text {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    header {
+        display: flex;
+        justify-content: center;
+        flex-direction: row-reverse;
+    }
+
+    .full-name {
+        display: none;
+    }
+
+    .intro-text {
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    h1, h2, a, li, p {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color:#e0fbfc;
+    }
+
+    a {
+        color:#ff6a44;
+    }
+
+    .project-box {
+        background-color: #293241;
+        color: #e0fbfc;
+        margin: 20px auto;
+        max-width: 1200px;
+        width: 90%;
+    }
+
+    header h1 {
+        color: #e0fbfc;
+    }
+
+    header {
+        background-color: #1f2530;
+    }
+    
+    .content {
+        background-color: #3d5a80;
+    }
+
+    .intro-text {
+        margin-top: 100px;
+    }
+
+    .background {
+        background-image: url("asset/background.jpg");
+        background-size: 100% 100%;
+    }
+}
