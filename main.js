@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             messageForIE.innerHTML = "<hr>I see you are using Internet Explorer. For a better viewing experience, \
             I recommend using a different web browser or going directly to my \
             <a href='https://github.com/maxoakes'>Github</a> or my \
-            <a href='https://www.linkedin.com/in/maxwell-oakes-11b211113/'>LinkedIn</a>.";
+            <a href='https://www.linkedin.com/in/max-o-017/'>LinkedIn</a>.";
             document.getElementsByClassName("intro-text")[0].appendChild(messageForIE);
         }    
     }
