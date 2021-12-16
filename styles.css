@@ -290,6 +290,11 @@ header a, header a:hover, header a:visited, header a:active {
     font-style: italic;
 }
 
+.gpa {
+    display: block;
+    font-style: italic;
+}
+
 .resume-item {
     padding-bottom: 30px;
 }
@@ -372,10 +377,15 @@ header a, header a:hover, header a:visited, header a:active {
 
 #stargate .image {
     background-image: url("asset/stargate-closeup.jpg");
+    background-position: center;
 }
 
 #terrain-gen .image {
     background-image: url("asset/terrain-gen.jpg");
+}
+
+#gnu-radio .image {
+    background-image: url("asset/gnuradio.jpg");
 }
 
 @media only screen and (max-width: 800px) {
