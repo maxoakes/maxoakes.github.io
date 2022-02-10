@@ -364,9 +364,9 @@ header a, header a:hover, header a:visited, header a:active {
     background-image: url("asset/gamepad-driver.jpg");
 }
 
-#javachat .image {
+#irc .image {
     background-color: lightseagreen;
-    background-image: url("asset/java-chat.png");
+    background-image: url("asset/irc.png");
     background-size: contain;
 }
 
