@@ -364,6 +364,11 @@ header a, header a:hover, header a:visited, header a:active {
     background-image: url("asset/gamepad-driver.jpg");
 }
 
+#asteroid .image {
+    background-image: url("asset/asteroid.jpg");
+    background-size: center;
+}
+
 #irc .image {
     background-color: lightseagreen;
     background-image: url("asset/irc.png");
