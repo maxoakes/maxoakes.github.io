@@ -17,19 +17,24 @@
         </div>
         <div class="container">
             <div class="column description">
-                <p>Some sample questions to ask (verbally or by typing):</p>
-                <ul>
-                    <li>What is the weather in Portland, Oregon?</li>
-                    <li>How is the visibility in San Fransisco, California?</li>
-                    <li>How is the snow in Nuuk, Greenland?</li>
-                    <li>What is the temperature in New Delhi?</li>
-                    <li>What is the cloud cover in London?</li>
-                    <li>When will the temperature be the highest in Cairo, Egypt?</li>
-                    <li>When will be the highest chance of rain in Sapporo, Japan?</li>
-                    <li>What is the forecast for Dakar, Senegal?</li>
-                    <li>What is the current pressure in 97141?</li>
-                </ul>
-                <p>Try out your own queries! Be careful to spell words correctly; the AI cannot guess meanings from misspelled words.</p></div>
+                <button onclick="toggleInstructions()">Toggle Instructions</button>
+                <div id="instructions" style="display: none;">
+                    <p>Some sample questions to ask (verbally or by typing):</p>
+                    <ul>
+                        <li>What is the weather in Portland, Oregon?</li>
+                        <li>How is the visibility in San Fransisco, California?</li>
+                        <li>How is the snow in Nuuk, Greenland?</li>
+                        <li>What is the temperature in New Delhi?</li>
+                        <li>What is the cloud cover in London?</li>
+                        <li>When will the temperature be the highest in Cairo, Egypt?</li>
+                        <li>When will be the highest chance of rain in Sapporo, Japan?</li>
+                        <li>What is the forecast for Cape Town?</li>
+                        <li>What is the current pressure in 97141?</li>
+                    </ul>
+                    <p>Try out your own queries! Be careful to spell words correctly; the AI cannot guess meanings from misspelled words.</p>
+                </div>
+                <p>You are welcome to <a href="https://docs.google.com/forms/d/e/1FAIpQLSezBx8Rcz5IV8WANtd0xuh6ZMQxHaTAQV7hb_T0U6ErtDb0sA/viewform?usp=sf_link">evaluate</a> it.</p>
+            </div>
     
             <div class="column demo">            
                 <iframe allow="microphone;"
@@ -38,5 +43,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleInstructions() {
+          var el = document.getElementById("instructions");
+          if (el.style.display != "none") {
+            el.style.display = "none";
+          } else {
+            el.style.display = "block";
+          }
+        }
+    </script>
 </body>
 </html>
