@@ -385,10 +385,6 @@ header a, header a:hover, header a:visited, header a:active {
     background-position: center;
 }
 
-#terrain-gen .image {
-    background-image: url("asset/terrain-gen.jpg");
-}
-
 #gnu-radio .image {
     background-image: url("asset/gnuradio.jpg");
 }
