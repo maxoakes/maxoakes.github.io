@@ -383,7 +383,7 @@ async function grabData(coords)
         let currentResponse = await axios.get(currentCall);
 		bundle.current = await currentResponse.data;
 
-		let forecastCall = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&APPID=${key}`;
+		let forecastCall = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&APPID=${key}`;
         console.log(`Calling Forecast ${forecastCall}`);
         let forecastResponse = await axios.get(forecastCall);
 		bundle.forecast = await forecastResponse.data;
