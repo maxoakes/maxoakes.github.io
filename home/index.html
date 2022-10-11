@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;300&family=Raleway:wght@100&family=Karla&family=Noto+Sans+JP:wght@300&family=Mulish:wght@400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="tabs.js"></script>
+    <script src="weather.js"></script>
+</head>
+<body>
+    <div class="static">
+        <header>
+            <h1 class="full-name">Home</h1>
+            <a href="../">About</a>
+            <a href="../home/">Landing</a>
+            <a href="../bookmarks/">Bookmarks</a>
+        </header>
+        <div class="background"></div>
+    </div>
+    <div class="content">
+        <div id=home>
+            <div class="weather">
+                <div>
+                    <h2 id="location-title"></h1>
+                </div>
+                <div class="forecast">
+                    <div id="today-panel" class="day" onclick="openTab(event, 'today', 'weather-data')"></div>
+                    <hr class="seperator"/>
+                    <div id="day0-panel" class="day" onclick="openTab(event, 'day1', 'weather-data')"></div>
+                    <hr class="seperator"/>
+                    <div id="day1-panel" class="day" onclick="openTab(event, 'day2', 'weather-data')"></div>
+                    <hr class="seperator"/>
+                    <div id="day2-panel" class="day" onclick="openTab(event, 'day2', 'weather-data')"></div>
+                    <hr class="seperator"/>
+                    <div id="day3-panel" class="day" onclick="openTab(event, 'day3', 'weather-data')"></div>
+                </div>
+                <div class="weather-description">
+                    <div id="today" class="weather-data" style="display:block">
+                    </div>
+                    <div id="day0" class="weather-data">
+                    </div>
+                    <div id="day1" class="weather-data">
+                    </div>
+                    <div id="day2" class="weather-data">
+                    </div>
+                    <div id="day3" class="weather-data">
+                    </div>
+                </div>
+            </div>
+            <div class="feed1">feed1</div>
+            <div class="feed2">feed2</div>
+            <div class="feed3">feed3</div>
+        </div>
+    </div>
+</body>
+</html>

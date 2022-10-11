@@ -52,7 +52,7 @@ hr.accent {
     border: 1px solid var(--color-accent);
 }
 
-h1, h2, p, a, li { /* All font */
+h1, h2, p, a, li, button, div { /* All font */
     color: var(--color-text-primary);
     font-family: var(--font-text), "Tahoma", sans-serif;
     list-style-type: circle;
@@ -100,7 +100,7 @@ a, a:hover, a:visited, a:active { /* All links */
 }
 
 .glass-background {
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(4px);
     width: 100%;
 }
 
@@ -133,7 +133,6 @@ span.skill {
 }
 
 span.language {
-    
     border-color: var(--color-skill-lang);
     background-color: var(--color-skill-lang);
 }
@@ -168,7 +167,7 @@ body {
             200deg,
             transparent,
             var(--color-background-secondary)),
-        url("asset/background.jpg");
+        url("asset/background/sky.jpg");
     /* background-image: url("asset/background.jpg"); */
     filter: grayscale(60%);
     background-repeat: no-repeat;
