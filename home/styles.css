@@ -11,7 +11,7 @@
             200deg,
             transparent,
             var(--color-background-secondary)),
-        url("../asset/background/forest.jpg");
+        url("../asset/background/woods.jpg");
     filter: grayscale(60%);
     background-repeat: no-repeat;
     background-position: center;
