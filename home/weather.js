@@ -1,4 +1,3 @@
-const key = "734dbd0d17ca58f96ed16bfdaac831b0";
 const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const EXPECTED_SNAPSHOTS_PER_DAY = 8;
 const STRING_UNIT_TEMP = "°F";
@@ -7,13 +6,17 @@ const STRING_UNIT_PERCENT = "%";
 const STRING_UNIT_SPEED = " mph";
 const STRING_UNIT_DISTANCE = " km";
 const STRING_UNIT_VOLUME = " mm";
+let key = "";
 let allWeatherConditions = {};
+
 main();
 function main()
 {
+	fetch('/key.json')
+    	.then((response) => response.json())
+    	.then((json) => key=json.key);
+
     async function success(position) {
-        const latitude  = position.coords.latitude;
-        const longitude = position.coords.longitude;
         console.log(position.coords);
         let weather = await grabData(position.coords);
         console.log(weather);
@@ -379,12 +382,12 @@ async function grabData(coords)
     {
 		let bundle = {};
 		let currentCall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&APPID=${key}`;
-        console.log(`Calling Current Weather ${currentCall}`);
+        //console.log(`Calling Current Weather ${currentCall}`);
         let currentResponse = await axios.get(currentCall);
 		bundle.current = await currentResponse.data;
 
 		let forecastCall = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&APPID=${key}`;
-        console.log(`Calling Forecast ${forecastCall}`);
+        //console.log(`Calling Forecast ${forecastCall}`);
         let forecastResponse = await axios.get(forecastCall);
 		bundle.forecast = await forecastResponse.data;
 
