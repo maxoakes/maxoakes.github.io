@@ -355,41 +355,41 @@ header a, header a:hover, header a:visited, header a:active {
 }
 
 #steam-compare .image {
-    background-image: url("asset/steam-compare.jpg");
+    background-image: url("asset/project/steam-compare.jpg");
     background-position: bottom;
 }
 
 #gamepad-driver .image {
-    background-image: url("asset/gamepad-driver.jpg");
+    background-image: url("asset/project/gamepad-driver.jpg");
 }
 
 #asteroid .image {
-    background-image: url("asset/asteroid.jpg");
+    background-image: url("asset/project/asteroid.jpg");
     background-size: center;
 }
 
 #irc .image {
     background-color: lightseagreen;
-    background-image: url("asset/irc.png");
+    background-image: url("asset/project/irc.png");
     background-size: contain;
 }
 
 #cruelsun .image {
-    background-image: url("asset/cruelsun.jpg");
+    background-image: url("asset/project/cruelsun.jpg");
     background-position: center;
 }
 
 #stargate .image {
-    background-image: url("asset/stargate-closeup.jpg");
+    background-image: url("asset/project/stargate-closeup.jpg");
     background-position: center;
 }
 
 #gnu-radio .image {
-    background-image: url("asset/gnuradio.jpg");
+    background-image: url("asset/project/gnuradio.jpg");
 }
 
 #dialogflow-project .image {
-    background-image: url("asset/weather.png");
+    background-image: url("asset/project/weather.png");
     background-position: center;
 }
 
@@ -528,7 +528,7 @@ header a, header a:hover, header a:visited, header a:active {
     }
 
     .background {
-        background-image: url("asset/background.jpg");
+        background-image: url("asset/background/sky.jpg");
         background-size: 100% 100%;
     }
 }
