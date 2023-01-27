@@ -387,6 +387,10 @@ header a, header a:hover, header a:visited, header a:active {
     background-image: url("asset/project/gnuradio.jpg");
 }
 
+#arma .image {
+    background-image: url("asset/project/maze.jpg");
+}
+
 #dialogflow-project .image {
     background-image: url("asset/project/weather.png");
     background-position: center;
