@@ -391,6 +391,16 @@ header a, header a:hover, header a:visited, header a:active {
     background-image: url("asset/project/maze.jpg");
 }
 
+#jwst .image {
+    background-image: url("asset/project/space.jpg");
+    background-position: center;
+}
+
+#visualizer .image {
+    background-image: url("asset/project/visualizer.jpg");
+    background-position: center;
+}
+
 #dialogflow-project .image {
     background-image: url("asset/project/weather.png");
     background-position: center;
