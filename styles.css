@@ -297,6 +297,9 @@ header a, header a:hover, header a:visited, header a:active {
     padding-bottom: 30px;
 }
 
+.list-header {
+    margin: 16px 0 8px 0;
+}
 /* Project tiles */
 #projects {
     height: max-content;
