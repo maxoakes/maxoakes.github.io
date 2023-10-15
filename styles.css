@@ -3,12 +3,12 @@
     --navbar-height: 60px;
     --banner-height: 60px;
     
-    --color-background-primary: #1f2530;
-    --color-background-secondary: #2d496e;
-    --color-background-tertiary: #293241;
-    --color-accent: #f79077;
+    --color-header-footer: #1d263a;
+    --color-background-primary: #2f467c;
+    --color-background-secondary: #293146;
+    --color-accent: #e2c069;
     --color-text-primary: #e0fbfc;
-    --color-text-visible: #ffffe9;
+    --color-text-accent: #e2c069;
     /* Text primary is always on Background secondary */
     /* Accent should be very different */
 
@@ -26,17 +26,17 @@
 /* Major color theme */
 .solid-background {
     /* Backup */
-    background: var(--color-background-primary);
+    background: var(--color-header-footer);
     width: 100%;
 }
 header {
-    background-color: var(--color-background-primary);
+    background-color: var(--color-header-footer);
 }
 #resume {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-background-primary);
 }
 #projects {
-    background-color: var(--color-background-tertiary);
+    background-color: var(--color-background-secondary);
 }
 
 /* Global Elements */
@@ -69,7 +69,7 @@ li::marker {
 
 a, a:hover, a:visited, a:active { /* All links */
     text-decoration: none;
-    color: var(--color-accent);
+    color: var(--color-text-accent);
 }
 
 /* Global Classes */
@@ -105,7 +105,7 @@ a, a:hover, a:visited, a:active { /* All links */
 }
 
 .glass-background * {
-    color: var(--color-text-visible);
+    color: var(--color-text-primary);
 }
 
 .content-box {
@@ -166,7 +166,7 @@ body {
     background: linear-gradient(
             200deg,
             transparent,
-            var(--color-background-secondary)),
+            var(--color-background-primary)),
         url("asset/background/sky.jpg");
     filter: grayscale(60%);
     background-repeat: no-repeat;
@@ -333,7 +333,7 @@ header a, header a:hover, header a:visited, header a:active {
 .project-box .description {
     grid-column: 1 / span 1;
     grid-row: 2 / span 1;
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-background-primary);
     padding: 10px 30px;
     font-size: smaller;
 }
@@ -404,45 +404,13 @@ header a, header a:hover, header a:visited, header a:active {
     background-position: center;
 }
 
-#dialogflow-project .image {
-    background-image: url("asset/project/weather.png");
-    background-position: center;
+#footer {
+    background-color: var(--color-header-footer);
 }
 
-/* Other pages */
-#dialogflow.content {
-    background-color: var(--color-background-secondary);
-    height: 100vh;
-    width: 100%;
-}
-
-#dialogflow h1 {
-    margin: 0;
-    padding: 20px;
+.footer-content {
     text-align: center;
-}
-
-#dialogflow .container {
-
-    display: flex;
-    height: 80%;
-    margin: auto;
-    width: 90%;
-}
-
-#dialogflow .column {
-    width: 40%;
-    padding: 5px;
-    margin: 0 auto 0 auto;
-}
-
-#dialogflow ul {
-    padding: 0 0 0 32px;
-}
-
-#dialogflow iframe {
-    width: 100%;
-    height: 100%;
+    padding: 25px min(30%, 50px);
 }
 
 @media only screen and (max-width: 800px) {
@@ -452,29 +420,6 @@ header a, header a:hover, header a:visited, header a:active {
 
     .narrow {
         width: 95%;
-    }
-
-    #dialogflow .container {
-
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-        width: 95%;
-    }
-
-    #dialogflow .column {
-        width: 90%;
-        padding: 5px;
-        margin: 0 auto 0 auto;
-    }
-
-    #dialogflow iframe {
-        width: 100%;
-        height: 500px;
-    }
-
-    #dialogflow .description {
-        display: none;
     }
 }
 

@@ -1,0 +1,265 @@
+% !TeX program = xelatex
+\documentclass[11pt]{article}
+\usepackage[margin=0.5in]{geometry}
+% 0.66 is normal
+% fonts
+\usepackage{fontspec}
+% links
+\usepackage{hyperref}
+% text alignment (center)
+\usepackage{ragged2e}
+% underline
+\usepackage{ulem}
+\usepackage{contour}
+% multiple columns
+\usepackage{paracol}
+% paper bg
+\usepackage{eso-pic}
+% better itemize
+\usepackage{enumitem}
+% Capitalize words
+\usepackage{titlecaps}
+% horizontal line
+\usepackage{titlesec}
+% line spacing
+\usepackage{setspace}
+
+\setmainfont{Cambria}
+\renewcommand{\baselinestretch}{1.0} 
+\hypersetup{colorlinks=false, pdfborder = {0 0 0}}
+\thispagestyle{empty}
+\raggedright
+
+% Basic Info
+\def\name{Maxwell Oakes} 
+\def\email{\href{mailto:m.oakes017@gmail.com}
+    {m.oakes017@gmail.com}}
+\def\website{\href{https://maxoakes.github.io/}
+    {maxoakes.github.io}}
+\def\linkedin{\href{https://www.linkedin.com/in/max-o-017/}
+    {linkedin.com/in/max-o-017}}
+\def\phone{(503) 354-4264}
+\def\location{Portland, Oregon}
+
+% job specific
+\def\company{this company}
+\def\companytype{company type}
+\def\jobduty{design and build systems}
+\def\rolegeneric{developer}
+
+% Skills
+\def\langoop{Java, C\#}
+\def\langcfam{C/C++}
+\def\langweb{HTML/CSS}
+\def\langjs{Javascript, React, jQuery}
+\def\langsql{SQL (PostgreSQL, MySQL)}
+
+% Part Formats
+\newcommand{\header}[1]{
+    \begin{Center}
+        \LARGE
+        \textbf{#1}
+        \newline
+        \toplistspacing
+        \normalsize
+        \email\tab
+        \phone\tab
+        \website\tab
+        \location
+    \end{Center}
+    \vspace{-0.12in}
+}
+\newcommand{\sectiontitle}[1]{
+    \noindent\Large#1
+    \newline
+    \vspace{-0.18in}
+    \hrule   
+}
+
+\newcommand{\plainparagraph}[1]{
+    \topitemspacing
+    \noindent\normalsize#1
+}
+
+\newcommand{\school}[3]{
+    % Position, Company, Date Range
+    \topitemspacing
+    \normalsize\noindent\textbf{#1}
+    \hfill
+    \noindent#3
+    \newline
+    \noindent\textit{#2}
+    \toplistspacing
+}
+
+\newcommand{\occupation}[4]{
+    % Position, Company, Date Range, Location
+    \topitemspacing
+    \normalsize
+    \noindent\textbf{#1}
+    \hfill
+    \noindent#3
+    \newline
+    \noindent\textit{#2} | \textit{#4}
+    \toplistspacing
+}
+
+\newcommand{\project}[3]{
+    % Title, Position, Year
+    \topitemspacing
+    \normalsize
+    \noindent\textbf{#1}, \textit{#2}
+    \hfill
+    \noindent#3
+    \toplistspacing
+}
+
+\newcommand{\inlinelist}[2]{
+    \topitemspacing
+    \noindent\normalsize\textbf{#1}: #2
+}
+
+\newcommand{\tab}{
+    \hspace{0.15in}
+}
+\newcommand{\sectionendspace}{
+    \vspace{0.1in}
+}
+\newcommand{\toplistspacing}{
+    \vspace{0.04in}
+}
+\newcommand{\topitemspacing}{
+    \vspace{0.1in}
+}
+
+% Soft skills
+% tenacious
+% detail-oriented
+% problem solver
+% analytical
+% organized
+% patient
+% logical
+% fast-learner
+% eager
+% passionate
+% meticulous
+\begin{document}
+    % Header section 
+    \header{Maxwell Oakes}
+    % About Me, Objective
+    % \sectiontitle{Professional Summary}
+    % imaging
+    % \plainparagraph{Tenacious and detail-oriented computer science graduate seeking to design and build applications for advanced scientific or mechanical systems. A life-long learner who always desires to know more about recent developments in computer science and innovations in computational imaging.}
+    % vague
+    % \plainparagraph{Tenacious and detail-oriented computer science graduate seeking to design and create innovative and user-friendly applications. A life-long learner who always desires to know more about recent developments in advanced technologies and innovations in computer science.}
+    % \plainparagraph{Tenacious and detail-oriented computer science graduate seeking to design, create and maintain complex tools and applications. A life-long learner who always desires to know more about recent developments in advanced technologies and innovations in computer science.}
+    % vague, systems developer
+    % \plainparagraph{Tenacious and detail-oriented graduate with an MS in Computer Science seeking to start a career at a \companytype\space company like \company\space wishing to \jobduty. A life-long learner who always desires to gain experience and grow as a \rolegeneric.}
+    % full stack, make a difference
+    % \plainparagraph{Detail-oriented and tenacious computer science graduate seeking a full-stack web development role to utilize my technical skills and passion for problem-solving to create innovative and user-friendly web applications. Seeking to leverage my knowledge of network and web technologies to contribute in a meaningful way.}
+    % experience
+    % \plainparagraph{Detail-oriented and tenacious computer science graduate with experience in backend and frontend development who is seeking a web development role after graduation. Passionate problem-solver looking to create innovative and user-friendly web applications.}
+    % \plainparagraph{Tenacious and detail-oriented computer science graduate seeking to start a career in the design and development of software tools and computer systems that make a difference. A life-long learner always eager to learn more as a computer scientist and as a team member.}
+    % \plainparagraph{Detail-oriented and tenacious recent graduate with an MS in Computer Science with a strong passion for software development and problem solving. Joining \company\space as a \rolegeneric\space would be the perfect place to start my career.}
+    % \plainparagraph{Seeking a challenging role as a computer science graduate student to utilize my strong attention to detail to contribute to the development of innovative and efficient solutions.}
+    % \plainparagraph{A detail-oriented soon-to-be computer science graduate seeking a challenging role where I can apply my technical skills and attention to detail to contribute to the success of a dynamic organization.}
+    % \plainparagraph{Detail-oriented computer science graduate student seeking a challenging and dynamic role that utilizes my strong analytical and technical skills to drive innovation and create meaningful solutions.}
+    \sectionendspace
+
+    % Education
+    \sectiontitle{Education}
+    % Portland State
+    \school{Master of Science, Computer Science}
+    {Portland State University}
+    {Mar 2021 -- Mar 2023}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item 4.0/4.0 GPA; Phi Kappa Phi Honor Society
+        % \item Systems and Networking Track
+        \item Relevant Coursework: Database Management Systems, Fullstack Web Development, Unit Testing, Software Testing and Implementation, Internetworking Protocols, Computational Imaging
+        \item \emph{Relevant Technical Skills}: Python, \langweb, JavaScript, React, SQL (PostgreSQL), C\#, Github, Unit Testing
+    \end{itemize}
+    % University of Portland
+    \school{Bachelor of Science, Computer Science}
+    {University of Portland}
+    {Aug 2013 -- May 2017}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item 3.28/4.0 Overall GPA; 3.41/4.0 Major GPA
+        \item Relevant Coursework: Analysis of Algorithms, Programming Languages, Data Structures, Object-Oriented Design, Remote Sensing \& GIS
+        \item \emph{Relevant Technical Skills}: \langoop, \langcfam, SQL (MySQL), ArcGIS
+    \end{itemize}
+    \sectionendspace
+    % Skills and Tools
+    % \sectiontitle{Technical Skills}
+    % \inlinelist{Languages}
+    % {Python, \langoop, \langcfam, \langsql, \langweb, \langjs}
+    % \newline
+    % \inlinelist{Tools}
+    % {GitHub, xUnit, Visual Studio, Eclipse, Microsoft Office, Linux, Unity Game Engine}
+
+    \sectionendspace
+    % Work Experience
+    % Nursing Education Coordinator
+    \sectiontitle{Experience}
+    \occupation{Programmer Analyst 1}{Marion County}
+    {Jun 2023 -- Current}
+    {Salem, OR}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Converted several dozen legacy Microsoft Access-based reports and queries into SQL Server Reporting Services (SSRS) reports, giving county employees a more consistent and modern user experience 
+        \item Assisted in data integrity and consistency patches for MS SQL, increasing the quality of future data and reducing possibilities of future issues
+    \end{itemize}
+    % \occupation{Nursing Education Coordinator (Administrative Coordinator)}
+    \occupation{Administrative Coordinator}{Orbis Education}
+    {Sept 2018 -- Dec 2020}
+    {Portland, OR}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Wrote a variety of programs in Python to automate previously tedious tasks, frequently saving several hours of work per week
+        \item Developed academic calendar used by over 400 concurrent students across multiple locations
+        \item Created workflow of all tasks performed by administrative team, allowing for timely task allocation in a growing nursing program
+        \item Collaborated with 2 other education coordinators to ensure 120 incoming students per semester were in compliance with mandatory hospital clinical site safety and vaccination standards
+    \end{itemize}
+    % Student Web Developer
+    \occupation{Student Web Developer}
+    {University of Portland}
+    {Nov 2016 -- May 2017}
+    {Portland, OR}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Designed and maintained multiple MVC architecture Java web applets that were used by university tutoring faculty and prospective students
+        \item Convened with university faculty to outline requirements for new web applications
+        \item Improved existing Java web applets by identifying and fixing several bugs and adding functionality
+    \end{itemize}
+    % Free Geek Volunteer
+    % \occupation{Hardware Evaluator (Volunteer)}
+    % {Free Geek}
+    % {01/2010 - 11/2013}
+    % {Portland, OR}
+    % \begin{itemize}[noitemsep,nolistsep]
+    %     \item Disassembled a variety of donated computers and determined whether parts are to be reused or recycled by following established procedures
+    %     \item Sorted computer components based on technical specifications, requiring the ability to quickly inspect physical hardware and BIOS information
+    %     \item Installed software and performed quality assurance on outgoing computers using the Ubuntu operating system
+    % \end{itemize}
+    \sectionendspace
+    % Projects
+    \sectiontitle{Projects}
+    \project{James Webb Space Telescope Spectrum Analyzer}{Solo Creator}{Winter 2023}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Created a Python program to download and combine James Webb Telescope infrared imaging data
+        \item Utilized Python's scikit, NumPy and Astropy libraries to  manipulate and combine image layers
+    \end{itemize}
+    % \project{Python IRC}{Solo Creator}{2022}
+    % \begin{itemize}[noitemsep,nolistsep]
+    %     \item Created an internet relay text chat service that uses client-server architecture with room and whisper functionality
+    %     \item Utilized Python and principles of concurrent programming and web sockets
+    % \end{itemize}
+    % \project{Steam Compare}{Team Member}{Spring 2021}
+    % \begin{itemize}[noitemsep,nolistsep]
+    %     \item Worked in a team of 3 to build a front-end React app that can fetch any public Steam profile using Steam's Web API, then displays various information about the user
+    %     \item Utilized HTML, CSS and JavaScript with React to call existing Web APIs
+    % \end{itemize}
+    \project{Asteroid Visualizer}{Solo Creator}{Winter 2023}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Created frontend and backend for a website that displays orbits of asteroids using 3D rendering in the web browser
+        \item Utilized THREE.js and React for the frontend, and Typescript, PostgresSQL and C\# on the backend, and containerized using Docker
+    \end{itemize}
+    \sectionendspace
+\end{document}

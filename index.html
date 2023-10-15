@@ -39,7 +39,7 @@
                         var ua = window.navigator.userAgent;
                         var msie = ua.indexOf("MSIE");
                     
-                        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer, return version number
+                        if (msie > 0 || ua.match(/Trident.*rv\:11\./)) // If Internet Explorer, return version number
                         {
                             console.log("Internet Explorer detected");
                             let messageForIE = document.createElement("p");
@@ -57,7 +57,7 @@
             <div class=title-banner>
                 <h2 class="content-section-title">Résumé</h2>
                 <hr class=accent>
-                <p class="center-note">View my résumé as a <a href="/asset/docs/resume.pdf">PDF</a></p>
+                <p class="center-note">View my résumé as a <a href="/asset/docs/resume.pdf" target="_blank">PDF</a></p>
             </div>
             <div class=narrow>
                 <p class=resume-section-title>Education</p>
@@ -173,6 +173,48 @@
                 <hr>
                 <div class=resume-item>
                     <p class="resume-position-details">
+                        <span class="company">Marion County</span>
+                        <span class="duration">June 2023 - Present</span>
+                        <br><img src="asset/icon/mc.png" alt="Marion County Logo" class="resume-logo">
+                        <span class="position">Programmer Analyst 1</span>
+                        <span class="location">Salem, OR</span>
+                    </p>
+                    <p class="list-header">Duties:</p>
+                    <ul>
+                        <li>Develop, test, deploy, and maintain custom software using a variety of languages, platforms and environments supporting the county</li>
+                        <li>Analyzes and fulfills requests for SSRS reports and queries from computing systems</li>
+                        <li>Assists team members in troubleshooting, diagnosis, and repair of application malfunctions</li>
+                        <li>Responds to incident tickets assigned by lead</li>
+                        <li>Monitors production programs for expected performance</li>
+                        <li>Assists with ongoing administrative support for commercial-off-the-shelf, custom developed, or packaged applications</li>
+                        <li>Assists with troubleshooting user issues across components that make up the system including installation, data connections, and backend computing.</li>
+                    </ul>
+                    <p class="list-header">Accomplishments:</p>
+                    <ul>
+                        <li>Rewrote a handful of legacy MS Access applications in C# .NET and oversaw their initial deployment and maintenance</li>
+                        <li>Created several dozen SSRS reports that frequently used more than one data source</li>
+                        <li>Served as system admin for a handful of newly developed custom applications, decades-old custom applications, and third-party commercial-off-the-shelf tools</li>
+                    </ul>
+                    <p>
+                        <span class="skill language">C# .NET</span>
+                        <span class="skill language">VB .NET</span>
+                        <span class="skill language">ASP.NET</span>
+                        <span class="skill language">VBA</span>
+                        <span class="skill language">T-SQL</span>
+                        <span class="skill language">PL/SQL</span>
+                        <span class="skill tool">Microsoft Access</span>
+                        <span class="skill tool">SSMS (SQL Server Management Studio)</span>
+                        <span class="skill tool">Oracle Database 19c</span>
+                        <span class="skill tool">SSRS (SQL Server Reporting Services)</span>
+                        <span class="skill tool">PowerApps</span>
+                        <span class="skill tool">PowerBI</span>
+                        <span class="skill other">Dev Ops</span>
+                        <span class="skill other">Footprints</span>
+                        <span class="skill other">Microsoft Office</span>
+                    </p>
+                </div>
+                <div class=resume-item>
+                    <p class="resume-position-details">
                         <span class="company">Orbis Education</span>
                         <span class="duration">September 2018 - December 2020</span>
                         <br><img src="asset/icon/orbis.png" alt="Orbis Education Logo" class="resume-logo">
@@ -253,17 +295,32 @@
             <div class=title-banner>
                 <h2 class="content-section-title">Project Highlights</h2>
                 <hr class=accent>
-                <a class="center-note" href="https://github.com/maxoakes">View my Github</a>
+                <a class="center-note" href="https://github.com/maxoakes" target="_blank">View my Github</a>
             </div>
             <div class=project-container>
-                <div id=steam-compare class="project-box">
+                <div id=jwst class="project-box">
+                    <div class="image"></div>
+                    <div class="description">
+                        <p><span class="project-title">JWST Image Processing</span>A venture into computational imaging.
+                        The goal is to automate the pipeline of acquiring James Webb Space Telescope NIRCam imaging data,
+                        combining it and displaying a full color RGB image.</p>
+                        <p>Here is the <a href="https://github.com/maxoakes/JWST-FITS-Reader" target="_blank">source code</a>
+                            and <a href="asset/docs/imaging_report.pdf" target="_blank">report</a> of the project.</p>
+                        <p>
+                            <span class="skill language">Python</span>
+                            <span class="skill tool">NumPy</span>
+                            <span class="skill tool">AstroPy</span>
+                            <span class="skill other">Computational Imaging</span>
+                        </p>
+                    </div>
+                </div>
+                <!-- <div id=steam-compare class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Steam Compare</span>A React app hosted on Github. Using Steam's
                             public Web API, this service shows the summary of a Steam user's profile, and optionally a
                             user's statistics for a queried game.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/steam-compare">Github link</a> to the project.</p>
-                            <!-- and here is the <a href="https://maxoakes.github.io/steam-compare">live deployment</a> for this project.</p> -->
+                        <p>Here is the <a href="https://github.com/maxoakes/steam-compare" target="_blank">Github link</a> to the project.</p>
                         <p>
                             <span class="skill language">HTML</span>
                             <span class="skill language">CSS</span>
@@ -272,6 +329,20 @@
                             <span class="skill tool">Bootstrap</span>
                             <span class="skill tool">Git</span>
                             <span class="skill other">APIs</span>
+                        </p>
+                    </div>
+                </div> -->
+                <div id=asteroid class="project-box">
+                    <div class="image"></div>
+                    <div class="description">
+                        <p><span class="project-title">Big Data: Known Asteroids</span>A project for my graduate DBMS course.
+                        The goal was to fill a database with data of our choosing and answer questions based on the information
+                        in that data. I wrote my own Python script to extract rows from a CSV file to fill a database table.</p>
+                        <p>Here is the <a href="asset/docs/db.pdf" target="_blank">presentation</a> of this project.</p>
+                        <p>
+                            <span class="skill language">Python</span>
+                            <span class="skill language">SQL</span>
+                            <span class="skill tool">PostgreSQL</span>
                         </p>
                     </div>
                 </div>
@@ -283,12 +354,12 @@
                         includes other services for a PostresSQL database, Minio file storage and a .NET microservice. 
                         This website visualizes asteroids whose data are stored in a backend database. Web browser rendering
                         is done through THREE.js and React-Three-Fiber.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/AsterViz">source code</a> of this project.</p>
+                        <p>Here is the <a href="https://github.com/maxoakes/AsterViz" target="_blank">source code</a> of this project.</p>
                         <p>
                             <span class="skill language">HTML</span>
                             <span class="skill language">CSS</span>
                             <span class="skill language">Javascript</span>
-                            <span class="skill language">.NET</span>
+                            <span class="skill language">C# .NET</span>
                             <span class="skill tool">React</span>
                             <span class="skill tool">PostgresSQL</span>
                             <span class="skill tool">THREE.js</span>
@@ -299,44 +370,14 @@
                         </p>
                     </div>
                 </div>
-                <div id=asteroid class="project-box">
-                    <div class="image"></div>
-                    <div class="description">
-                        <p><span class="project-title">Big Data: Known Asteroids</span>A project for my graduate DBMS course.
-                        The goal was to fill a database with data of our choosing and answer questions based on the information
-                        in that data. I wrote my own Python script to extract rows from a CSV file to fill a database table.</p>
-                        <p>Here is the <a href="asset/docs/db.pdf">presentation</a> of this project.</p>
-                        <p>
-                            <span class="skill language">Python</span>
-                            <span class="skill language">SQL</span>
-                            <span class="skill tool">PostgreSQL</span>
-                        </p>
-                    </div>
-                </div>
-                <div id=jwst class="project-box">
-                    <div class="image"></div>
-                    <div class="description">
-                        <p><span class="project-title">JWST Image Processing</span>A venture into computational imaging.
-                        The goal is to automate the pipeline of acquiring James Webb Space Telescope NIRCam imaging data,
-                        combining it and displaying a full color RGB image.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/JWST-FITS-Reader">source code</a>
-                            and <a href="asset/docs/imaging_report.pdf">report</a> of the project.</p>
-                        <p>
-                            <span class="skill language">Python</span>
-                            <span class="skill tool">NumPy</span>
-                            <span class="skill tool">AstroPy</span>
-                            <span class="skill other">Computational Imaging</span>
-                        </p>
-                    </div>
-                </div>
-                <div id=gamepad-driver class="project-box">
+                <!-- <div id=gamepad-driver class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Gamepad Driver</span>An out-of-tree kernel module driver for a USB
                             gamepad. Utilized the USB and input subsystem within the Linux kernel to interpret button
                             input of the gamepad. Includes a second proof-of-concept driver that maps a handful of mouse
                             and keyboard buttons to the gamepad.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/gamepad-linux-driver">Github link</a> to this project.</p>
+                        <p>Here is the <a href="https://github.com/maxoakes/gamepad-linux-driver" target="_blank">Github link</a> to this project.</p>
                         <p>
                             <span class="skill language">C</span>
                             <span class="skill tool">Unix</span>
@@ -345,44 +386,27 @@
                             <span class="skill other">Input programming</span>
                         </p>
                     </div>
-                </div>
-                <div id=irc class="project-box">
+                </div> -->
+                <!-- <div id=irc class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">PyRC</span>Using client-server architecture, these pair of
                             applications work as a Python-based IRC chat service. The server application can be deployed anywhere
                             on the internet, and any number of clients can connect to it and communicate to each other.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/PythonIRC">Github link</a> to this project.</p>
+                        <p>Here is the <a href="https://github.com/maxoakes/PythonIRC" target="_blank">Github link</a> to this project.</p>
                         <p>
                             <span class="skill language">Python</span>
                             <span class="skill other">Socket Programming</span>
                         </p>
                     </div>
-                </div>
-                <div id=dialogflow-project class="project-box">
-                    <div class="image"></div>
-                    <div class="description">
-                        <p><span class="project-title">Weather Shaman</span>A project that uses the Dialogflow voice assistant
-                            to allow for natural conversation via spoken language or text. The user can ask a few types of
-                            questions about weather at a location, such as the current conditions, the forecast, or what
-                            the lowest or highest values for weather statistics will be for the next week.</p>
-                        <p>Here is a link to the archived <a href="https://github.com/maxoakes/weather-shaman">Github repo</a>.</p>
-                        <p>
-                            <span class="skill language">Javascript</span>
-                            <span class="skill tool">Node.js</span>
-                            <span class="skill tool">Dialogflow</span>
-                            <span class="skill tool">Google Cloud</span>
-                            <span class="skill tool">APIs</span>
-                        </p>
-                    </div>
-                </div>
+                </div> -->
                 <div id=cruelsun class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Cruel Sun</span>A addon (mod) written in Java for Minecraft making
                             the sun and moon harmful to all living entities and players. This mod is designed to
                             drastically change the flow of gameplay, and is highly configurable.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/Cruelsun">Github link</a> to this project.</p>
+                        <p>Here is the <a href="https://github.com/maxoakes/Cruelsun" target="_blank">Github link</a> to this project.</p>
                         <p>
                             <span class="skill language">Java</span>
                             <span class="skill tool">Maven</span>
@@ -394,12 +418,12 @@
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">ARMA Missions</span> A project that I did while not taking summer PSU classes.
-                        The game <a href="https://en.wikipedia.org/wiki/Arma_3">Arma 3</a> is a military sim that offers users the ability 
-                        to create their own complex missions using the <a href="https://community.bistudio.com/wiki/SQF_Syntax">SQF scripting language</a>.
+                        The game <a href="https://en.wikipedia.org/wiki/Arma_3" target="_blank">Arma 3</a> is a military sim that offers users the ability 
+                        to create their own complex missions using the <a href="https://community.bistudio.com/wiki/SQF_Syntax" target="_blank">SQF scripting language</a>.
                         I have been fiddling around with mission creation for many years, but I wanted to dedicate several weeks to overhaul all 
                         of my previous missions and create new ones using algorithms and proper programming techniques that I had learned in school. The 
                         handful of missions that I had created utilized concurrent script executions and worked in a multiplayer environment.</p>
-                        <p>Here is the <a href="https://github.com/maxoakes/arma3-missions">Github link</a> to the missions.</p>
+                        <p>Here is the <a href="https://github.com/maxoakes/arma3-missions" target="_blank">Github link</a> to the missions.</p>
                         <p>
                             <span class="skill tool">SQF</span>
                             <span class="skill other">Algorithms</span>
@@ -407,14 +431,14 @@
                         </p>
                     </div>
                 </div>
-                <div id=stargate class="project-box">
+                <!-- <div id=stargate class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Stargate</span>A little something outside of the realm of
-                            programming. This is a rendering of a <a href="https://en.wikipedia.org/wiki/Stargate_(device)">Stargate</a>
-                            that I made in <a href="https://www.blender.org/features/">Blender</a>. Nearly everything in
+                            programming. This is a rendering of a <a href="https://en.wikipedia.org/wiki/Stargate_(device)" target="_blank">Stargate</a>
+                            that I made in <a href="https://www.blender.org/features/" target="_blank">Blender</a>. Nearly everything in
                             the image was made from scratch. I love playing with Blender, and this project is one that I particularly liked.
-                        <p>Here is the <a href="asset/stargate24.jpg">completed render</a> of this project.</p>
+                        <p>Here is the <a href="asset/stargate24.jpg" target="_blank">completed render</a> of this project.</p>
                         <p>
                             <span class="skill tool">Blender</span>
                             <span class="skill other">3D Rendering</span>
@@ -422,7 +446,7 @@
                             <span class="skill other">3D Modeling</span>
                         </p>
                     </div>
-                </div>
+                </div> -->
                 <div id=gnu-radio class="project-box">
                     <div class="image"></div>
                     <div class="description">
@@ -430,14 +454,23 @@
                             goal was to connect a Tektronix RSA (radio spectrum analyzer) to GNU Radio (a software
                             defined radio). Tekronix had only one piece of software to see waveforms, and nothing for
                             signal processing. This project opened the door for many possibilities for the Tektronix RSA.</p>
-                        <p>Here is our team's <a href="asset/docs/team_gnu_report.pdf">final report</a>
-                            and <a href="asset/docs/tek_presentation.pdf">presentation</a> we gave to Tektronix.</p>
+                        <p>Here is our team's <a href="asset/docs/team_gnu_report.pdf" target="_blank">final report</a>
+                            and <a href="asset/docs/tek_presentation.pdf" target="_blank">presentation</a> we gave to Tektronix.</p>
                         <p>
                             <span class="skill language">C++</span>
                             <span class="skill tool">Unix/Ubuntu</span>
+                            <span class="skill tool">GNU Radio</span>
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="footer-content">
+                <p>Created by Max Oakes. Last updated Oct. 15, 2023.</p>
+                <p>This is intended to be my portfolio webpage. Other webpages by me included in this repo website are my 
+                    <a href="me/index.html">about page</a> and my living <a href="recipes/recipes.pdf">personal recipe book</a>.
+                </p>
             </div>
         </div>
     </div>

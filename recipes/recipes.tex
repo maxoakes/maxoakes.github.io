@@ -1,0 +1,919 @@
+% !TeX program = xelatex
+\documentclass[12pt]{article}
+\usepackage{geometry} % document shapes and margins
+\usepackage{fontspec} % different fonts
+\usepackage{hyperref}
+\usepackage{vwcol} % multi-width columns
+\usepackage[inline]{enumitem}
+\usepackage{eso-pic,graphicx} % images
+\usepackage{anyfontsize} % custom font size
+\usepackage{blindtext} % latin generator
+\usepackage{tikz} % drawing
+\usepackage[bottom]{footmisc} % fix for footnotes at bottom of the page
+\geometry{a4paper, margin=0.5in}
+\setmainfont{Clara}
+\RaggedRight{}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+% cookbook sources
+\newcommand{\pastabook}[1]
+{
+    From #1 in:
+    % Ferguson, V. (2002).
+    \textit{Pasta: A Cook's Guide To The Delicious World Of Pasta And Noodles With 500 Recipes.}
+}
+\newcommand{\vegbook}[1]
+{
+    From #1 in:
+    % Holcomb, C. (2005).
+    \textit{Easy Dinners: Vegetarian}
+}
+
+% category separator page
+\newcommand{\category}[2]{
+    \pagebreak
+    \begin{Center}
+        \vspace*{\fill}
+        \begin{center}
+            \addcontentsline{toc}{part}{#1}
+            \fontsize{42pt}{46pt}\selectfont {#1}
+            \phantomsection{}
+        \end{center}
+        \vspace*{\fill}
+    \end{Center}
+    % \AddToShipoutPictureBG*{\includegraphics[height=\paperheight,keepaspectratio]{#2}}
+    \thispagestyle{empty}
+    \pagebreak
+}
+
+% recipe title
+\newcommand{\recipeheader}[4]{
+    \section*{\LARGE#1}
+    \addcontentsline{toc}{section}{#1}
+    % \phantomsection{}
+    {\normalsize\color{cyan}\textsc{
+    \begin{itemize*}[label={}, itemjoin=\hspace{20pt}]
+        \item Prep Time: #2 min
+        \item Cook Time: #3 min
+        \item Serves: #4
+    \end{itemize*}}}
+    \vspace{12pt}
+    {\color{cyan}\hrulefill}
+    \newline
+}
+
+% recipe description
+\newcommand{\commentary}[1]{
+    {\small \textit{#1}}
+    \vspace{0.25in}
+    \newline
+}
+
+% ingredient list
+\newenvironment{ingredients}
+{
+    \begin{minipage}[t]{0.3\textwidth}
+    {\large\textsc{Ingredients}}
+    \footnotesize
+    \begin{itemize}
+}
+{
+    \end{itemize}
+    \end{minipage}
+}
+
+% cooking instructions
+\newenvironment{instructions}
+{
+    \begin{minipage}[t]{0.7\textwidth}
+    {\large\textsc{Instructions}}
+    \small
+    \begin{enumerate}[leftmargin=*]
+}
+{
+    \end{enumerate}
+    \end{minipage}
+}
+
+% single ingredient
+\newcommand{\ingredient}[2]
+{
+    \item[#1] #2
+}
+
+\newcommand{\ingredientsection}[1]
+{
+    \vspace{0.02in}
+    \item[] \textbf{#1}
+}
+
+% shortcuts
+\newcommand{\temp}[2]
+{
+    $#1^{\circ}$#2
+}
+
+\begin{document}
+
+% cover page
+\begin{titlepage}
+    \null\vfill
+    \begin{center}
+    {\Huge My Recipes}
+    \vskip 2cm
+    {\Large A collection of my favorite recipes from various sources}
+    \vskip 1cm
+    {\large Max Oakes}
+    \end{center}
+    \vfill\vfill
+    \begin{tabular}{r}
+    \small Last updated \today\\
+    \end{tabular}
+    \hfill
+\end{titlepage}
+
+% ToC
+\tableofcontents
+\thispagestyle{empty}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BEGIN RECIPES
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\category{Pastas}{}
+
+% recipe
+\recipeheader{Avocado, Tomato \& Mozzarella Pasta Salad}{15}{8}{4}
+\commentary{
+    Dressed farfalle and sliced avocados make wonderful additions to a classic salad.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredientsection{For the pasta salad}
+    \ingredient{$1 \frac{1}{2}$ cups}{dried farfalle}
+    \ingredient{3}{Ripe roma tomatoes\footnotemark[2]}
+    \ingredient{8 oz}{mozzarella cheese ball}
+    \ingredient{1}{large ripe avocado}
+    \ingredient{2 tsp}{pine nuts, toasted}
+    \ingredient{1}{fresh basil spring, to garnish}
+    \ingredientsection{For the dressing}
+    \ingredient{6 tbsp}{extra virgin olive oil}
+    \ingredient{2 tbsp}{wine vinegar}
+    \ingredient{1 tsp}{balsamic vinegar}
+    \ingredient{1 tsp}{whole-grain mustard}
+    \ingredient{pinch}{sugar}
+    \ingredient{2 tbsp}{chopped fresh basil}
+    \ingredient{to taste}{salt and freshly ground pepper}
+\end{ingredients}
+\begin{instructions}
+    \item Bring a large pan of lightly salted water to boil and cook the pasta until it is al dente. Drain, rinse under cold water, then drain again. Put in bowl and set aside to cool.
+    \item Slice the tomatoes and mozzarella cheese into thin rounds. Cut the avocado in half, lift out the put and peel of the skin. Slice the flesh lengthwise.
+    \item Arrange the tomato, mozzarella and avocado in overlapping slices around the edge of the flat serving plate.
+    \item For the dressing, put the oil, wine vinegar, balsamic vinegar, mustard, sugar, and basil into a small bowl and whish until combined. Season to taste with salt and pepper.
+    \item Add half the dressing to the pasta. Toss to coat, then pile into the center of the plate. Pour on the remaining dressing, sprinkle on the pine nuts and garnish with the basil spring. Serve immediately.
+\end{instructions}
+\footnotetext[1]{\pastabook{page 243}}
+\footnotetext[2]{Choose tomatoes that are uniform in size.}
+\newpage
+
+
+% recipe
+\recipeheader{Linguine with Sun-dried Tomato Pesto}{12}{10}{4}
+\commentary{
+    Tomato pesto was once a rarity, but is becoming increasingly popular and is absolutely delicious.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{$\frac{1}{3}$ cup}{pine nuts}
+    \ingredient{$\frac{1}{3}$ cup}{freshly grated Parmesan cheese}
+    \ingredient{$\frac{1}{2}$ cup}{drained sun-dried tomatoes in olive oil}
+    \ingredient{1}{garlic glove, roughly chopped}
+    \ingredient{$\frac{1}{4}$ cup}{olive oil}
+    \ingredient{12 oz}{fresh or dried linguine}
+    \ingredient{to taste}{salt and freshly ground pepper}
+    \ingredient{}{basil leaves, to garnish}
+    \ingredient{}{coarsely shaved Parmesan cheese, to serve}
+\end{ingredients}
+\begin{instructions}
+    \item Put the pine nuts in a small nonstick frying pan and toss them over low to medium heat for 1--2 minutes or until they are lightly toasted and golden.
+    \item Put the nuts in a food processor. Add the Parmesan, sun-dried tomatoes and garlic, with pepper to taste. Process until finely chopped. With the machine running gradually, add the olive oil though the feeder tube until it has all been incorporated evenly and the mixture is smooth.\footnotemark[2]
+    \item Bring a large pan of lightly salted water to a boil and cook the pasta until it ias al dente.
+    \item Drain the pasta, reserving 4 tbsp if cooking water. Put the pasta in a warmed bowl, add the pesto and the hot water and toss well. Serve in warmed bowls, garnished with basil leaves. Pass shaving of Parmesan separately.
+\end{instructions}
+\footnotetext[1]{\pastabook{page 131}}
+\footnotetext[2]{You can make this pesto up to 2 days in advance and keep it in a bowl in the refrigerator until ready to use. Pour a thin film of olive oil on the pesto in the bowl, then cover the bowl tightly with plastic wrap to prevent the strong smell of the pesto from tainting other foods in the refrigerator.}
+\newpage
+
+
+% recipe
+\recipeheader{Manicotti}{30}{55}{4}
+\commentary{
+    This manicotti recipe makes a comforting dinner your family will love. The kids like to help stuff the noodles too! Delicious served with a crispy salad and garlic bread.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{$5 \frac{1}{2}$ oz}{manicotti pasta}
+    \ingredient{1 pint}{part-skim ricotta cheese}
+    \ingredient{8 oz}{shredded mozzarella cheese}
+    \ingredient{$\frac{3}{4}$ cup}{grated Parmesan cheese, divided}
+    \ingredient{2}{large eggs}
+    \ingredient{1 tsp}{dried parsley}
+    \ingredient{}{salt and ground black pepper to taste}
+    \ingredient{1 jar}{16 oz jar spaghetti sauce}
+\end{ingredients}
+\begin{instructions}
+    \item Cook manicotti in boiling water until al dente, about 10 to 12 minutes; drain and rinse with cold water.
+    \item Preheat oven to \temp{350}{F}.
+    \item Mix ricotta, mozzarella, 1/2 cup Parmesan cheese, eggs, parsley, salt, and pepper in a large bowl until well combined.
+    \item Pour 1/2 cup spaghetti sauce into an 11x17-inch baking dish. Stuff each manicotti shell with 3 tablespoons cheese mixture, and arrange over sauce. Pour remaining sauce over the top of the shells and sprinkle with remaining Parmesan cheese.
+    \item Bake in the preheated oven until bubbly, about 45 minutes.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.allrecipes.com/recipe/13883/manicotti/}{allrecipes: Manicotti}}
+\footnotetext[2]{Nutrition Facts per serving: 676 calories, 31g total fat, 189mg cholesterol, 1255mg sodium, 53g carbohydrates, 46g protein.}
+\newpage
+
+
+% recipe
+\recipeheader{Pasta-stuffed Bell Peppers}{20}{70}{4}
+\commentary{
+    Stuffed bell peppers always look so inviting, with their bright colors and tempting aroma.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{2 tbsp}{olive oil, plus extra for brushing}
+    \ingredient{6 strips}{Bacon, chopped}
+    \ingredient{1}{small onion, chopped}
+    \ingredient{$1 \frac{1}{2}$ cups}{passata}
+    \ingredient{large pinch}{crushed dried red chilies}
+    \ingredient{$\frac{1}{2}$ cup}{dried short-cut macaroni}
+    \ingredient{6 oz}{mozzarella cheese, diced}
+    \ingredient{12}{pitted black olives, thinly sliced}
+    \ingredient{4}{bell peppers in variety of colors}
+    \ingredient{}{salt and freshly ground pepper}
+    \ingredient{}{fresh parsely, to garnish}
+\end{ingredients}
+\begin{instructions}
+    \item Preheat the oven to \temp{350}{F}. Brush an 8-inch ovenproof dish with oil. Heat the bacon gently in a frying pan until the fat runs, then raise the heat and cook it until it is crisp. Drain the bacon on paper towels.
+    \item Add the onion to the bacon fat in the pan and cook for 5 minutes, until softened, then stir in the passata and dried chilies. Cook over high heat for 10 minutes, until thickened.
+    \item Meanwhile, bring a large pan of lightly salted water to a boil and cook the pasta until al dente. Drain it well and put it in a mixing bowl. Add the bacon, tomato sauce, mozzarella cheese and olives, and toss well to mix. Season to taste.
+    \item Cut the stem end off each pepper and reserve these tops. Remove the seeds and ribs from inside the peppers, then fill them with the pasta mixture.
+    \item Stand the filled peppers in the prepared dish, put on the tops, then brush the peppers all over with the olive oil.
+    \item Cover the dish with aluminum foil and bake for 30 minutes. Remove the foil and bake for 25--30 more minutes, or until peppers are tender. Serve immediately garnished with parsley.
+\end{instructions}
+\footnotetext[1]{\pastabook{page 88}}
+\newpage
+
+% recipe
+\recipeheader{Pepperoni Pasta}{20}{8}{4}
+\commentary{
+    Add extra zip to pasta dishes, which can sometimes seem a little bland, with spicy pepperoni sausage.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{$2 \frac{1}{2}$ cups}{dried penne}
+    \ingredient{6 oz}{Perreroni sausage, sliced\footnotemark[2]}
+    \ingredient{1}{small red onion, sliced}
+    \ingredient{3 tbsp}{bottled pesto}
+    \ingredient{$\frac{2}{3}$ cup}{heavy cream}
+    \ingredient{8 oz}{cherry tomatoes, halved\footnotemark[3]}
+    \ingredient{$\frac{1}{2}$8 oz}{fresh chives}
+    \ingredient{}{salt}
+    \ingredient{to serve}{breadsticks}
+\end{ingredients}
+\begin{instructions}
+    \item Bring a large pan of lightly salted water to a boil and cook the pasta until it is al dente.
+    \item Meanwhile, heat the pepperoni sausage slices in a heavy frying pan over medium-low heat until the fat runs. Add the sliced onion and cook, stirring occasionally, until it is soft and translucent.
+    \item Mix the pesto and cream together in a small bowl. Add this mixture to the frying pan and stir over low heat until the sauce is smooth.
+    \item Add the cherry tomatoes to the pepperoni mixture and snip the chives on top with scissors. Stir again.
+    \item Drain the pasta and return it to the clean pan. Pour the sauce over and toss thoroughly, making sure all the pasta is coated. Service immediately with breadsticks.
+\end{instructions}
+\footnotetext[1]{\pastabook{page 95}}
+\footnotetext[2]{You can use any fairly firm spicy cooking sausage for this recipe. Try mild or hot chorizo.}
+\footnotetext[3]{Use a mixture of red and yellow cherry tomatoes for a really colorful meal.}
+\newpage
+
+% recipe
+\recipeheader{Spaghetti Olio e Aglio}{5}{12}{4}
+\commentary{
+    Proof positive that you don't need numerous ingredients to make atasty dish.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{$\frac{1}{2}$ cup}{olive oil\footnotemark[2]}
+    \ingredient{2}{garlic cloves, crushed}
+    \ingredient{1 lb}{dried spaghetti}
+    \ingredient{2 tbsp}{fresh parsley, roughly chopped}
+    \ingredient{to taste}{salt and freshly ground pepper}
+\end{ingredients}
+\begin{instructions}
+    \item Heat the olive oil in a medium pan and add the garlic and a pinch of salt. Cook over low heat, stirring constantly, until golden. Do not let the garlic become too brown or it will taste bitter.
+    \item Meanwhile, bring a large pan of lightly salted water to a boil and cook the spaghetti until al dente.
+    \item Drain the spaghetti well, return it to the clean pan and add warm --- not sizzling --- garlic and oil with plenty of black pepper and parsley. Toss to coat. Serve immediately in warmed bowls.\footnotemark[3]
+\end{instructions}
+\footnotetext[1]{\pastabook{page 124}}
+\footnotetext[2]{The most commonly exported Italian olive oil comes from Tuscany. It is full-bodied with a slight pepper aftertaste. Ligurian oil has a sweeter and more delicate flavor and is ideal for this dish. Olive oil from the south of Italy has a faint almond-like flavor. It is worth buying the best-quality extra virgin olive oil for this classic Roman dish.}
+\footnotetext[3]{Don't be tempted to serve this with grated Parmesan. Its pure taste would be compromised.}
+\newpage
+
+
+\category{Soups}{}
+
+% recipe
+\recipeheader{Spicy Black Bean Soup}{15}{30}{5}
+\commentary{
+    A lightly spicy, soul-warming soup for a chilly winter’s day, Spicy Black Bean Soup is easy to make and vegan too! And you’ll never guess where I got the idea to make it!\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{2 tbsp}{olive oil}
+    \ingredient{1}{large yellow onion, chopped}
+    \ingredient{4 cloves}{garlic, chopped}
+    \ingredient{2 sticks}{celery, chopped}
+    \ingredient{1}{large carrot, and chopped}
+    \ingredient{1}{jalapeno chile, chopped}
+    \ingredient{1}{medium jalapeno, finely diced}
+    \ingredient{1 can}{15 oz black beans, drained and rinsed}
+    \ingredient{4 cups}{low sodium vegetable broth}
+    \ingredient{1 tbsp}{ground cumin}
+    \ingredient{1 tbsp}{apple cider vinegar}
+    \ingredient{1 tbsp}{lime juice}
+    \ingredient{$\frac{1}{4}$ cup}{fresh cilantro}
+    \ingredient{1 tbsp}{adobo sauce}
+    \ingredient{to taste}{salt and freshly ground black pepper}
+\end{ingredients}
+\begin{instructions}
+    \item In a large Dutch oven, heat the olive oil over medium-high heat. Add the onion, garlic, celery, carrot and chopped jalapeno. Sauté for 5 minutes until the vegetables begin to soften.
+    \item Add the beans, vegetable stock, and cumin to the Dutch oven and stir to combine. Allow to come to a simmer, then lower the heat to Low and allow to simmer for 30 minutes.
+    \item Stir in the apple cider vinegar, lime juice, cilantro, and adobo sauce. For a chunkier texture: use an immersion blender to blend the soup in the pot to desired texture. For smoother soup: add the soup into a blender in batches and puree to desired texture. Return the soup to the Dutch oven is passing it through the blender.
+    \item Salt and pepper to taste before serving. The second diced jalapeno pepper may be added to the bottom of the serving bowls for additional texture and heat, or used as a garnish. Optional garnish (any or a combination): crushed tortilla chips, diced red pepper, red pepper flakes, torn cilantro leaves, sour cream
+\end{instructions}
+\footnotetext[1]{From \href{https://boulderlocavore.com/spicy-black-bean-soup-and-visiting-jwu-denver/}{Bloulder Locavore: Spicy Black Bean Soup}}
+\footnotetext[2]{Nutrition Facts per serving: 216 calories, 30g carbohydrates, 9g protein, 7g fat, 1g saturated fat, 0mg cholesterol, 1395mg sodium, 465mg potassium, 9g fiber, 3g sugar, 2640IU vitamin A, 11.6mg vitamin C, 60mg calcium, 2.9mg iron}
+\newpage
+
+
+% recipe
+\recipeheader{Tex-Mex Chili with Dumplings}{20}{12}{5}
+\commentary{
+    Dress up each serving of this harty chili with a garnish of time wdges and sliced carmbola (star fruit).\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredientsection{For dumplings}
+    \ingredient{$\frac{1}{3}$ cup}{all-purpose flour}
+    \ingredient{$\frac{1}{3}$ cup}{yellow cornmeal}
+    \ingredient{1 tsp}{baking powder}
+    \ingredient{$\frac{1}{4}$ tsp}{salt}
+    \ingredient{1}{beaten egg white}
+    \ingredient{$\frac{1}{4}$ cup}{fat-free milk}
+    \ingredient{2 tbsp}{cooking oil}
+    \ingredientsection{For chili}
+    \ingredient{$\frac{3}{4}$ cup}{water}
+    \ingredient{1 cup}{onion, chopped}
+    \ingredient{1 clove}{garlic, minced}
+    \ingredient{1}{15 oz can chickpeas, rinsed and drained}
+    \ingredient{1}{15 oz can red kidney beans, rinsed and drained}
+    \ingredient{1}{15 oz can tomato sauce}
+    \ingredient{1}{4 oz can diced green chile peppers, drained}
+    \ingredient{2 tsp}{chili powder}
+    \ingredient{1 tbsp}{cold water}
+    \ingredient{$1 \frac{1}{2}$ tsp}{cornstarch}
+    \ingredientsection{For garnish}
+    \ingredient{}{cheddar cheese, shredded}
+\end{ingredients}
+\begin{instructions}
+    \item In a medium bowl stir together flour, cornmeal, baking powder, and salt; set aside.
+    \item In a small bowl combine egg while, milk, and oil; set aside.
+    \item In a 10-inch skillet combine the $\frac{3}{4}$ cup water, the onion, and garlic. Bring to boiling; reduce heat. Cover and simmer about 5 minutes or until tender. Stir in chickpeas, kidney beans, tomato sauce, green chile peppers, and chili powder.
+    \item In a small bowl stir the 1 tablespoon cold water into the cornstarch. Stir into bean mixture. Cook and stir until slightly thickened and bubbly. Reduce heat.
+    \item For the dumplings, add milk mixture to cornmeal mixture; stir just until combined. Drop dumpling batter from a tablespoon to make 5 mounts on top of the hot bean mixture.
+    \item Cover and simmer for 10 to 12 minutes or until a toothpick inserted into the center of a dumpling comes out clean.
+    \item To serve, ladle chili into bowls. If desired, top with shredded cheese.
+\end{instructions}
+\footnotetext[1]{\vegbook{page 176}}
+\footnotetext[2]{Nutrition Facts per serving: 306 calories, 8g total fat, 0mg cholesterol, 685mg sodium, 51g carbohydrates, 13g protein.}
+\newpage
+
+
+% recipe
+\recipeheader{Tomato-Basil Soup with Cheddar Grilled Cheese}{20}{17}{2}
+\commentary{
+    Homemade tomato soup with a side of classic grilled cheese.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredientsection{For soup}
+    \ingredient{1}{medium carrot}
+    \ingredient{1 stick}{celery}
+    \ingredient{8 fl oz}{chicken or vegetable broth}
+    \ingredient{1 can}{14.5 oz diced tomatoes}
+    \ingredient{$\frac{1}{2}$ sm pkg}{fresh basil}
+    \ingredient{2 cloves}{garlic}
+    \ingredient{2}{tomatoes}
+    \ingredient{$\frac{1}{2}$}{medium yellow onion}
+    \ingredient{$\frac{1}{8}$ tsp}{black pepper}
+    \ingredient{1 tbsp}{extra vigin olive oil}
+    \ingredient{$\frac{1}{2}$ tsp}{salt}
+    \ingredientsection{For sandwich}
+    \ingredient{4 sliced}{gluten-free bread}
+    \ingredient{8 oz}{cheddar cheese}
+    \ingredient{2 tbsp}{unsalted butter}
+
+\end{ingredients}
+\begin{instructions}
+    \item Remove butter from fridge and allow to soften in the microwave or on the counter.
+    \item Heat a medium saucepan over medium heat.
+    \item Peel and small dice onion. Peel and mince garlic.
+    \item Coat bottom of saucepan with oil. Add onion and garlic; begin cooking while you chop the carrot and celery.
+    \item Wash and thinly slice carrot and celery; add to saucepan. Stirring occasionally, cook until carrots and celery have softened, 6--7 minutes.
+    \item Wash and medium dice tomatoes.
+    \item Wash basil. Pick leaves off the stems; discard the stems and thinly slice the leaves into ribbons.
+    \item Add fresh and canned tomatoes, broth, salt, and pepper to saucepan. Stir and bring to a boil. Reduce heat, cover, and simmer for about 10 minutes.
+    \item Heat a skillet over medium-low heat.
+    \item Grate cheddar.
+    \item Spread butter onto 1 side of each bread slice and place buttered-side down on a flat surface.
+    \item Divide cheddar between 2 of the bread slices and top with the other slices. Place in the skillet and gently press down with a spatula. Cook until cheese is melted and bread is golden brown, 2--4 minutes per side.
+    \item Add basil to the soup and stir. Purée soup until smooth using a hand or regular blender.
+    \item Pour soup into a bowl and service with grilled cheese on the side. Enjoy!
+\end{instructions}
+\footnotetext[1]{From \href{https://www.mealime.com/recipes/tomato-basil-soup-cheddar-grilled-cheese-gf/2171}{Mealime: "Tomato-Basil Soup with Cheddar Grilled Cheese"}}
+\newpage
+
+
+\category{Sandwiches}{}
+
+% recipe
+\recipeheader{Cheese \& Veggie Sandwiches}{15}{0}{4}
+\commentary{
+    Tomato soup is the dieal servce-along fore this cottage cheese-and-beggie medley.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{$1 \frac{1}{2}$ cup}{cottage cheese, drained}
+    \ingredient{$\frac{1}{4}$ cup}{carrot, shredded}
+    \ingredient{$\frac{1}{4}$ cup}{green sweet pepper or celery, chopped}
+    \ingredient{$\frac{1}{2}$ tbsp}{chives, finely snipped}
+    \ingredient{$\frac{1}{4}$ cup}{low-fat yogurt}
+    \ingredient{8}{small slices whole grain bread}
+    \ingredient{2 tbsp}{horseradish mustard}
+    \ingredient{8}{tomato slices}
+    \ingredient{}{fresh spinach or lettuce leaves}
+\end{ingredients}
+\begin{instructions}
+    \item In a medium bowl combine the cottage cheese, carrot, sweet pepper or celery, and chives. Stir in plain yogurt.
+    \item Spread one side of the bread slices with horseradish mustard; top the mustard on half the bread slices with spinach or lettuce leaves. Spoon the cheese mixture onto spinach-lined bread slices. Top with tomato slices and remaining bread slices, mustard-sides down.
+\end{instructions}
+\footnotetext[1]{\vegbook{page 224}}
+\footnotetext[2]{Nutrition Facts per serving: 248 calories, 7g total fat, 12mg cholesterol, 703mg sodium, 32g carbohydrates, 17g protein.}
+\newpage
+
+
+% recipe
+\recipeheader{Grilled Egg Sandwiches}{10}{8}{2}
+\commentary{
+    This unique sandwich is a cross betweeen fried eggs and grilled cheese sandwiches.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{2 tbsp}{mayonnaise or salad dressing}
+    \ingredient{1 tbsp}{Dijon-style mustard or brown mustard}
+    \ingredient{4 slices}{English muffin bread or firm-textured white bread}
+    \ingredient{2 tbsp}{margarine or butter}
+    \ingredient{4}{eggs}
+    \ingredient{4--6}{fresh spinach leaves}
+    \ingredient{1}{small tomato, sliced}
+    \ingredient{2 slices}{Swiss or American cheese}
+    \ingredient{2 tbsp}{milk}
+\end{ingredients}
+\begin{instructions}
+    \item In a small bowl stir together mayonnaise or salad dressing and mustard. Spread the mustard mixture on one side of each bread slice. Set aside.
+    \item In a large skillet, melt 1 tablespoon margarine or butter over medium heat. Break 2 eggs into skillet. Stir each egg gently with a fork to bread up yolk. Cook for 3 to 4 minutes or until eggs are desired doneness, turing once.
+    \item Place each egg on mustard side of bread slice. Layer the spinach, tomato, and cheese on eggs. Top with the remaining bread slices, mustard side down.
+    \item In a shallow dish beat together 2 eggs and milk. Carefully dip sandwiches into egg mixture, coating both sides. In the same skillet melt 1 tablespoon margarine or butter over medium heat. Add sandwiches to skillet. Cook about 4 minutes or until bread is golden brown, turing once.
+\end{instructions}
+\footnotetext[1]{\vegbook{page 230}}
+\footnotetext[2]{Nutrition Facts per serving: 595 calories, 42g total fat, 454mg cholesterol, 692mg sodium, 31g carbohydrates, 24g protein.}
+\newpage
+
+\category{Variety}{}
+
+% recipe
+\recipeheader{Asian Crispy Soy Garlic Tofu}{10}{20}{3}
+\commentary{
+    Crispy Soy Garlic Tofu. Crispy tofu pan fried in a garlicky, savoury, umami based sauce. This tofu dish is so good it may convert the people in your life to enjoy it! It’s fantastic for dinner, lunch or for meal prep. It can be vegan as well with a substitution.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredientsection{For tofu}
+    \ingredient{350 grams}{extra firm tofu, cubed}
+    \ingredient{3 tbsp}{avocado oil}
+    \ingredient{$\frac{1}{2}$ cup}{cornstarch}
+    \ingredient{1 stalk}{green onion finely sliced, optional garnish}
+    \ingredient{1 tsp}{Sesame seeds optional garnish}
+    \ingredientsection{For sauce}
+    \ingredient{2 tbsp}{garlic minced}
+    \ingredient{1 tbsp}{regular soy sauce}
+    \ingredient{1 tbsp}{dark soy sauce}
+    \ingredient{1 tbsp}{oyster sauce}
+    \ingredient{1 tsp}{Shaoxing cooking wine}
+    \ingredient{1 tsp}{white granulated sugar}
+    \ingredient{1 tsp}{rice vinegar or white vinegar}
+    \ingredient{$\frac{1}{2}$ tbsp}{cornstarch}
+    \ingredient{$\frac{1}{2}$ cup}{water}
+    
+\end{ingredients}
+\begin{instructions}
+    \item In a bowl combine sauce ingredients.
+    \item Dice your tofu into 1 inch by 0.5-inch cubes.
+    \item Place cornstarch on a plate and generously coat your tofu in the starch with gentle hands. Do this in a few batches. Once tofu is coated, set aside. Warning: Do not place tofu in a bowl and dump starch on top. This will make it difficult to coat tofu without breaking apart the tofu, even with your hands.
+    \item In a hot non-stick pan set over medium heat, add oil followed by tofu. Allow the tofu to fry on top and bottom until golden and crispy (7--10 minutes per top and bottom, 14--20 mins in total). Note: 7 minutes for crispy or 10 minutes for extra crispy. Remove crispy tofu from pan and set aside.
+    \item Into the hot pan, pour in sauce and let this bubble to thicken and reduce. Once thickened, mix in tofu until coated. Optional: garnish with green onions and sesame seeds. Enjoy!
+\end{instructions}
+\footnotetext[1]{From \href{https://christieathome.com/blog/crispy-soy-garlic-tofu/}{Christy at Home: Asian Crispy Soy Garlic Tofu}}
+\footnotetext[2]{Nutrition Facts per serving: 448 calories, 3g total fat, 1g saturated fat, 1376mg sodium, 85g total carbohydrate, 1g dietary fiber, 4g total sugars, 16g protein, 3mg vitamin C, 79mg calcium, 3mg iron, 348mg potassium.}
+\newpage
+
+
+% recipe
+\recipeheader{Baja Salad}{20}{0}{6}
+\commentary{
+    These unique waffles are so easy because they start with a corn muffin mix. They're perfect for topping with a sassy bean salsa.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredientsection{For salad}
+    \ingredient{1}{12 oz package romaine lettuce leaves}
+    \ingredient{1}{large tomato, diced}
+    \ingredient{1}{avocado, diced}
+    \ingredient{1}{pickling cucumber, diced}
+    \ingredient{$\frac{3}{4}$ cup}{crumbled feta cheese}
+    \ingredient{$\frac{1}{4}$ cup}{red onion}
+    \ingredient{$\frac{1}{4}$ cup}{white corn kernels}
+    \ingredient{$\frac{1}{4}$ cup}{cooked black beans}
+    \ingredient{$\frac{1}{4}$ cup}{crushed tortilla chips}
+    \ingredientsection{For dressing}
+    \ingredient{2 tbsp}{olive oil}
+    \ingredient{2 tbsp}{lemon juice}
+    \ingredient{$\frac{1}{4}$ tsp}{ground cumin}
+    \ingredient{1 pinch}{salt and ground black pepper to taste}
+    
+\end{ingredients}
+\begin{instructions}
+    \item Place romaine lettuce in a large bowl. Add tomato, avocado, cucumber, feta cheese, onion, corn, and black beans; toss well. Sprinkle tortilla chips over salad.
+    \item Whisk olive oil, lemon juice, cumin, salt, and pepper together in a bowl until dressing is smooth; drizzle over salad.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.allrecipes.com/recipe/237270/baja-salad/}{allrecipes: Baja Salad}}
+\footnotetext[2]{Nutrition Facts per serving: 223 calories, 17g total fat, 6g saturated fat, 28mg cholesterol, 405mg sodium, 14g total carbohydrate, 5g dietary fiber, 4g total sugars, 7g protein, 26mg vitamin C, 197mg calcium, 2mg iron, 531mg potassium.}
+\newpage
+
+
+% recipe
+\recipeheader{Corn Waffles with Tomato Salsa}{30}{8}{4}
+\commentary{
+    These unique waffles are so easy because they start with a corn muffin mix. They're perfect for topping with a sassy bean salsa.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredientsection{For wafffles}
+    \ingredient{1}{$8 \frac{1}{2}$ oz package corn muffin mix}
+    \ingredient{$\frac{1}{2}$ cup}{whole kernel corn, fresh or frozen}
+    \ingredientsection{For salsa}
+    \ingredient{6}{plum tomatoes, halved}
+    \ingredient{2 tsp}{olive oil}
+    \ingredient{1}{15 oz can black beans, rinsed and drained}
+    \ingredient{$\frac{1}{3}$ cup}{green onions, sliced}
+    \ingredient{2 tsp}{fresh cilantro or parsley, snipped}
+    \ingredient{2 tbsp}{lime juice}
+    \ingredient{1--2}{fresh serrano peppers, chopped}
+    \ingredient{$\frac{1}{4}$ tsp}{salt}
+    \ingredientsection{For garnish}
+    \ingredient{$\frac{1}{4}$ cup}{plain fat-free yogurt}
+    \ingredient{}{fresh cilantro sprigs (optional)}
+\end{ingredients}
+\begin{instructions}
+    \item For salsa, brush tomato halves with 1 teaspoon of the oil; place on the unheated rack of a broiler pan. Broil 4--5 inches from the heat for 8 to 10 minutes or until tomatoes begin to char, turning once halfway through broiling. Remove from the broiler pan and cool slightly; coarsely chop.
+    \item Meanwhile, in a medium bowl combine the remaining olive oil, the beans, green onions, snipped cilantro or parsley, lime juice, serrano peppers, and salt. Stir in tomatoes and any juices. Set aside.
+    \item For waffles, prepare corn muffin mix according to package directions, except stir corn into batter. (If necessary, add an additional 1 to 2 tablespoons milk to thin batter.)
+    \item Lightly grease waffle baker, preheat. Pour about half the batter onto the grid of hot waffle baker. Close lid quickly; do not open until done. Bake according to manufacturer's directions. When done, use a fork to lift waffle off grid; keep warm. Repeat with remaining batter.
+    To serve, cut waffles in half. Divide warm waffles among 4 dinner plates. Top with salsa and yogurt. If desired, garnish with cilantro sprigs.
+\end{instructions}
+\footnotetext[1]{\vegbook{page 144}}
+\footnotetext[2]{Nutrition Facts per serving: 417 calories, 12g total fat, 55mg cholesterol, 841mg sodium, 70g carbohydrates, 15g protein.}
+\newpage
+
+
+% recipe
+\recipeheader{Easy Baked Tofu}{15}{30}{4}
+\commentary{
+    This easy baked tofu comes out irresistibly crispy and seasoned to perfection! Use in stir fries, bowl meals, and more.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{1}{15-ounce block extra firm tofu}
+    \ingredient{2 tbsp}{olive oil}
+    \ingredient{2 tbsp}{soy sauce}
+    \ingredient{$\frac{1}{2}$ tsp}{garlic powder}
+    \ingredient{$\frac{1}{2}$ tsp}{liquid smoke}
+    \ingredient{$\frac{1}{2}$ tsp}{Sriracha (or other hot sauce)}
+    \ingredient{$\frac{1}{4}$ tsp}{kosher salt}
+    \ingredient{$\frac{1}{4}$ cup}{cornstarch}
+\end{ingredients}
+\begin{instructions}
+    \item Preheat an oven to \temp{425}{F}. 
+    \item Cut the tofu into 3/4-inch cubes (slice the tofu in half into two large rectangles, then into 6 long slices and across 5 times, for 60 pieces total; the exact size may vary based on brand). Place the cubes on a clean dish towel, then gently pat them with a second towel to remove excess moisture.
+    \item In a large bowl, whisk together the olive oil, soy sauce, garlic powder, liquid smoke, Sriracha and salt. Add the tofu cubes and gently toss with a spatula until coated. 
+    \item Place 2 tablespoons cornstarch on a plate and add 1 handful tofu cubes, tossing until coated. Place the cubes onto a parchment-lined baking sheet. Continue with additional handfuls of tofu cubes until all are coated, adding the additional cornstarch as you go. This doesn't have to be perfect: just make sure the pieces are mostly lightly coated.
+    \item Bake 30 to 35 minutes without stirring, until the tofu is golden brown and crispy on the outside. Allow to cool 3 to 5 minutes before eating. (Make it ahead or store leftovers for up to 3 days refrigerated. The texture becomes softer in the fridge and it becomes less salty over time. To crisp it up before serving, place it on a baking sheet, sprinkle with a few pinches of salt, and bake a \temp{350}{F} oven for 5 minutes until warmed through and crispy on the outside.)
+\end{instructions}
+\footnotetext[1]{From \href{https://www.acouplecooks.com/baked-tofu/}{A Couple Cooks: Easy Baked Tofu}}
+\footnotetext[2]{Nutrition Facts per serving: 196 calories, 12.2g total fat, 11.4g carbohydrates, 1.4g dietary fiber, 10.7g protein.}
+\newpage
+
+
+% recipe
+\recipeheader{Tofu with Peanut-Ginger Sauce}{10}{15}{4}
+\commentary{
+    Tofu and vegetables get a dramatic lift from a spicy peanut sauce. Serve with a cucumber salad for a low-calorie, nutrient-packed vegetarian supper.\footnotemark[1]\footnotemark[3]
+}
+\begin{ingredients}
+    \ingredientsection{For sauce}
+    \ingredient{5 tbsp}{water}
+    \ingredient{4 tbsp}{smooth natural peanut butter}
+    \ingredient{1 tbsp}{rice vinegar or white vinegar}\footnotemark[2]
+    \ingredient{2 tsp}{reduced-sodium soy sauce}
+    \ingredient{2 tsp}{honey}
+    \ingredient{2 tsp}{minced ginger}
+    \ingredient{2 cloves}{garlic, minced}
+    \ingredientsection{For tofu}
+    \ingredient{14 oz}{Extra-firm tofu}
+    \ingredient{2 tsp}{extra-virgin olive oil}
+    \ingredient{4 cups}{baby spinach}
+    \ingredient{$1 \frac{1}{2}$ cup}{sliced mushrooms}
+    \ingredient{4}{scallions, sliced}
+\end{ingredients}
+\begin{instructions}
+    \item To prepare sauce: Whisk water, peanut butter, rice vinegar (or white vinegar), soy sauce, honey, ginger and garlic in a small bowl.
+    \item To prepare tofu: Drain and rinse tofu; pat dry. Slice the block crosswise into eight 1/2-inch-thick slabs. Coarsely crumble each slice into smaller, uneven pieces.
+    \item Heat oil in a large nonstick skillet over high heat. Add tofu and cook in a single layer, without stirring, until the pieces begin to turn golden brown on the bottom, about 5 minutes. Then gently stir and continue cooking, stirring occasionally, until all sides are golden brown, 5 to 7 minutes more.
+    \item Add spinach, mushrooms, scallions and the peanut sauce and cook, stirring, until the vegetables are just cooked, 1 to 2 minutes more.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.eatingwell.com/recipe/252098/tofu-with-peanut-ginger-sauce/}{EatingWell: Tofu with Peanut-Ginger Sauce}}
+\footnotetext[2]{Rice vinegar (or rice-wine vinegar) is mild, slightly sweet vinegar made from fermented rice. Find it in the Asian section of supermarkets and specialty stores.}
+\footnotetext[3]{Nutrition Facts per serving: 216 calories, 11g total carbohydrate, 3g fiber, 5g total sugars, 12g protein, 14g total fat, 2g saturated fat, 3582iu vitamin A, 7mg vitamin C, 78mcg folate, 179mg sodium, 223mg calcium, 3mg iron, 66mg magnesium, 414mg potassium.}
+\newpage
+
+
+% recipe
+\recipeheader{Strawberry \& Black Bean Quinoa Bowl with Feta}{30}{0}{4}
+\commentary{
+    A filling, cool bowl for a hot day.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{2 cans}{15 oz black beans}
+    \ingredient{16 fl oz}{chicken or vegetable broth}
+    \ingredient{4 oz}{crumbled feta cheese}
+    \ingredient{2}{jalapeño peppers}
+    \ingredient{1}{lime}
+    \ingredient{1 cup}{quinoa}
+    \ingredient{16 oz}{strawberries}
+    \ingredient{$\frac{1}{2}$ tsp}{black pepper}
+    \ingredient{2 tbsp}{extra virgin olive oil}
+    \ingredient{1 tsp}{salt}
+
+\end{ingredients}
+\begin{instructions}
+    \item In a small saucepan, combine the quinoa and broth; bring to a boil over high heat.
+    \item Drain and rinse the black beans in a colander; set aside to drain further.
+    \item Once the liquid comes to a boil, stir the mixture, cover the saucepan, and reduce the heat to low. Cook the quinoa for 15 minutes. Once done, remove the quinoa from the heat and let it stand, still covered, for 5 minutes.
+    \item Wash and dry the fresh produce.
+    \item Juice the lime into a large bowl (that will be used to mix the strawberries and jalapeño pepper).
+    \item To the lime juice, add olive oil, honey, salt, and pepper; whisk together.
+    \item Trim off and discard the stem ends of the strawberries; medium dice the strawberries and add to the bowl with the dressing.
+    \item Quarter the jalapeño peppers lengthwise; remove and discard the stem, seeds, and membranes. Finely dice the peppers and add to the strawberries; toss with the dressing.
+    \item Uncover the quinoa and fluff with a fork.
+    \item To serve, arrange the quinoa, black beans, strawberry- jalapeño mixture, and feta in a bowl. Enjoy!
+\end{instructions}
+\footnotetext[1]{From \href{https://www.mealime.com/recipes/strawberry-black-bean-quinoa-bowl-feta/4307}{Mealime: Strawberry \& Black Bean Quinoa Bowl with Feta}}
+\newpage
+
+
+\category{Drinks}{}
+
+% recipe
+\recipeheader{Homemade Chai Tea Concentrate}{5}{20}{4}
+\commentary{
+    Make homemade chai tea with this delicious and simple chai tea concentrate recipe.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{12}{cardamom pods, gently crushed}
+    \ingredient{8}{whole black peppercorns}
+    \ingredient{8}{whole cloves}
+    \ingredient{4-inch}{fresh ginger, sliced}
+    \ingredient{4 cups}{water}
+    \ingredient{4 sticks}{cinnamon}
+    \ingredient{3}{whole allspice (optional)}
+    \ingredient{2 tbsp}{brown sugar (more or less to taste)}
+    \ingredient{2}{star anise}
+    \ingredient{1}{vanilla bean, sliced down the middle}
+    \ingredient{$\frac{1}{8}$ tsp}{nutmeg}
+    \ingredient{4 bags}{black tea}
+\end{ingredients}
+\begin{instructions}
+    \item Bring all ingredients except tea bags together to a boil in a saucepan over medium-high heat. Reduce heat to medium-low, cover, and simmer for 15 minutes. Add tea bags and let steep for 5 minutes. Pour mixture through a strainer and reserve the liquid for concentrate, and let cool to room temperature.
+    \item Mix equal parts concentrate with water or milk to make chai tea. Or refrigerate in an airtight container for up to one week.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.gimmesomeoven.com/homemade-chai-tea-recipe/}{Gimme Some Oven: Homemade Chai Tea Recipe}}
+\newpage
+
+\category{Snacks and Sides}{}
+
+% recipe
+\recipeheader{Crackers}{45}{15}{16}
+\commentary{
+    To make homemade crackers, all you need is a few simple ingredients and a little time. These crackers come out thin, crisp, and delicate. A great addition to any party.\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredient{3 cup}{all-purpose flour}
+    \ingredient{2 tsp}{sugar}
+    \ingredient{$2 \frac{1}{2}$ tsp}{salt}
+    \ingredient{4 tbsp}{olive oil, melted butter or similar}
+    \ingredient{1 cup}{water}
+    \ingredientsection{Optional}
+    \ingredient{1 tbsp}{minced fresh herbs}
+    \ingredient{1 tbsp}{seeds}
+    \ingredient{$\frac{1}{4}$ cup}{shredded hard cheese}
+\end{ingredients}
+\begin{instructions}
+    \item Heat oven to \temp{450}{F}. Line two large sheet pans with parchment paper.
+    \item In a large bowl, sift flour, sugar, and salt. If using any additions, add them at this time. Add fat and water to flour mixture. Mix until combined; the dough will be tacky.
+    \item Flour a cool work surface. Divide dough in two. Roll the dough halves to rectangles 1/8 inch thick.
+    \item Brush dough lightly with olive oil. Cut dough into desired cracker shapes using a sharp knife or biscuit cutter. Prick the crackers with a fork.
+    \item Using a spatula or pastry scraper, transfer the crackers to the prepared sheet pans. Be careful not to crowd the crackers.
+    \item Bake in the oven 12--15 minutes or until golden brown. If the crackers along the edges bake faster, transfer them to a cooling rack and allow the remaining crackers to bake.
+    \item Transfer crackers to cooling rack. Crackers will crisp as they cool. Serve crackers immediately or store in an airtight container on the counter for up to a week.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.thepioneerwoman.com/food-cooking/recipes/a98773/how-to-make-crackers/}{The Pioneer Woman: How to Make Crackers}}
+\newpage
+
+
+% recipe
+\recipeheader{Swedish Hard Tack}{30}{20}{48}
+\commentary{
+    Hard Tack is a delicious long-lasting cracker-like flatbread!\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredientsection{Wet Ingredients}
+    \ingredient{2 cups}{water}
+    \ingredient{$\frac{1}{2}$ cup}{organic milk powder}
+    \ingredient{$\frac{3}{4}$ cup}{Bragg's apple cider vinegar}
+    \ingredient{1 cup}{vegetable or avocado oil}
+    \ingredientsection{Dry Ingredients}
+    \ingredient{3 cups}{organic rolled oats}
+    \ingredient{3 cups}{whole wheat flour}
+    \ingredient{2--3 cups}{unbleached white flour}
+    \ingredient{$\frac{3}{8}$ cup}{organic brown sugar or coconut sugar}
+    \ingredient{$\frac{1}{2}$ tbsp}{baking soda}
+    \ingredient{1 tsp}{Himalayan pink salt}
+    \ingredient{sprinkle}{black pepper (optional)}
+\end{ingredients}
+\begin{instructions}
+    \item Combine all ingredients and gather into a ball. Now, divide into 15 smaller balls. Roll each balls thinly out with your Deep-Notched Linden Swedish Rolling Pin. If you do not have a notched rolling pin, then simply poke holes in your pieces of dough after you have rolled them out.\footnotemark[3]
+    \item Prepare your bread board or counter to roll out the dough. Sprinkle flour on the surface. Roll each ball one at a time.
+    \item Gently roll over each dough several times front and back to make sure it is thin enough and that it is perforated nicely. These perforation actually insure that the dough bakes completely through. Plus, since this is a cracker it helps achieve the desired crispness.
+    \item Each hard tack ball of dough can be rolled in approximately 4''x 10'' pieces and then broken into smaller pieces when eaten.\footnotemark[4]
+    \item Preheat oven to \temp{325}{F}. Bake on an ungreased baking sheet for 20 minutes on the first side, turn each hard tack piece over and continue to bake for 8 to 10 more minutes. Remove from baking and transfer to a wire cooling rack.
+    \item When cool, you may store your Hard Tack in plastic bags, glass jars or vacuumed sealed jars for long term storage. Store on the counter or in the freezer.\footnotemark[5]
+\end{instructions}
+\footnotetext[1]{From \href{https://originalhomesteading.com/learn-to-make-hard-tack/}{Original Homesteading: Learn how to make hard tack}}
+\footnotetext[2]{Nutrition Facts per cracker: 167 calories, 26g total carbohydrate, 4g fiber, 2g total sugars, 5g protein, 6g total fat, 1g saturated fat, 75mg sodium.}
+\footnotetext[3]{Make sure your dough is not sticky and that your deep-notched rolling pin is floured.}
+\footnotetext[4]{Or, you can divide the original dough into 20+/- balls and roll dough into 3''x 6'' pieces that are more of an individual serving size.}
+\footnotetext[5]{This biscuit like flat bread is perfect just plain but you can also add butter, peanut butter and jelly, cheese or any type of dip you would like!}
+\newpage
+
+
+\category{Sauces}{}
+
+
+\category{Deserts}{}
+
+% recipe
+\recipeheader{Almond Flour Thumbprint Cookies}{15}{12}{32}
+\commentary{
+    A soft, chewy vegan gluten-free thumbprint cookie recipe made with almond flour and no refined sugar.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{2 cups}{almond flour}
+    \ingredient{$\frac{1}{4}$ cup}{melted coconut oil}
+    \ingredient{$\frac{1}{4}$ cups}{maple syrup}
+    \ingredient{$\frac{1}{4}$ tsp}{salt}
+    \ingredient{$\frac{1}{4}$ tsp}{baking powder}
+    \ingredient{1 tsp}{vanilla extract}
+    \ingredient{1 tsp}{almond extract}
+    \ingredient{1 tsp}{apple cider vinegar}
+    \ingredient{$\frac{1}{3}$ cup}{raspberry jam}
+\end{ingredients}
+\begin{instructions}
+    \item Preheat the oven to \temp{350}{F}. Line a cookie sheet with parchment paper. Set aside.
+    \item In a large mixing bowl, add all the ingredients: almond flour, melted coconut oil, maple syrup, baking powder, salt, apple cider vinegar, vanilla extract, and almond extract.
+    \item Stir with a spoon to form the cookie dough batter. It should be sticky but easy to roll into a cookie ball, not wet or runny. If it is too wet, add more almond flour 1 tablespoon at a time.
+    \item To make 32 small thumbprint cookies, scoop 1/2 tablespoon of cookie dough per cookie otherwise, to make 16 large cookies, scoop 1 tablespoon of dough per cookie.
+    \item Roll the cookie dough in your hand to form a small cookie dough ball and place the ball on the prepared cookie sheet. Repeat to form 32 cookie balls, leaving a 1-inch (2cm) space between each cookie ball.
+    \item For small cookies, place the back of a 1/2 teaspoon measuring spoon in the center of the cookie dough ball. Press gently to form a hole in the center of the cookie, the sides of the cookie may crack slightly, and that's ok. If you made larger cookies, use your thumb to press down each cookie dough ball.
+    \item Fill each thumbprint cookie up to the 3/4 of the hole --- not up to the top, or it may overflow in the oven.
+    \item Bake for 12--14 minutes or until the sides of the cookies are slightly golden brown. They will be soft when you take them out of the oven, and that's fine.
+    \item Cool 5 minutes on the cookie sheet, then slide a spatula under each cookie to transfer onto a cooling rack.
+    \item If some jam evaporates or fades in color during the baking process, you can add a little more after they completely cool down.\footnotemark[3]
+\end{instructions}
+\footnotetext[1]{From \href{https://www.theconsciousplantkitchen.com/almond-flour-thumbprint-cookies/}{The Conscious Plant Kitchen: Almond Flour Thumbprint Cookies}}
+\footnotetext[2]{Nutrition Facts per cookie: 59 calories, 3g total carbohydrate, 1g fiber, 1g total sugars, 1g protein, 5g total fat, 2g saturated fat, 21mg sodium, 19mg calcium, 1mg iron, 6mg potassium.}
+\footnotetext[3]{Store in a dry place, sealed cookie jar at room temperature are the best, for up to 1 week. They can get sticky if stored in a humid place or in the fridge.}
+\newpage
+
+
+% recipe
+\recipeheader{Chewy Pumpkin Cookies}{30}{12}{18}
+\commentary{
+    These chewy pumpkin cookies have the perfect amount of pumpkin spice and each bite truly melts in your mouth. With chewy centers and spiced sugar topping, you will not believe how delicious these fall cookies are!\footnotemark[1]
+}
+\begin{ingredients}
+    \ingredientsection{For spiced sugar}
+    \ingredient{$\frac{1}{4}$ cup}{granulated white sugar}
+    \ingredient{$\frac{1}{2}$ tsp}{pumpkin pie spice}
+    \ingredientsection{For cookies}
+    \ingredient{$\frac{3}{4}$ cup}{unsalted butter, softened}
+    \ingredient{1 cup}{light brown sugar, packed}
+    \ingredient{2}{egg yolks, at room temperature}
+    \ingredient{2 tsp}{vanilla}
+    \ingredient{$\frac{1}{2}$ cup}{canned pumpkin puree}
+    \ingredient{$1 \frac{3}{4}$ cup}{all purpose flour, spooned and leveled}
+    \ingredient{1 tbsp}{pumpkin pie spice}
+    \ingredient{$\frac{1}{2}$ tsp}{baking soda}
+    \ingredient{$\frac{1}{2}$ tsp}{baking powder}
+    \ingredient{$\frac{1}{2}$ tsp}{salt}
+\end{ingredients}
+\begin{instructions}
+    \item In a small bowl mix the granulated sugar and pumpkin pie spice together. Set aside.
+    \item Preheat oven to \temp{350}{F} and line two baking sheets with parchment paper.
+    \item Spread the canned pumpkin on a plate and lightly press with a paper towel to absorb the excess liquid. Repeat the step at least four more times. The pumpkin should be dry enough that it goes from being $\frac{1}{2}$ cup dried down to just about a $\frac{1}{4}$ cup. Hardly any liquid should transfer onto a paper towel once it has been dried enough. Then set aside.
+    \item In a small bowl, whisk together the flour, pumpkin pie spice, baking soda, baking powder and salt. Set aside.
+    \item In a large bowl cream the softened butter and brown sugar together with an electric mixer on high speed for 1--2 minutes until light and fluffy.
+    \item Add in the egg yolks and vanilla and mix on medium speed until pale and fluffy, about 1--2 minutes.
+    \item Add in the pumpkin and mix on medium-low speed to combine.
+    \item Add in the dry ingredients and mix on low speed just until combined.
+    \item Scoop the dough with a 2 tablespoon cookie scoop, and roll them into balls. Then roll the dough balls in the spiced sugar. (If the dough is too ``sticky'' chill it in the fridge for 10 minutes, then proceed.)
+    \item Place the cookie dough balls at least 2 inches apart on the baking sheets. (I usually bake 6 at a time.)
+    \item Bake the cookies for 12--14 minutes. (12 minutes for really chewy centers, 14 minutes for a slightly crispier cookie). When the cookies are done baking the centers will be puffy. As they cool the centers will fall and the cookie will get ``wrinkly''.
+    \item Let the cookies cool on the baking sheet for 5 minutes, then transfer them to a cooling rack to finish cooling. They are best enjoyed when they have cooled for at least 15 minutes!\footnotemark[2]
+\end{instructions}
+\footnotetext[1]{From \href{https://inbloombakery.com/chewy-pumpkin-cookies/}{In Bloom Bakery: Chewy Pumpkin Cookies}}
+\footnotetext[2]{Store the cookies in an airtight container for up to three days.}
+\newpage
+
+
+% recipe
+\recipeheader{Peanut-Popcorn Balls}{25}{45}{14}
+\commentary{
+    For anyone who grew up loving Cracker Jack, Crunch 'n Munch, or Fiddle Faddle, our caramel-coated peanut-popcorn balls are like edible time machines. A little baking soda in the caramel keeps it light and lacy, and baking the balls after forming helps set and dry them, so they end up crisp, not tacky. Wrap them in plain parchment and striped waxed paper for the full bonbon effect.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{14 cups}{Popped Popcorn (from $\frac{1}{2}$ cup kernels)}
+    \ingredient{4 tbsp}{unsalted butter}
+    \ingredient{$1 \frac{1}{4}$ cups}{packed light-brown sugar}
+    \ingredient{$\frac{1}{3}$ cup}{light corn syrup}
+    \ingredient{2 tbsp}{unsulfured molasses}
+    \ingredient{2 tsp}{kosher salt}
+    \ingredient{$\frac{1}{4}$ tsp}{baking soda}
+    \ingredient{1 cup}{roasted red-skinned salted peanuts or cocktail peanuts}
+    \ingredient{}{Vegetable-oil cooking spray, for gloves}
+\end{ingredients}
+\begin{instructions}
+    \item Preheat oven to \temp{225}{F}. Place popcorn in a large bowl. Melt butter in a medium heavy saucepan over medium heat. Stir in brown sugar and corn syrup; cook, stirring occasionally, until thoroughly combined. Increase heat to high; bring to a boil without stirring. Cook until mixture registers \temp{245}{F} to \temp{248}{F}  on a candy thermometer, 2 to 4 minutes.
+    \item Turn off heat; stir in molasses, salt, and baking soda to completely combine. Keep stirring until mixture turns very foamy and lightens in color and bubbles up quite a bit.
+    \item Pour hot syrup over popcorn mixture and immediately sprinkle peanuts over top; stir until all kernels and nuts are coated. Let stand briefly. Meanwhile, put on a pair of rubber gloves and spray them with cooking spray (this isn't required, but it will help protect your hands from the heat, and it's important to work while the mixture is still warm).
+    \item Working quickly, use your hands to form mixture into balls, each about 1 cup in volume (if you have a 1-cup scoop, use that!). Transfer balls to a parchment-lined baking sheet. Once all have been formed, go back and use your hands to press them into tighter balls, so they really hold together. Let stand 15 minutes.
+    \item Bake 45 minutes. (If one or two balls fall apart during baking, let cool briefly, then re-form.) Let cool completely. Store in an airtight container at room temperature up to 2 weeks.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.marthastewart.com/1554899/peanut-popcorn-balls}{Martha Stewart: Peanut-Popcorn Balls}}
+\newpage
+
+
+% recipe
+\recipeheader{Seven Layer Bars}{15}{25}{36}
+\commentary{
+    For anyone who grew up loving Cracker Jack, Crunch 'n Munch, or Fiddle Faddle, our caramel-coated peanut-popcorn balls are like edible time machines. A little baking soda in the caramel keeps it light and lacy, and baking the balls after forming helps set and dry them, so they end up crisp, not tacky. Wrap them in plain parchment and striped waxed paper for the full bonbon effect.\footnotemark[1]\footnotemark[2]
+}
+\begin{ingredients}
+    \ingredient{$\frac{1}{2}$ cup}{unsalted butter}
+    \ingredient{$1 \frac{1}{2}$ cup}{graham cracker crumbs}
+    \ingredient{1 cup}{semisweet chocolate chips}
+    \ingredient{1 cup}{butterscotch chips}
+    \ingredient{1 cup}{chopped walnuts}
+    \ingredient{1 can}{14 oz sweetened condensed milk}
+    \ingredient{$1 \frac{1}{3}$ cup}{shredded coconut}
+\end{ingredients}
+\begin{instructions}
+    \item Preheat the oven to \temp{350}{F}.
+    \item Put butter in 13x9-inch baking pan and place in oven until melted. Swirl to coat bottom and sides with butter.
+    \item Spread graham cracker crumbs evenly over bottom of pan. Layer chocolate chips, butterscotch chips, and walnuts over crumbs. Pour condensed milk over walnuts and sprinkle with coconut.
+    \item Bake in preheated oven until edges are golden brown, about 25 minutes.
+    \item Cool and cut into 36 bars.
+\end{instructions}
+\footnotetext[1]{From \href{https://www.allrecipes.com/recipe/9889/seven-layer-bars/}{allrecipes: Seven Layer Bars}}
+\footnotetext[2]{Nutrition Facts per serving: 155 calories, 17g total carbohydrate, 1g fiber, 14g total sugars, 2g protein, 10g total fat, 5g saturated fat, 49mg sodium, 38mg calcium, 96mg potassium.}
+\newpage
+
+\end{document}

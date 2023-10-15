@@ -1,0 +1,32 @@
+\contentsline {part}{Pastas}{3}{section*.1}%
+\contentsline {section}{Avocado, Tomato \& Mozzarella Pasta Salad}{4}{section*.3}%
+\contentsline {section}{Linguine with Sun-dried Tomato Pesto}{5}{section*.4}%
+\contentsline {section}{Manicotti}{6}{section*.5}%
+\contentsline {section}{Pasta-stuffed Bell Peppers}{7}{section*.6}%
+\contentsline {section}{Pepperoni Pasta}{8}{section*.7}%
+\contentsline {section}{Spaghetti Olio e Aglio}{9}{section*.8}%
+\contentsline {part}{Soups}{10}{Item.28}%
+\contentsline {section}{Spicy Black Bean Soup}{11}{section*.10}%
+\contentsline {section}{Tex-Mex Chili with Dumplings}{12}{section*.11}%
+\contentsline {section}{Tomato-Basil Soup with Cheddar Grilled Cheese}{13}{section*.12}%
+\contentsline {part}{Sandwiches}{14}{Item.53}%
+\contentsline {section}{Cheese \& Veggie Sandwiches}{15}{section*.14}%
+\contentsline {section}{Grilled Egg Sandwiches}{16}{section*.15}%
+\contentsline {part}{Variety}{17}{Item.59}%
+\contentsline {section}{Asian Crispy Soy Garlic Tofu}{18}{section*.17}%
+\contentsline {section}{Baja Salad}{19}{section*.18}%
+\contentsline {section}{Corn Waffles with Tomato Salsa}{20}{section*.19}%
+\contentsline {section}{Easy Baked Tofu}{21}{section*.20}%
+\contentsline {section}{Tofu with Peanut-Ginger Sauce}{22}{section*.21}%
+\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{23}{section*.22}%
+\contentsline {part}{Drinks}{24}{Item.89}%
+\contentsline {section}{Homemade Chai Tea Concentrate}{25}{section*.24}%
+\contentsline {part}{Snacks and Sides}{26}{Item.91}%
+\contentsline {section}{Crackers}{27}{section*.26}%
+\contentsline {section}{Swedish Hard Tack}{28}{section*.27}%
+\contentsline {part}{Sauces}{29}{Item.104}%
+\contentsline {part}{Deserts}{30}{section*.28}%
+\contentsline {section}{Almond Flour Thumbprint Cookies}{31}{section*.30}%
+\contentsline {section}{Chewy Pumpkin Cookies}{32}{section*.31}%
+\contentsline {section}{Peanut-Popcorn Balls}{33}{section*.32}%
+\contentsline {section}{Seven Layer Bars}{34}{section*.33}%
