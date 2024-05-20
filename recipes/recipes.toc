@@ -1,33 +1,37 @@
 \contentsline {part}{Pastas}{3}{section*.1}%
 \contentsline {section}{Avocado, Tomato \& Mozzarella Pasta Salad}{4}{section*.3}%
-\contentsline {section}{Linguine with Sun-dried Tomato Pesto}{5}{section*.4}%
-\contentsline {section}{Manicotti}{6}{section*.5}%
-\contentsline {section}{One Pot Garlic Parmesan Pasta}{7}{section*.6}%
-\contentsline {section}{Pasta-stuffed Bell Peppers}{8}{section*.7}%
-\contentsline {section}{Pepperoni Pasta}{9}{section*.8}%
-\contentsline {section}{Spaghetti Olio e Aglio}{10}{section*.9}%
-\contentsline {part}{Soups}{11}{Item.32}%
-\contentsline {section}{Spicy Black Bean Soup}{12}{section*.11}%
-\contentsline {section}{Tex-Mex Chili with Dumplings}{13}{section*.12}%
-\contentsline {section}{Tomato-Basil Soup with Cheddar Grilled Cheese}{14}{section*.13}%
-\contentsline {part}{Sandwiches}{15}{Item.57}%
-\contentsline {section}{Cheese \& Veggie Sandwiches}{16}{section*.15}%
-\contentsline {section}{Grilled Egg Sandwiches}{17}{section*.16}%
-\contentsline {part}{Variety}{18}{Item.63}%
-\contentsline {section}{Asian Crispy Soy Garlic Tofu}{19}{section*.18}%
-\contentsline {section}{Baja Salad}{20}{section*.19}%
-\contentsline {section}{Corn Waffles with Tomato Salsa}{21}{section*.20}%
-\contentsline {section}{Easy Baked Tofu}{22}{section*.21}%
-\contentsline {section}{Tofu with Peanut-Ginger Sauce}{23}{section*.22}%
-\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{24}{section*.23}%
-\contentsline {part}{Drinks}{25}{Item.93}%
-\contentsline {section}{Homemade Chai Tea Concentrate}{26}{section*.25}%
-\contentsline {part}{Snacks and Sides}{27}{Item.95}%
-\contentsline {section}{Crackers}{28}{section*.27}%
-\contentsline {section}{Swedish Hard Tack}{29}{section*.28}%
-\contentsline {part}{Sauces}{30}{Item.108}%
-\contentsline {part}{Deserts}{31}{section*.29}%
-\contentsline {section}{Almond Flour Thumbprint Cookies}{32}{section*.31}%
-\contentsline {section}{Chewy Pumpkin Cookies}{33}{section*.32}%
-\contentsline {section}{Peanut-Popcorn Balls}{34}{section*.33}%
-\contentsline {section}{Seven Layer Bars}{35}{section*.34}%
+\contentsline {section}{Bacon Ranch Garlic Parmesan Pasta}{5}{section*.4}%
+\contentsline {section}{Fusilli with Bell Pepers and Onions}{6}{section*.5}%
+\contentsline {section}{Linguine with Sun-dried Tomato Pesto}{7}{section*.6}%
+\contentsline {section}{Manicotti}{8}{section*.7}%
+\contentsline {section}{One Pot Garlic Parmesan Pasta}{9}{section*.8}%
+\contentsline {section}{Pasta-stuffed Bell Peppers}{10}{section*.9}%
+\contentsline {section}{Pepperoni Pasta}{11}{section*.10}%
+\contentsline {section}{Spaghetti Olio e Aglio}{12}{section*.11}%
+\contentsline {part}{Soups}{13}{Item.47}%
+\contentsline {section}{Spicy Black Bean Soup}{14}{section*.13}%
+\contentsline {section}{Tex-Mex Chili with Dumplings}{15}{section*.14}%
+\contentsline {section}{Tomato-Basil Soup with Cheddar Grilled Cheese}{16}{section*.15}%
+\contentsline {part}{Sandwiches}{17}{Item.72}%
+\contentsline {section}{Cheese \& Veggie Sandwiches}{18}{section*.17}%
+\contentsline {section}{Grilled Egg Sandwiches}{19}{section*.18}%
+\contentsline {part}{Variety}{20}{Item.78}%
+\contentsline {section}{Asian Crispy Soy Garlic Tofu}{21}{section*.20}%
+\contentsline {section}{Baja Salad}{22}{section*.21}%
+\contentsline {section}{Corn Waffles with Tomato Salsa}{23}{section*.22}%
+\contentsline {section}{Easy Baked Tofu}{24}{section*.23}%
+\contentsline {section}{Tex-Mex Taco Bowl}{25}{section*.24}%
+\contentsline {section}{Tofu with Peanut-Ginger Sauce}{26}{section*.25}%
+\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{27}{section*.26}%
+\contentsline {section}{Warm Wild Mushroom and Farro Salad}{28}{section*.27}%
+\contentsline {part}{Drinks}{29}{Item.119}%
+\contentsline {section}{Homemade Chai Tea Concentrate}{30}{section*.29}%
+\contentsline {part}{Snacks and Sides}{31}{Item.121}%
+\contentsline {section}{Crackers}{32}{section*.31}%
+\contentsline {section}{Swedish Hard Tack}{33}{section*.32}%
+\contentsline {part}{Sauces}{34}{Item.134}%
+\contentsline {part}{Deserts}{35}{section*.33}%
+\contentsline {section}{Almond Flour Thumbprint Cookies}{36}{section*.35}%
+\contentsline {section}{Chewy Pumpkin Cookies}{37}{section*.36}%
+\contentsline {section}{Peanut-Popcorn Balls}{38}{section*.37}%
+\contentsline {section}{Seven Layer Bars}{39}{section*.38}%

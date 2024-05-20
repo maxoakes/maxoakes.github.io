@@ -1,0 +1,72 @@
+:root {
+    --thumbnail-padding: 10px;
+    --indent-size: 20px;
+    --trip-card-size: 360px;
+}
+
+body {
+    background-color: var(--color-background-primary);
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    padding-left: var(--indent-size);
+}
+
+ul {
+    margin-left: var(--indent-size);
+}
+
+.introduction {
+    padding: 0 var(--indent-size);
+}
+.trip-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    gap: 10px;
+}
+
+.trip {
+    padding: var(--thumbnail-padding);
+    margin: 0;
+    width: var(--trip-card-size);
+    background-color: var(--color-background-secondary);
+    height: max-content;
+    border-radius: 2px;
+}
+
+.trip > * {
+    margin: auto;
+    text-align: center;
+}
+
+.trip h3 {
+    padding-top: 4px;
+    height: 60px;
+    line-height: 30px;
+    font-size: x-large;
+}
+
+.trip img {
+    display: block;
+    height: 100%;
+    width: calc(100% - var(--thumbnail-padding) - var(--thumbnail-padding));
+    margin: var(--thumbnail-padding);
+}
+
+.footer {
+    background-color: var(--color-background-secondary);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.footer > * {
+    text-align: center;
+    margin: 0;
+}

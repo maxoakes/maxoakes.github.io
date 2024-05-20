@@ -1,29 +1,12 @@
-/* Global */
 :root {
     --navbar-height: 60px;
     --banner-height: 60px;
     
-    --color-header-footer: #1d263a;
-    --color-background-primary: #2f467c;
-    --color-background-secondary: #293146;
-    --color-accent: #e2c069;
-    --color-text-primary: #e0fbfc;
-    --color-text-accent: #e2c069;
-    /* Text primary is always on Background secondary */
-    /* Accent should be very different */
-
-    --font-title: 'Raleway';
-    --font-text: 'Karla';
-    --font-accent: 'Sora';
-    --font-small: 'Noto Sans JP';
-    --font-tiny: 'Mulish';
-
     --color-skill-lang: #b40000;
     --color-skill-tool: #00c400;
     --color-skill-other: #0000ac;
 }
 
-/* Major color theme */
 .solid-background {
     /* Backup */
     background: var(--color-header-footer);
@@ -37,39 +20,6 @@ header {
 }
 #projects {
     background-color: var(--color-background-secondary);
-}
-
-/* Global Elements */
-hr {
-    width: 99%;
-    border-color: var(--color-text-primary);
-    border-top: 1px;
-}
-
-hr.accent {
-    width: 50%;
-    max-width: 200px;
-    border: 1px solid var(--color-accent);
-}
-
-h1, h2, p, a, li, button, div { /* All font */
-    color: var(--color-text-primary);
-    font-family: var(--font-text), "Tahoma", sans-serif;
-    list-style-type: circle;
-}
-
-ul {
-    margin: 8px 0;
-    padding: 0 0 0 16px;
-}
-
-li::marker {
-    color: var(--color-accent);
-}
-
-a, a:hover, a:visited, a:active { /* All links */
-    text-decoration: none;
-    color: var(--color-text-accent);
 }
 
 /* Global Classes */
