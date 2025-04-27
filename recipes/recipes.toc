@@ -18,20 +18,21 @@
 \contentsline {part}{Variety}{20}{Item.78}%
 \contentsline {section}{Asian Crispy Soy Garlic Tofu}{21}{section*.20}%
 \contentsline {section}{Baja Salad}{22}{section*.21}%
-\contentsline {section}{Corn Waffles with Tomato Salsa}{23}{section*.22}%
-\contentsline {section}{Easy Baked Tofu}{24}{section*.23}%
-\contentsline {section}{Tex-Mex Taco Bowl}{25}{section*.24}%
-\contentsline {section}{Tofu with Peanut-Ginger Sauce}{26}{section*.25}%
-\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{27}{section*.26}%
-\contentsline {section}{Warm Wild Mushroom and Farro Salad}{28}{section*.27}%
-\contentsline {part}{Drinks}{29}{Item.119}%
-\contentsline {section}{Homemade Chai Tea Concentrate}{30}{section*.29}%
-\contentsline {part}{Snacks and Sides}{31}{Item.121}%
-\contentsline {section}{Crackers}{32}{section*.31}%
-\contentsline {section}{Swedish Hard Tack}{33}{section*.32}%
-\contentsline {part}{Sauces}{34}{Item.134}%
-\contentsline {part}{Deserts}{35}{section*.33}%
-\contentsline {section}{Almond Flour Thumbprint Cookies}{36}{section*.35}%
-\contentsline {section}{Chewy Pumpkin Cookies}{37}{section*.36}%
-\contentsline {section}{Peanut-Popcorn Balls}{38}{section*.37}%
-\contentsline {section}{Seven Layer Bars}{39}{section*.38}%
+\contentsline {section}{Caprese Tofu-Stuffed Tomatoes}{23}{section*.22}%
+\contentsline {section}{Corn Waffles with Tomato Salsa}{24}{section*.23}%
+\contentsline {section}{Easy Baked Tofu}{25}{section*.24}%
+\contentsline {section}{Tex-Mex Taco Bowl}{26}{section*.25}%
+\contentsline {section}{Tofu with Peanut-Ginger Sauce}{27}{section*.26}%
+\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{28}{section*.27}%
+\contentsline {section}{Warm Wild Mushroom and Farro Salad}{29}{section*.28}%
+\contentsline {part}{Drinks}{30}{Item.123}%
+\contentsline {section}{Homemade Chai Tea Concentrate}{31}{section*.30}%
+\contentsline {part}{Snacks and Sides}{32}{Item.125}%
+\contentsline {section}{Crackers}{33}{section*.32}%
+\contentsline {section}{Swedish Hard Tack}{34}{section*.33}%
+\contentsline {part}{Sauces}{35}{Item.138}%
+\contentsline {part}{Desserts}{36}{section*.34}%
+\contentsline {section}{Almond Flour Thumbprint Cookies}{37}{section*.36}%
+\contentsline {section}{Chewy Pumpkin Cookies}{38}{section*.37}%
+\contentsline {section}{Peanut-Popcorn Balls}{39}{section*.38}%
+\contentsline {section}{Seven Layer Bars}{40}{section*.39}%

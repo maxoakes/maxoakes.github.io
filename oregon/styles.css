@@ -70,3 +70,40 @@ ul {
     text-align: center;
     margin: 0;
 }
+
+/* Trip Pages */
+#destinations {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 2%;
+}
+
+.place {
+    background-color: var(--color-background-secondary);
+    display: flex;
+    gap: 12px;
+    margin: 12px;
+    padding: 8px;
+}
+
+.left {
+    flex-direction: row;
+}
+
+.right {
+    flex-direction: row-reverse;
+}
+
+.picture {
+    padding: 8px;
+    width: fit-content;
+}
+
+.picture img {
+    width: 100%;
+    max-height: 500px;
+}
+
+.caption {
+    width: fit-content;
+}
