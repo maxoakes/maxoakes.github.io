@@ -27,15 +27,41 @@
                 <p class="introduction-sentence">Hi, my name is Max Oakes.</p>
                 <hr class=accent>
                 <p>I like to build things; and I aspire to build something revolutionary.</p>
-                <p>I am a recent computer science graduate who obtained a Master's of Science in Computer Science from Portland State
-                    University. I enjoy road trips, spicy food, virtual reality, and basically
+                <p>I recently obtained a Master's of Science in Computer Science from Portland State University, and 
+                    currently work in the public sector. I enjoy road trips, spicy food, photography, and basically
                     all forms of natural science from geology to astronomy.</p>
                 <p>In my free time, I like fiddling with code to make fun and useful programs, or using Blender to make
-                    neat scenes, landscapes and objects. I also occasionally dabble in photography and cooking.</p>
+                    neat scenes, landscapes and objects. When not at the computer, I am out taking scenic drives
+                    practicing photography to capture the beauty that nature has to offer.
+                </p>
             </div>
             <script type="text/javascript"> 
+                function pickRandomBackground() {
+                    const backgrounds = [
+                        'asset/background/sky.jpg',
+                        'asset/background/waves.jpg',
+                        'asset/background/path.jpg',
+                        'asset/background/harbor.jpg',
+                        'asset/background/marsh.jpg',
+                        'asset/background/harney.jpg',
+                        'asset/background/sisters.jpg'
+                    ];
+                    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+                    const backgroundDiv = document.getElementById('background');
+                    if (backgroundDiv) {
+                        backgroundDiv.style.backgroundImage = `
+                            linear-gradient(
+                                200deg, 
+                                transparent, 
+                                var(--color-background-primary)), 
+                                url('${backgrounds[randomIndex]}')
+                        `;
+                    }
+                }
+
                 document.addEventListener('DOMContentLoaded', function()
                 {
+                    pickRandomBackground();
                     {
                         var ua = window.navigator.userAgent;
                         var msie = ua.indexOf("MSIE");
@@ -191,20 +217,34 @@
                     </ul>
                     <p class="list-header">Accomplishments:</p>
                     <ul>
-                        <li>Recreated several desktop applications using C# .NET Framework that were previously created in MS Access, some of which are business or mission critical. Although the overall goal is to remove MS Access from the County's environment, I took the opportunity to optimize user workflows, add in long-desired user requirements, and improve the accompanying databases.</li>
+                        <li>Played a key role in the implementation team of a new ticketing and ITSM solution, <a href="https://servicedesk.marioncountyor.gov/">TeamDynamix</a>. 
+                            <ul>
+                                <li>Wrote the Powershell nightly script that seamlessly integrates EntraID users into TeamDynamix.</li>
+                                <li>Developed most HTML widgets and email notifications seen by all county users.</li>
+                                <li>Served as one of the three system administrators of our TeamDynamix implementation.</li>
+                            </ul>
+                        </li>
+                        <li>Created installation and deployment scripts for well over 100 applications across all County departments for both Microsoft Endpoint Configuration Manager (ECM) and Intune. 
+                            <ul>
+                                <li>Among all developers creating these scripts, I created the most for both ECM and Intune.</li>
+                            </ul>
+                        </li>
+                        <li>Recreated several desktop applications using C# .NET Framework that were previously created in MS Access, some of which are business or mission critical. 
+                            <ul>
+                                <li>Also fixed several bugs, added long-desired features, and integration points with existing systems at the same time.</li>
+                            </ul>
+                        </li>
                         <li>Rewrote <a target="_blank" href="https://apps.co.marion.or.us/plattracker/">Plat Tracker</a>, a mission critical website used by Public Works to track the approval process for PLAs and various types of plats within the county.</li>
-                        <li>Created several dozen SSRS reports for multiple departments</li>
-                        <li>Served as primary system admin for a dozen newly-developed and decades-old in-house applications, and third-party commercial-off-the-shelf tools</li>
-                        <li>Created installation and deployment scripts for several dozen applications across all County departments for both Microsoft Endpoint Configuration Manager (ECM) and Intune. Among all developers creating these scripts, I created the most for both ECM and Intune.</li>
+                        <li>Created several dozen SSRS reports for multiple departments, leveraging both SQL Server databases and PL/SQL Oracle databases, sometimes in the same report.</li>
                     </ul>
                     <p>
                         <span class="skill language">C#.NET</span>
                         <span class="skill language">VB.NET</span>
                         <span class="skill language">ASP.NET</span>
+                        <span class="skill language">PowerShell</span>
                         <span class="skill language">VisualBasic</span>
                         <span class="skill language">T-SQL</span>
                         <span class="skill language">PL/SQL</span>
-                        <span class="skill language">PowerShell</span>
                         <span class="skill tool">Microsoft Access</span>
                         <span class="skill tool">Toad</span>
                         <span class="skill tool">SQL Server Management Studio (SSMS)</span>
@@ -213,7 +253,7 @@
                         <span class="skill other">Microsoft Endpoint Configuration Manager (ECM)</span>
                         <span class="skill other">Microsoft Intune</span>
                         <span class="skill other">Dev Ops</span>
-                        <span class="skill other">Footprints</span>
+                        <span class="skill other">TeamDynamix</span>
                         <span class="skill other">Microsoft Word</span>
                         <span class="skill other">Microsoft Excel</span>
                     </p>
@@ -303,7 +343,28 @@
                 <a class="center-note" href="https://github.com/maxoakes" target="_blank">View my Github</a>
             </div>
             <div class=project-container>
-                <div id=jwst class="project-box">
+                <div id="pokemon-storage" class="project-box">
+                    <div class="image"></div>
+                    <div class="description">
+                        <p><span class="project-title">Pokemon Storage</span>I always wanted to have some type of central 
+                            repository for all of the Pokemon that I collect in the
+                            <a href="https://bulbapedia.bulbagarden.net/wiki/Core_series#List_of_core_series_games">Pokemon game series</a>.
+                            This project did just that. I wrote a full C# application that can read from and write to the 
+                            bytes of emulated save files, converts the Pokemon into a standardized, human-readable format. 
+                            From there, you can write the Pokemon to a local database, a JSON file, or even to other 
+                            emulated save files. On top of all that, I created a GUI that shows the Pokemon in a nice, 
+                            informational list.
+                        </p>
+                        <p>Here is the <a href="https://github.com/maxoakes/pokemon-storage-cs" target="_blank">source code</a> of the project.</p>
+                        <p>
+                            <span class="skill language">C#</span>
+                            <span class="skill tool">Avalonia</span>
+                            <span class="skill tool">SQLite</span>
+                            <span class="skill other">Byte-level operations</span>
+                        </p>
+                    </div>
+                </div>
+                <div id="jwst" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">JWST Image Processing</span>A venture into computational imaging.
@@ -337,7 +398,7 @@
                         </p>
                     </div>
                 </div> -->
-                <div id=asteroid class="project-box">
+                <div id="asteroid" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Big Data: Known Asteroids</span>A project for my graduate DBMS course.
@@ -351,7 +412,7 @@
                         </p>
                     </div>
                 </div>
-                <div id=visualizer class="project-box">
+                <!-- <div id="visualizer" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Asteroid Visualizer</span>A continuation of a DBMS project. This 
@@ -374,8 +435,8 @@
                             <span class="skill other">APIs</span>
                         </p>
                     </div>
-                </div>
-                <!-- <div id=gamepad-driver class="project-box">
+                </div> -->
+                <!-- <div id="gamepad-driver" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Gamepad Driver</span>An out-of-tree kernel module driver for a USB
@@ -405,7 +466,7 @@
                         </p>
                     </div>
                 </div> -->
-                <div id=cruelsun class="project-box">
+                <div id="cruelsun" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">Cruel Sun</span>A addon (mod) written in Java for Minecraft making
@@ -419,7 +480,7 @@
                         </p>
                     </div>
                 </div>
-                <div id=arma class="project-box">
+                <div id="arma" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">ARMA Missions</span> A project that I did while not taking summer PSU classes.
@@ -443,7 +504,7 @@
                             programming. This is a rendering of a <a href="https://en.wikipedia.org/wiki/Stargate_(device)" target="_blank">Stargate</a>
                             that I made in <a href="https://www.blender.org/features/" target="_blank">Blender</a>. Nearly everything in
                             the image was made from scratch. I love playing with Blender, and this project is one that I particularly liked.
-                        <p>Here is the <a href="asset/stargate24.jpg" target="_blank">completed render</a> of this project.</p>
+                        <p>Here is the <a href="asset/docs/stargate24.jpg" target="_blank">completed render</a> of this project.</p>
                         <p>
                             <span class="skill tool">Blender</span>
                             <span class="skill other">3D Rendering</span>
@@ -452,7 +513,7 @@
                         </p>
                     </div>
                 </div> -->
-                <div id=gnu-radio class="project-box">
+                <div id="gnu-radio" class="project-box">
                     <div class="image"></div>
                     <div class="description">
                         <p><span class="project-title">RSA to GNU Radio</span>This was my undergraduate capstone. The
@@ -472,10 +533,11 @@
         </div>
         <div id="footer">
             <div class="footer-content">
-                <p>Created by Max Oakes. Last updated November 8, 2025.</p>
+                <p>Created by Max Oakes. Last updated May 30, 2026.</p>
                 <p>This is intended to be my portfolio webpage. Also see:<br>
-                    <a href="recipes/recipes.pdf">Living personal recipe book</a> 
+                    <!-- <a href="recipes/recipes.pdf">Living personal recipe book</a>  -->
                     <!-- | <a href="oregon/">Oregon travel experiences</a> -->
+                    <a href="https://drive.google.com/drive/u/0/folders/1QpLQpM-4RCsmKZHJuZHx3Z3a0W08Xe0M">My photograph catalog</a>
                 </p>
             </div>
         </div>
