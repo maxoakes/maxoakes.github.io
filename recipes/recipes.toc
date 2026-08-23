@@ -25,17 +25,18 @@
 \contentsline {section}{Easy Baked Tofu}{27}{section*.26}%
 \contentsline {section}{Grilled Oregano Tofu with Spicy Marinated Tomatoes and Rice}{28}{section*.27}%
 \contentsline {section}{Tex-Mex Taco Bowl}{29}{section*.28}%
-\contentsline {section}{Tofu with Peanut-Ginger Sauce}{30}{section*.29}%
-\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{31}{section*.30}%
-\contentsline {section}{Warm Wild Mushroom and Farro Salad}{32}{section*.31}%
-\contentsline {part}{Drinks}{33}{Item.148}%
-\contentsline {section}{Homemade Chai Tea Concentrate}{34}{section*.33}%
-\contentsline {part}{Snacks and Sides}{35}{Item.150}%
-\contentsline {section}{Crackers}{36}{section*.35}%
-\contentsline {section}{Swedish Hard Tack}{37}{section*.36}%
-\contentsline {part}{Sauces}{38}{Item.163}%
-\contentsline {part}{Desserts}{39}{section*.37}%
-\contentsline {section}{Almond Flour Thumbprint Cookies}{40}{section*.39}%
-\contentsline {section}{Chewy Pumpkin Cookies}{41}{section*.40}%
-\contentsline {section}{Peanut-Popcorn Balls}{42}{section*.41}%
-\contentsline {section}{Seven Layer Bars}{43}{section*.42}%
+\contentsline {section}{Thai Basil Chicken}{30}{section*.29}%
+\contentsline {section}{Tofu with Peanut-Ginger Sauce}{31}{section*.30}%
+\contentsline {section}{Strawberry \& Black Bean Quinoa Bowl with Feta}{32}{section*.31}%
+\contentsline {section}{Warm Wild Mushroom and Farro Salad}{33}{section*.32}%
+\contentsline {part}{Drinks}{34}{Item.157}%
+\contentsline {section}{Homemade Chai Tea Concentrate}{35}{section*.34}%
+\contentsline {part}{Snacks and Sides}{36}{Item.159}%
+\contentsline {section}{Crackers}{37}{section*.36}%
+\contentsline {section}{Swedish Hard Tack}{38}{section*.37}%
+\contentsline {part}{Sauces}{39}{Item.172}%
+\contentsline {part}{Desserts}{40}{section*.38}%
+\contentsline {section}{Almond Flour Thumbprint Cookies}{41}{section*.40}%
+\contentsline {section}{Chewy Pumpkin Cookies}{42}{section*.41}%
+\contentsline {section}{Peanut-Popcorn Balls}{43}{section*.42}%
+\contentsline {section}{Seven Layer Bars}{44}{section*.43}%

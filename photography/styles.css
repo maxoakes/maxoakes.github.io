@@ -1,0 +1,192 @@
+:root {
+    --indent-size: 20px;
+    --polaroid-card-width: 7.2cm;
+    --polaroid-card-height: 8.6cm;
+    --polaroid-image-width: 6.2cm;
+    --polaroid-image-height: 6.2cm;
+    --polaroid-color: #ffffff;
+    --polaroid-description-color: #000000;
+    --polaroid-image-padding: calc( (var(--polaroid-card-width) - var(--polaroid-image-width)) / 2);
+    --polaroid-text-padding: 8px;
+}
+
+body {
+    background-color: var(--color-background-primary);
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul {
+    margin-left: var(--indent-size);
+}
+
+.introduction {
+    padding: 0 var(--indent-size);
+}
+
+/* Photo previews */
+
+.photo-container {
+    display: flex;
+    padding: 30px;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: space-around;
+    gap: 45px;
+}
+
+.photo {
+    padding: 0;
+    width: var(--polaroid-card-width);
+    height: var(--polaroid-card-height);
+    background-color: var(--polaroid-color);
+    border-radius: 1px;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.8);
+    transition: all 0.2s ease-in-out;
+}
+
+.photo:hover {
+    scale: 1.1;
+    box-shadow: 8px 8px 8px 4px rgba(0, 0, 0, 0.4);
+}
+
+.photo > * {
+    margin: auto;
+    text-align: center;
+    color: var(--polaroid-description-color);
+}
+
+.photo img {
+    display: block;
+    width: var(--polaroid-image-width);
+    height: var(--polaroid-image-height);
+    padding: var(--polaroid-image-padding);
+    padding-bottom: 0px;
+}
+
+.photo h2 {
+    padding: 0 var(--polaroid-text-padding);
+    font-size: 14pt;
+    line-height: 30px;
+}
+
+.photo h3 {
+    padding: 0 var(--polaroid-text-padding);
+    font-size: 8pt;
+    line-height: 12px;
+}
+
+.handwritten-title {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten1 {
+    font-family: "Caveat", cursive;
+    font-size: 110%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten2 {
+    font-family: "Grape Nuts", cursive;
+    font-size: 110%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten3 {
+    font-family: "Rock Salt", cursive;
+    font-size: 70%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten4 {
+    font-family: "Gloria Hallelujah", cursive;
+    font-size: 90%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten5 {
+    font-family: "Nothing You Could Do", cursive;
+    font-size: 90%;
+    font-weight: 600;
+    font-style: normal;
+}
+
+h3.handwritten6 {
+    font-family: "Cedarville Cursive", cursive;
+    font-size: 100%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten7 {
+    font-family: "Over the Rainbow", cursive;
+    font-size: 100%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3.handwritten8 {
+    font-family: "Square Peg", cursive;
+    font-size: 140%;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Footer */
+
+.footer {
+    background-color: var(--color-background-secondary);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.footer > * {
+    text-align: center;
+    margin: 0;
+}
+
+/* Trip Pages */
+#destinations {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 2%;
+}
+
+.place {
+    background-color: var(--color-background-secondary);
+    display: flex;
+    gap: 12px;
+    margin: 12px;
+    padding: 8px;
+}
+
+.left {
+    flex-direction: row;
+}
+
+.right {
+    flex-direction: row-reverse;
+}
+
+.picture {
+    padding: 8px;
+    width: fit-content;
+}
+
+.picture img {
+    width: 100%;
+    max-height: 500px;
+}
+
+.caption {
+    width: fit-content;
+}
