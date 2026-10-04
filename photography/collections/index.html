@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Photography</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="../photography.css">
+    <link rel="stylesheet" href="collections.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;300&family=Raleway:wght@100&family=Karla&family=Noto+Sans+JP:wght@300&family=Mulish:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Cedarville+Cursive&family=Gloria+Hallelujah&family=Grape+Nuts&family=Nothing+You+Could+Do&family=Over+the+Rainbow&family=Permanent+Marker&family=Rock+Salt&family=Square+Peg&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.40/jquery.csv.min.js" integrity="sha512-Y8iWYJDo6HiTo5xtml1g4QqHtl/PO1w+dmUpQfQSOTqKNsMhExfyPN2ncNAe9JuJUSKzwK/b6oaNPop4MXzkwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="introduction">
+        <h1>Photo Collections</h1>
+        <a href="../">&lt; Go Back to Photography Homepage</a>
+        <noscript>
+            <p style="color: orangered; font-weight: bold;">
+                This page requires Javascript to run! If you do not see any content, please enable Javascript for my website!
+            </p>
+        </noscript>
+        <p>
+            My images are stored on my self-host server in a <a href="https://opennoodle.de/">Noodle Gallery</a> Docker container. 
+            When this page is loaded, a Javascript script fetches all my shared albums via an API call. If my server is reachable 
+            (i.e. turned off), everything that I have shared will be shown below. Therefore, you can come to this page for my most
+            recent adventure updates!
+        </p>
+        <p>
+            My photo collections are themed by trip taken, and region taken. As such, if you look though each album, there will be repeat images.
+        </p>
+        <ul>
+            <li>The "All Day Trips" album and the year-dated albums will show all my images grouped by when they were taken.</li>
+            <li>The "Region" albums group the images by where they were taken.</li>
+        </ul>
+        <p>
+            Navigating the photo albums is very straight forward:
+        </p>
+        <ul>
+            <li>Click on a polaroid below to open a photo collection.</li>
+            <li>Once on the album website, click an image to maximize it and use the left and right arrow keyboard keys to scroll through 
+                the photos. You can press F11 (or whatever your browser default may be) to go fullscreen for a better viewing experience.</li>
+            <li>You can also click the map icon on the upper right of the page to see the geolocation of each photo in the album.</li>
+        </ul>
+    </div>
+    <div class="photo-container">
+    </div>
+</body>
+<script src="fetch-albums.js"></script> 
+</html>

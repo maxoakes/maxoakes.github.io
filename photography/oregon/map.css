@@ -1,0 +1,85 @@
+:root {
+    --polaroid-scale: 0.75;
+}
+
+@media only screen and (max-width: 1080px) {
+    :root {
+        --polaroid-scale: 0.55;
+    }
+}
+
+@media only screen and (max-width: 820px) {
+    :root {
+        --polaroid-scale: 0.35;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    :root {
+        --polaroid-scale: 0.15;
+    }
+}
+
+.map-container {
+    width: 100%;
+    position: relative;
+}
+
+.map {
+    width: 100%;
+}
+
+.map-feature {
+    position: absolute;
+    z-index: 1;
+}
+
+.loc-nw {
+    top: 5%;
+    left: 12%;
+    z-index: 5;
+}
+
+.loc-wv {
+    top: 25%;
+    left: 20%;
+    z-index: 4;
+}
+
+.loc-cc {
+    top: 40%;
+    left: 28%;
+    z-index: 3;
+}
+
+.loc-sw {
+    top: 60%;
+    left: 5%;
+}
+
+.loc-s {
+    top: 70%;
+    left: 30%;
+    z-index: 2;
+}
+
+.loc-c {
+    top: 40%;
+    left: 45%;
+    z-index: 2;
+}
+
+.loc-se {
+    top: 65%;
+    left: 65%;
+}
+
+.loc-ne {
+    top: 20%;
+    left: 70%;
+}
+
+/* Temporary until I actually travel there */
+.loc-ne img {
+    filter: grayscale(100%) brightness(50%);
+}
