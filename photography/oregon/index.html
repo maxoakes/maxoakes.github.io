@@ -17,7 +17,9 @@
             <h1>Oregon Photography</h1>
             <a href="../">&lt; Go Back to Photography Homepage</a>
             <p>
-                Click a polaroid to open the photo album for that region. If my photo-hosting website cannot be accessed, it is probably turned off.
+                Click a polaroid to open the photo album for that region. If my photo-hosting website cannot be accessed, it is probably turned off. 
+                I also have a <a href="https://map.maxoakes.dev/index.php/view/map?repository=oregon&project=oregon" target="_blank">deployed QGIS project (also WIP)</a> that I use to track my 
+                travel routes and overall progress toward total exploration of Oregon.
             </p>
         </div>
         <div class="map-container">
@@ -80,11 +82,6 @@
             </a>
         </div>
     </body>
-    <script>
-        document.querySelectorAll('.random-rotate').forEach(div => {
-            const randomAngle = (Math.random() - 0.5) * 7.5; 
-            div.style.setProperty('transform', `rotate(${randomAngle}deg)`);
-        });
-        console
+    <script src="random-rotate.js">
     </script>
 </html>
