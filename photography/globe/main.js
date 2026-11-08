@@ -1,18 +1,21 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import SlippyMapGlobe from 'https://esm.sh/three-slippy-map-globe?external=three';
+import { Text } from "https://esm.sh/troika-three-text?external=three";
 
-// Scene Settings
+//region Scene Settings
+
 const URL_ROOT = "https://images.maxoakes.dev"
 const VIEW_KEY = "ZXACBRmfB2YEZWsxRu4S5tsxErUaTjPbeqqAK56UC4"
 const START_LOCATION = "Willamette Valley"
-const ALBUM_PIN_SCALE = 1;
 const EARTH_RADIUS = 6.3781;
+const FOCUS_NORMAL_OFFSET = EARTH_RADIUS * 2;
+const FOCUS_TAN_OFFSET = EARTH_RADIUS * 1;
 const PIN_COLORS = [
     0xff0000,
     0xffff00,
@@ -21,7 +24,11 @@ const PIN_COLORS = [
     0x0000ff
 ];
 const REGION_ALBUM_NAME_PREFIX = "Region: ";
-const SETTINGS = new URLSearchParams(window.location.search);
+const PARAM_SETTINGS = new URLSearchParams(window.location.search);
+
+//endregion
+
+//region Scene Creation
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -31,11 +38,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 document.getElementById('3d').appendChild(renderer.domElement);
 
-
 // Scene
 const scene = new THREE.Scene();
-scene.add(new THREE.AmbientLight(0xffffff, 2));
-scene.add(new THREE.DirectionalLight(0xffffff, 0.6 * Math.PI));
+scene.add(new THREE.AmbientLight(0xffffff, 1));
+scene.add(new THREE.DirectionalLight(0xffffff, 0.9 * Math.PI));
 
 // Camera
 const camera = new THREE.PerspectiveCamera();
@@ -43,33 +49,18 @@ camera.aspect = window.innerWidth/window.innerHeight;
 camera.near = 1e-3;
 camera.far = EARTH_RADIUS * 10;
 camera.updateProjectionMatrix();
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
-renderer.domElement.addEventListener('dblclick', (event) => {
-    const bounds = renderer.domElement.getBoundingClientRect();
-    pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-    pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
-    raycaster.setFromCamera(pointer, camera);
-
-    if (raycaster.intersectObjects(polaroids, true).length > 0) {
-        console.log('Polaroid double-clicked');
-    }
-});
-const focusDistance = EARTH_RADIUS * 1;
-const focusNormalOffset = EARTH_RADIUS * 2;
-const focusTangentOffset = EARTH_RADIUS * 1;
 
 // Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.maxDistance = EARTH_RADIUS;
-controls.minDistance = 0.5;
+controls.maxDistance = EARTH_RADIUS/2;
+controls.minDistance = EARTH_RADIUS/20;
 controls.enableDamping = true;
 controls.dampingFactor = 0.1;
 controls.rotateSpeed = 0.3;
 controls.zoomSpeed = 1;
 controls.panSpeed = 1;
 controls.target.set(0, 0, EARTH_RADIUS);
-camera.position.set(0, 0, EARTH_RADIUS + focusDistance);
+camera.position.set(0, 0, EARTH_RADIUS*2);
 camera.lookAt(controls.target);
 controls.update();
 
@@ -92,42 +83,50 @@ composer.addPass(new OutputPass());
 
 // Earth
 const earth = new SlippyMapGlobe(EARTH_RADIUS, {
-  tileUrl: (X, Y, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/${Z}/${Y}/${X}`,
-  minZoom: 8,
-  maxZoom: 11
+  tileUrl: (X, Y, Z) => {
+    switch (PARAM_SETTINGS.get("style")) {
+        case "usgs": return `https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/${Z}/${Y}/${X}`
+        case "elev": return `http://a.tile.opentopomap.org/${Z}/${X}/${Y}.png`
+        case "sat": return `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${Z}/${Y}/${X}.jpg`
+        case "night": return `http://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default//GoogleMapsCompatible_Level8/${Z}/${Y}/${X}.jpg`
+        case "topo": return `https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/${Z}/${Y}/${X}.jpg`
+        case "natgeo": return `https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/${Z}/${Y}/${X}`
+        default: return `https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/${Z}/${Y}/${X}`
+    }
+  },
+  minLevel: 6,
+  maxLevel: 11
 });
 scene.add(earth);
 
-if (SETTINGS.get("helpers") === "true")
+if (PARAM_SETTINGS.get("helpers") === "true")
 {
     // Axis
     const xyzAxis = new THREE.AxesHelper(EARTH_RADIUS*2);
-    scene.add(xyzAxis);
-    earth.attach(xyzAxis);
+    earth.add(xyzAxis);
 
     // Widgets
     let xCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0xff0000 }));
     xCube.position.x = EARTH_RADIUS*2;
-    scene.add(xCube);
+    xyzAxis.add(xCube);
     let yCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0x00ff00 }));
     yCube.position.y = EARTH_RADIUS*2;
-    scene.add(yCube);
+    xyzAxis.add(yCube);
     let zCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0x0000ff }));
     zCube.position.z = EARTH_RADIUS*2;
-    scene.add(zCube);
+    xyzAxis.add(zCube);
 
     // Polar Grid
-    scene.add(new THREE.PolarGridHelper( EARTH_RADIUS*10, 4, 10, 32));
+    earth.add(new THREE.PolarGridHelper( EARTH_RADIUS*10, 4, 10, 32));
 }
 
-// Get album locations
-let albumLocations = await getAlbumLocationSummaries();
+//endregion
 
-const albumList = document.getElementById('album-locations');
-const albumButtons = new Map();
-const polaroids = [];
+//region Album ForEach
+const albumLocations = await getAlbumLocationSummaries();
+const albumObjects = [];
 
-let navMenu = []
+const navMenu = []
 for (const location of albumLocations) {
 
     function randomFromSeed(seed, min, max) {
@@ -135,37 +134,85 @@ for (const location of albumLocations) {
     }
 
     // Ignore non-regional photo albums
-    if (!location.name.startsWith(REGION_ALBUM_NAME_PREFIX) || !Object.hasOwn(location, "lat")) continue;
-    // console.log(location)
-
-    // Create pin object
-    let pin = null;
-    let polaroid = null
-    const loader = new GLTFLoader();
-    try {
-        const pinModel = await loader.loadAsync('src/glb/pin.glb');
-        pin = pinModel.scene;
-        const polaroidModel = await loader.loadAsync('src/glb/polaroid.glb');
-        polaroid = polaroidModel.scene;
-    } catch (error) {
-        console.error('Error loading GLB model:', error);
+    if (!location.name.startsWith(REGION_ALBUM_NAME_PREFIX) || !Object.hasOwn(location, "lat"))
+    {
+        console.log(`Skipping ${location.slug}`)
+        continue;
     }
-    pin.scale.set(ALBUM_PIN_SCALE,ALBUM_PIN_SCALE,ALBUM_PIN_SCALE);
-    polaroids.push(polaroid);
-    const pinOutlineObjects = [];
 
-    pin.traverse((child) => {
+    const modelLoader = new GLTFLoader();
+
+    // Get position
+    let pos = getPositionFromLatLon(
+        location.lat * Math.PI / 180, 
+        location.lon * Math.PI / 180, 
+        EARTH_RADIUS
+    );
+
+    // Get rotation
+    const surfaceNormal = pos.clone().sub(earth.getWorldPosition(new THREE.Vector3())).normalize();
+    let rot = new THREE.Euler(
+        Math.asin(surfaceNormal.y), 
+        Math.atan2(surfaceNormal.x, surfaceNormal.z), 
+        0, 
+        'YXZ'
+    );
+
+    // Helper
+    if (PARAM_SETTINGS.get("helpers") === "true")
+    {
+        let h = new THREE.AxesHelper(0.1);
+        scene.add(h);
+        h.position.set(pos.x, pos.y, pos.z);
+        h.setRotationFromEuler(rot);
+    }
+
+    //region Create Pin
+
+    // Load model
+    let pinObject = null;
+    try {
+        const pinModel = await modelLoader.loadAsync('src/glb/pin.glb');
+        pinObject = pinModel.scene;
+    } catch (error) {
+        console.error('Error loading pin model:', error);
+    }
+    
+    // Set pin color
+    pinObject.traverse((child) => {
         if (!child.isMesh) return;
-        pinOutlineObjects.push(child);
         if (child.material.name === "color") {
             child.material.color.set(PIN_COLORS[randomFromSeed(location.photoCount, 0, PIN_COLORS.length - 1)]);
             child.material.needsUpdate = true; 
         }
     });
-    pin.userData.outlineObjects = pinOutlineObjects;
+    
+    // Place pin
+    pinObject.name = location.slug
+    pinObject.userData.metadata = location
+    pinObject.position.set(pos.x, pos.y, pos.z + ((Math.random() - 0.5) * 0.05));
+    pinObject.setRotationFromEuler(rot);
+    pinObject.rotateOnAxis(
+        new THREE.Vector3().randomDirection(),
+        THREE.MathUtils.degToRad((Math.random() - 0.5) * 20)
+    );
+    albumObjects.push(pinObject)
+    earth.add(pinObject);
 
-    // console.log(location)
-    polaroid.traverse((child) => {
+    //endregion 
+
+    //region Create Polaroid
+
+    let polaroidObject = null
+
+    try {
+        const polaroidModel = await modelLoader.loadAsync('src/glb/polaroid.glb');
+        polaroidObject = polaroidModel.scene;
+    } catch (error) {
+        console.error('Error loading polaroid model:', error);
+    }
+
+    polaroidObject.traverse((child) => {
         if (child.isMesh && child.material.name === "image") {
             const textureLoader = new THREE.TextureLoader();
             const texture = textureLoader.load(location.image, (loadedTexture) => {
@@ -180,52 +227,41 @@ for (const location of albumLocations) {
             child.material.needsUpdate = true; 
         }
     });
+    pinObject.add(polaroidObject);
+    polaroidObject.position.y = 0.02 + (Math.random() * 0.01);
+    polaroidObject.position.z = 0.035;
+    polaroidObject.rotation.y = THREE.MathUtils.degToRad((Math.random()-0.5) * 10);
 
-    // Place and rotate object
-    let lat = location.lat * Math.PI / 180;
-    let lon = location.lon * Math.PI / 180;
-    pin.position.z = EARTH_RADIUS * Math.cos(lat) * Math.cos(lon);
-    pin.position.x = EARTH_RADIUS * Math.cos(lat) * Math.sin(lon);
-    pin.position.y = EARTH_RADIUS * Math.sin(lat);
-    pin.rotation.z += Math.PI/2;
-    pin.rotation.y += Math.PI/2 + lon;
-    pin.rotation.x += lat;
+    //endregion
 
-    earth.attach(pin);
-    scene.add(pin);
-
-    const surfaceNormal = pin.getWorldPosition(new THREE.Vector3())
-        .sub(earth.getWorldPosition(new THREE.Vector3()))
-        .normalize();
-    const rotationAxis = new THREE.Vector3().randomDirection();
-    pin.rotateOnAxis(rotationAxis, THREE.MathUtils.degToRad((Math.random() - 0.5) * 15));
-    const worldToPin = pin.getWorldQuaternion(new THREE.Quaternion()).invert();
-    const pinLocalNormal = surfaceNormal.clone().applyQuaternion(worldToPin).normalize();
-    const northDirection = new THREE.Vector3(
-        -Math.sin(lat) * Math.sin(lon),
-        Math.cos(lat),
-        -Math.sin(lat) * Math.cos(lon)
-    ).applyQuaternion(earth.getWorldQuaternion(new THREE.Quaternion())).normalize();
-    const pinLocalNorth = northDirection.applyQuaternion(worldToPin).normalize();
-    const pinLocalWest = pinLocalNormal.clone().cross(pinLocalNorth).normalize();
-    const polaroidBounds = new THREE.Box3().setFromObject(polaroid);
-    const topEdgeOffset = -0.04;
-    polaroid.position.copy(pinLocalNorth).multiplyScalar(topEdgeOffset)
-        .addScaledVector(pinLocalNormal, Math.random()*0.001);
-    polaroid.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(
-        pinLocalWest,
-        pinLocalNormal,
-        pinLocalNorth
-    ));
-    polaroid.rotateY(Math.PI);
-    polaroid.rotateY(THREE.MathUtils.degToRad((Math.random() - 0.5) * 15));
-    pin.add(polaroid);
-
+    //region Add Writing
+    let text = new Text();
+    text.text = location.name
+    text.font = "./src/ttf/rock-salt-v24-latin-regular.ttf"
+    text.maxWidth = 0.07;
+    text.lineHeight = 1
+    text.letterSpacing = -0.05
+    polaroidObject.add(text);
+    console.log(text)
+    text.textAlign = "center"
+    text.anchorX = "center";
+    text.anchorY = "top";
+    text.name = "writing";
+    text.color = 0x00;
+    text.position.set(0, 1e-4, 0.0285);
+    text.rotation.x -= Math.PI/2;
+    text.fontSize = 5e-3;
+    text.sync()
+    
+    //endregion
+    
     // Setup pin and actions
-    location.pin = pin;
+    location.pin = pinObject;
     if (location.name.replace(REGION_ALBUM_NAME_PREFIX, "") === START_LOCATION) {
-        focusAlbumLocation(pin);
+        focusAlbumLocation(pinObject);
     }
+
+    //region Create Menu Obj
 
     let newElementItem = {
         name: location.name,
@@ -259,11 +295,15 @@ for (const location of albumLocations) {
         newCountryElement.value.push(newRegionElement)
         navMenu.push(newCountryElement)
     }
-}
-console.log(navMenu)
 
-// Create nav menu
-const $navElement = $("nav#menu").empty();
+    //endregion
+}
+
+//endregion
+
+//region Create HTML Menu
+
+const $navElement = $("nav#menu");
 navMenu.forEach(country => {
     $("<p>")
         .addClass("country-header")
@@ -293,18 +333,23 @@ navMenu.forEach(country => {
     })
 })
 
-// Set the earth rotation after all children are attached
-// earth.rotation.x = THREE.MathUtils.degToRad(23.5); 
+//endregion
 
-// Update pov when camera moves
-earth.updatePov(camera);
-controls.addEventListener('change', () => {
-    earth.updatePov(camera);
-});
+//region Create City Markers
+
+//endregion
+
+//region Helper Functions
+
+function getPositionFromLatLon(lat, lon, radius) {
+    return new THREE.Vector3(
+        radius * Math.cos(lat) * Math.sin(lon), 
+        radius * Math.sin(lat), 
+        radius * Math.cos(lat) * Math.cos(lon)
+    );
+}
 
 function focusAlbumLocation(pin) {
-    outlinePass.selectedObjects = pin.userData.outlineObjects;
-
     const targetPosition = pin.getWorldPosition(new THREE.Vector3());
     const globeCenter = earth.getWorldPosition(new THREE.Vector3());
     const surfaceNormal = targetPosition.clone().sub(globeCenter).normalize();
@@ -319,20 +364,14 @@ function focusAlbumLocation(pin) {
     tangentDirection.normalize();
 
     controls.target.copy(targetPosition);
-    const cameraOffset = surfaceNormal.clone().multiplyScalar(focusNormalOffset)
-        .addScaledVector(tangentDirection, focusTangentOffset)
-        .setLength(controls.minDistance);
+    const cameraOffset = surfaceNormal.clone().multiplyScalar(FOCUS_NORMAL_OFFSET)
+        .addScaledVector(tangentDirection, FOCUS_TAN_OFFSET)
+        .setLength(controls.minDistance*2);
     camera.position.copy(targetPosition).add(cameraOffset);
     camera.lookAt(targetPosition);
     controls.update();
     earth.updatePov(camera);
 }
-
-function animate() {
-    controls.update(); 
-    composer.render();
-}
-renderer.setAnimationLoop(animate);
 
 async function getSharedLinks() {
     const url = `${URL_ROOT}/api/shared-links?apiKey=${VIEW_KEY}`;
@@ -373,6 +412,7 @@ async function getAlbumLocationSummaries() {
             description: link.description,
             photoCount: albumLocations.length,
             hyperlink: `${URL_ROOT}/s/${link.slug}`,
+            slug: link.slug,
             image: `${URL_ROOT}/api/assets/${link.album.albumThumbnailAssetId}/thumbnail?apiKey=${VIEW_KEY}`, 
             ...thisLocation
         });
@@ -386,14 +426,6 @@ async function getAlbumLocationSummaries() {
         const sorted = [...locations].sort((a,b) => a.lat - b.lat || a.lon - b.lon);
         return sorted[Math.floor(sorted.length/2)]
     }
-}
-
-function getNavGroupName(element) {
-    const $element = $(element);
-    if (!$element.is("ul")) return undefined;
-
-    const $title = $element.children("li").first().find("p").first();
-    return $title.length ? $title.text() : undefined;
 }
 
 function adjustTextureAspect(texture, fitType = 'cover') {
@@ -418,6 +450,34 @@ function adjustTextureAspect(texture, fitType = 'cover') {
     }
 }
 
+//region Events
+
+function animate() {
+    controls.update(); 
+    composer.render();
+}
+renderer.setAnimationLoop(animate);
+
+// Update pov when camera moves
+earth.updatePov(camera);
+controls.addEventListener('change', () => {
+    earth.updatePov(camera);
+});
+
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+renderer.domElement.addEventListener('dblclick', (event) => {
+    const bounds = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+    pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    let selectedObjects = raycaster.intersectObjects(albumObjects, true)
+
+    if (selectedObjects.length > 0) {
+        console.log(selectedObjects[0]);
+    }
+});
+
 window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -426,3 +486,5 @@ function onWindowResize() {
     composer.setSize(window.innerWidth, window.innerHeight);
     controls.update(); 
 }
+
+//endregion

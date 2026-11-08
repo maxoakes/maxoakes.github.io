@@ -11,8 +11,7 @@ body {
     overflow-x: hidden;
     height: 100%;
     width: 225px;
-    padding-top: 20px;
-    background-color: blue;
+    background-color: rgba(32,32,32,0.6);
     color: white;
     display: flex;
     flex-direction: column;
@@ -23,17 +22,26 @@ p {
     margin: 0;
 }
 
+.non-list-item {
+    background-color: rgba(32,32,32,0.5);
+    padding: 8px;
+}
 /* Country */
 .country-header {
-    margin-left: 8pt;
+    padding-top: 8px;
+    margin-left: 4pt;
 }
 /* Region */
 .region-header {
-    margin-left: 24pt;
+    padding-top: 8px;
+    margin-left: 18pt;
 }
 
 /* Item */
 .album-item {
-    margin-left: 32pt;
+    padding-top: 6px;
+    margin-left: 24pt;
     cursor: pointer;
+
+    font-size: smaller;
 }
