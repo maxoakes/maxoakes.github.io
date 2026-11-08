@@ -1,0 +1,39 @@
+body {
+    background-color: black;
+    margin: 0;
+}
+
+#menu {
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+    height: 100%;
+    width: 225px;
+    padding-top: 20px;
+    background-color: blue;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    font-size: medium;
+    margin: 0;
+}
+
+/* Country */
+.country-header {
+    margin-left: 8pt;
+}
+/* Region */
+.region-header {
+    margin-left: 24pt;
+}
+
+/* Item */
+.album-item {
+    margin-left: 32pt;
+    cursor: pointer;
+}
