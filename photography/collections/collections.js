@@ -1,20 +1,25 @@
 
-// relax, the api keys in this script only get shared links and image thumbnails
-const URL_ROOT = "https://images.maxoakes.dev"
-const VIEW_KEY = "ZXACBRmfB2YEZWsxRu4S5tsxErUaTjPbeqqAK56UC4"
-getSharedLinks();
+// Local library
+import * as TravelPhotographyLibrary from "../photography.js"
+
+let sharedLinks = await TravelPhotographyLibrary.getSharedLinksByCategory();
+if (!sharedLinks) {
+    appendErrorMessage()
+}
+else {
+    sharedLinks = sharedLinks.sort((a, b) => a.slug.localeCompare(b.slug)).forEach(appendPolaroidFromApi)
+}
 
 function appendPolaroidFromApi(object) {
     const photo = $('<div>', { 
         class: 'photo random-rotate' 
     });
     const link = $('<a>', { 
-        href: `${URL_ROOT}/s/${object.slug}`,
+        href: `${TravelPhotographyLibrary.URL_ROOT}/s/${object.slug}`,
         target: "_blank"
     });
-    console.log(object.slug)
     const image = $('<img>', { 
-        src: `${URL_ROOT}/api/assets/${object.album.albumThumbnailAssetId}/thumbnail?apiKey=${VIEW_KEY}`, 
+        src: `${TravelPhotographyLibrary.URL_ROOT}/api/assets/${object.album.albumThumbnailAssetId}/thumbnail?apiKey=${TravelPhotographyLibrary.VIEW_KEY}`, 
         alt: "Thumbnail of " + object.album.albumName 
     });
     const title = $('<h2>', { 
@@ -49,18 +54,3 @@ function appendErrorMessage(error) {
     $(".photo-container").remove();
     container.append(message, errorMessage, image).appendTo('body');
 }
-
-async function getSharedLinks() {
-    const url = `${URL_ROOT}/api/shared-links?apiKey=${VIEW_KEY}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const result = await response.json();
-        result.sort((a, b) => a.slug.localeCompare(b.slug)).forEach(appendPolaroidFromApi)
-    } catch (error) {
-        appendErrorMessage(error.message)
-    }    
-}
-

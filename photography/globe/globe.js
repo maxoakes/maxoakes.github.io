@@ -1,3 +1,4 @@
+// Three.js
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -5,15 +6,18 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+// Three.js Extensions
 import SlippyMapGlobe from 'https://esm.sh/three-slippy-map-globe?external=three';
 import { Text } from "https://esm.sh/troika-three-text?external=three";
 
-//region Scene Settings
+// Local library
+import * as TravelPhotographyLibrary from "../photography.js"
 
-const URL_ROOT = "https://images.maxoakes.dev"
-const VIEW_KEY = "ZXACBRmfB2YEZWsxRu4S5tsxErUaTjPbeqqAK56UC4"
-const START_LOCATION = "Willamette Valley"
-const EARTH_RADIUS = 6.3781;
+//region Scene Settings
+const PARAM_SETTINGS = new URLSearchParams(window.location.search);
+const START_LOCATION = "Marion"
+const EARTH_RADIUS = 6.3781 * 2;
 const FOCUS_NORMAL_OFFSET = EARTH_RADIUS * 2;
 const FOCUS_TAN_OFFSET = EARTH_RADIUS * 1;
 const PIN_COLORS = [
@@ -23,15 +27,13 @@ const PIN_COLORS = [
     0x00ffff,
     0x0000ff
 ];
-const REGION_ALBUM_NAME_PREFIX = "Region: ";
-const PARAM_SETTINGS = new URLSearchParams(window.location.search);
 
 //endregion
 
 //region Scene Creation
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({
+export const renderer = new THREE.WebGLRenderer({
     antialias: true
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -53,11 +55,11 @@ camera.updateProjectionMatrix();
 // Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxDistance = EARTH_RADIUS/2;
-controls.minDistance = EARTH_RADIUS/20;
+controls.minDistance = EARTH_RADIUS/40;
 controls.enableDamping = true;
 controls.dampingFactor = 0.1;
 controls.rotateSpeed = 0.3;
-controls.zoomSpeed = 1;
+controls.zoomSpeed = 1.25;
 controls.panSpeed = 1;
 controls.target.set(0, 0, EARTH_RADIUS);
 camera.position.set(0, 0, EARTH_RADIUS*2);
@@ -65,7 +67,7 @@ camera.lookAt(controls.target);
 controls.update();
 
 // Post-processing
-const composer = new EffectComposer(renderer);
+export const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 const outlinePass = new OutlinePass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -82,7 +84,7 @@ composer.addPass(outlinePass);
 composer.addPass(new OutputPass());
 
 // Earth
-const earth = new SlippyMapGlobe(EARTH_RADIUS, {
+export const earth = new SlippyMapGlobe(EARTH_RADIUS, {
   tileUrl: (X, Y, Z) => {
     switch (PARAM_SETTINGS.get("style")) {
         case "usgs": return `https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/${Z}/${Y}/${X}`
@@ -123,20 +125,19 @@ if (PARAM_SETTINGS.get("helpers") === "true")
 //endregion
 
 //region Album ForEach
-const albumLocations = await getAlbumLocationSummaries();
+const sharedAlbums = await TravelPhotographyLibrary.getLocationAlbums();
 const albumObjects = [];
 
-const navMenu = []
-for (const location of albumLocations) {
+let navMenu = []
+for (const album of sharedAlbums) {
 
     function randomFromSeed(seed, min, max) {
         return ((seed) % (max - min)) + min;
     }
 
-    // Ignore non-regional photo albums
-    if (!location.name.startsWith(REGION_ALBUM_NAME_PREFIX) || !Object.hasOwn(location, "lat"))
+    if (!(Object.hasOwn(album, "lat") && Object.hasOwn(album, "lon")))
     {
-        console.log(`Skipping ${location.slug}`)
+        console.log(`Skipping ${album.slug}`)
         continue;
     }
 
@@ -144,8 +145,8 @@ for (const location of albumLocations) {
 
     // Get position
     let pos = getPositionFromLatLon(
-        location.lat * Math.PI / 180, 
-        location.lon * Math.PI / 180, 
+        album.lat * Math.PI / 180, 
+        album.lon * Math.PI / 180, 
         EARTH_RADIUS
     );
 
@@ -182,15 +183,14 @@ for (const location of albumLocations) {
     pinObject.traverse((child) => {
         if (!child.isMesh) return;
         if (child.material.name === "color") {
-            child.material.color.set(PIN_COLORS[randomFromSeed(location.photoCount, 0, PIN_COLORS.length - 1)]);
+            child.material.color.set(PIN_COLORS[randomFromSeed(album.photoCount, 0, PIN_COLORS.length - 1)]);
             child.material.needsUpdate = true; 
         }
     });
     
     // Place pin
-    pinObject.name = location.slug
-    pinObject.userData.metadata = location
-    pinObject.position.set(pos.x, pos.y, pos.z + ((Math.random() - 0.5) * 0.05));
+    pinObject.name = album.slug
+    pinObject.position.set(pos.x, pos.y, pos.z);
     pinObject.setRotationFromEuler(rot);
     pinObject.rotateOnAxis(
         new THREE.Vector3().randomDirection(),
@@ -215,7 +215,7 @@ for (const location of albumLocations) {
     polaroidObject.traverse((child) => {
         if (child.isMesh && child.material.name === "image") {
             const textureLoader = new THREE.TextureLoader();
-            const texture = textureLoader.load(location.image, (loadedTexture) => {
+            const texture = textureLoader.load(album.image, (loadedTexture) => {
                 const image = loadedTexture.image;
                 child.userData.imageWidth = image.naturalWidth || image.width;
                 child.userData.imageHeight = image.naturalHeight || image.height;
@@ -228,54 +228,54 @@ for (const location of albumLocations) {
         }
     });
     pinObject.add(polaroidObject);
+    polaroidObject.userData.metadata = album
     polaroidObject.position.y = 0.02 + (Math.random() * 0.01);
     polaroidObject.position.z = 0.035;
-    polaroidObject.rotation.y = THREE.MathUtils.degToRad((Math.random()-0.5) * 10);
-
+    polaroidObject.rotation.y = THREE.MathUtils.degToRad((Math.random()-0.5) * 5);
+    polaroidObject.rotation.x += THREE.MathUtils.degToRad(5);
     //endregion
 
     //region Add Writing
     let text = new Text();
-    text.text = location.name
+    text.text = album.name
     text.font = "./src/ttf/rock-salt-v24-latin-regular.ttf"
     text.maxWidth = 0.07;
     text.lineHeight = 1
     text.letterSpacing = -0.05
     polaroidObject.add(text);
-    console.log(text)
     text.textAlign = "center"
     text.anchorX = "center";
     text.anchorY = "top";
     text.name = "writing";
     text.color = 0x00;
-    text.position.set(0, 1e-4, 0.0285);
+    text.position.set(0, 1e-4, 0.03);
     text.rotation.x -= Math.PI/2;
-    text.fontSize = 5e-3;
+    text.fontSize = 5.5e-3;
     text.sync()
     
     //endregion
     
     // Setup pin and actions
-    location.pin = pinObject;
-    if (location.name.replace(REGION_ALBUM_NAME_PREFIX, "") === START_LOCATION) {
+    album.pin = pinObject;
+    if (album.name.includes(START_LOCATION)) {
         focusAlbumLocation(pinObject);
     }
 
     //region Create Menu Obj
 
     let newElementItem = {
-        name: location.name,
-        link: location.hyperlink
+        name: album.name,
+        link: album.hyperlink
     }
-    if (navMenu.some(e => e.name === location.country)) {
-        let thisCountyIndex = navMenu.findIndex(e => e.name === location.country)
-        if (navMenu[thisCountyIndex].value.some(e => e.name === location.state)) {
-            let thisRegionIndex = navMenu[0].value.findIndex(e => e.name === location.state)
+    if (navMenu.some(e => e.name === album.country)) {
+        let thisCountyIndex = navMenu.findIndex(e => e.name === album.country)
+        if (navMenu[thisCountyIndex].value.some(e => e.name === album.state)) {
+            let thisRegionIndex = navMenu[0].value.findIndex(e => e.name === album.state)
             navMenu[thisCountyIndex].value[thisRegionIndex].value.push(newElementItem)
         }
         else {
             let newRegionElement = {
-                name: location.state || "Unknown",
+                name: album.state,
                 value: []
             }
             newRegionElement.value.push(newElementItem)
@@ -284,11 +284,11 @@ for (const location of albumLocations) {
     }
     else {
         let newCountryElement = {
-            name: location.country,
+            name: album.country,
             value: []
         }
         let newRegionElement = {
-            name: location.state,
+            name: album.state,
             value: []
         }
         newRegionElement.value.push(newElementItem)
@@ -303,29 +303,42 @@ for (const location of albumLocations) {
 
 //region Create HTML Menu
 
+// And sort the country and regions when they are iterated
 const $navElement = $("nav#menu");
-navMenu.forEach(country => {
+navMenu.toSorted((a, b) => {
+  if (a.name == null) return 1;
+  if (b.name == null) return -1;
+  return a.name.localeCompare(b.name);
+}).forEach(country => {
     $("<p>")
         .addClass("country-header")
         .text(country.name)
         .appendTo($navElement);
 
-    country.value.forEach(region => {
+    country.value.toSorted((a, b) => {
+            if (a.name == null) return 1;
+            if (b.name == null) return -1;
+            return a.name.localeCompare(b.name);
+        }).forEach(region => {
         $("<p>")
             .addClass("region-header")
             .text(region.name)
             .appendTo($navElement);
 
-        region.value.forEach(album => {
+        region.value.toSorted((a, b) => {
+            if (a.name == null) return 1;
+            if (b.name == null) return -1;
+            return a.name.localeCompare(b.name);
+        }).forEach(album => {
             $("<a>")
                 .addClass("album-item")
                 .attr({
                     target: "_blank",
                     rel: "noopener noreferrer"
                 })
-                .text(album.name.replace(REGION_ALBUM_NAME_PREFIX, ""))
+                .text(album.name)
                 .on("click", () => {
-                    const location = albumLocations.find(loc => loc.name === album.name);
+                    const location = sharedAlbums.find(loc => loc.name === album.name);
                     if (location) focusAlbumLocation(location.pin);
                 })
                 .appendTo($navElement);
@@ -373,61 +386,6 @@ function focusAlbumLocation(pin) {
     earth.updatePov(camera);
 }
 
-async function getSharedLinks() {
-    const url = `${URL_ROOT}/api/shared-links?apiKey=${VIEW_KEY}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.log(error.message)
-    }
-}
-
-async function getAlbumMapMarkers(id) {
-    const url = `${URL_ROOT}/api/albums/${id}/map-markers?apiKey=${VIEW_KEY}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.log(error.message)
-    }
-}
-
-async function getAlbumLocationSummaries() {
-    let sharedLinks = await getSharedLinks();
-    console.log(`Got ${sharedLinks.length} links`)
-    let albums = []
-
-    await Promise.all(sharedLinks.map(async (link) => {
-        let albumLocations = await getAlbumMapMarkers(link.album.id);
-        let thisLocation = getRepresentativeLocation(albumLocations);
-        albums.push({
-            name: link.album.albumName,
-            description: link.description,
-            photoCount: albumLocations.length,
-            hyperlink: `${URL_ROOT}/s/${link.slug}`,
-            slug: link.slug,
-            image: `${URL_ROOT}/api/assets/${link.album.albumThumbnailAssetId}/thumbnail?apiKey=${VIEW_KEY}`, 
-            ...thisLocation
-        });
-    }));
-
-    return albums;
-
-    function getRepresentativeLocation(locations) {
-        if (!locations || locations.length === 0) return null;
-        
-        const sorted = [...locations].sort((a,b) => a.lat - b.lat || a.lon - b.lon);
-        return sorted[Math.floor(sorted.length/2)]
-    }
-}
-
 function adjustTextureAspect(texture, fitType = 'cover') {
     const image = texture.image;
     const imageWidth = image?.naturalWidth || image?.width;
@@ -466,15 +424,33 @@ controls.addEventListener('change', () => {
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
+renderer.domElement.addEventListener('pointermove', (event) => {
+    const bounds = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+    pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const hoveringPolaroid = raycaster.intersectObjects(albumObjects, true)
+        .some(obj => obj.object.parent.name.includes("polaroid"));
+    renderer.domElement.style.cursor = hoveringPolaroid ? 'pointer' : 'auto';
+});
+
 renderer.domElement.addEventListener('dblclick', (event) => {
     const bounds = renderer.domElement.getBoundingClientRect();
     pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
     pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
-    let selectedObjects = raycaster.intersectObjects(albumObjects, true)
+    let selectedObjects = raycaster.intersectObjects(albumObjects, true).filter(obj => obj.object.parent.name.includes("polaroid"))
 
     if (selectedObjects.length > 0) {
-        console.log(selectedObjects[0]);
+        try {
+            console.log(selectedObjects)
+            const thisPolaroid = selectedObjects[0].object.parent.parent
+            console.log(thisPolaroid)
+            window.open(thisPolaroid.userData.metadata.hyperlink, '_blank');
+        } 
+        catch (error) {
+            console.error(error.message)
+        }
     }
 });
 
