@@ -97,13 +97,11 @@ ul {
 }
 
 .collection {
-    background-color: red;
     background-image: url("asset/collection.jpg");
     background-position: center;
 }
 
 .globe {
-    background-color: blue;
     background-image: url("asset/globe.png");
     background-position: center;
 }
@@ -269,4 +267,28 @@ h3.handwritten8 {
 
 .caption {
     width: fit-content;
+}
+
+/* Error Message */
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-background-secondary);
+    margin: 32px;
+    padding: 32px;
+}
+
+.message-container > * {
+    margin: 4px;
+    text-align: center;
+    color: red;
+}
+
+.sleep-image {
+    min-width: 360px;
+    width: 25%;
+    filter: sepia();
 }

@@ -1,12 +1,8 @@
 
-// Local library
 import * as TravelPhotographyLibrary from "../photography.js"
 
 let sharedLinks = await TravelPhotographyLibrary.getSharedLinksByCategory();
-if (!sharedLinks) {
-    appendErrorMessage()
-}
-else {
+if (sharedLinks) {
     sharedLinks = sharedLinks.sort((a, b) => a.slug.localeCompare(b.slug)).forEach(appendPolaroidFromApi)
 }
 
@@ -35,22 +31,4 @@ function appendPolaroidFromApi(object) {
     function randomFromSeed(seed, min, max) {
         return ((seed) % (max - min)) + min;
     }
-}
-
-function appendErrorMessage(error) {
-    const container = $('<div>', {class: "message-container"});
-
-    const message = $('<h2>').text("Photo album server not reachable :(");
-
-    // credit https://img.magnific.com/free-vector/cute-cat-sleeping-laptop-with-coffee-cartoon-vector-icon-illustration-animal-technology-icon_138676-4475.jpg?semt=ais_hybrid&w=740&q=80
-    const image = $('<img>', { 
-        src: "/asset/error/sleep.svg", 
-        alt: "Sleeping cat on a computer",
-        class: "sleep-image"
-    });
-
-    const errorMessage = $('<h3>').text(error);
-
-    $(".photo-container").remove();
-    container.append(message, errorMessage, image).appendTo('body');
 }

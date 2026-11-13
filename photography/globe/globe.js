@@ -203,6 +203,7 @@ function instantiateModel(model) {
 //endregion
 
 //region Album ForEach
+
 const sharedAlbums = await TravelPhotographyLibrary.getLocationAlbums();
 const albumObjects = [];
 
@@ -411,7 +412,7 @@ navMenu.toSorted((a, b) => {
 if (PARAM_SETTINGS.get("cities") === "true") {
     const CITY_MODEL_SCALE = 0.005
     const cities = await TravelPhotographyLibrary.getVisitedCities()
-    if (cities) {
+    if (cities.length > 0) {
         for (const city of cities) {
             let modelName;
             switch (city.category_id) {

@@ -97,15 +97,25 @@ async function getSharedLinksByCategory(category) {
     }
 
     let links = await getJsonResponse(`${IMAGES_URL}/api/shared-links?apiKey=${IMMICH_KEY}`);
-    return links.filter((link) => {
-        let slugData = parseSlug(link.slug)
-        return (slugData && slugData.code >= codeMin && slugData.code <= codeMax)
-    })
+    if (links) {
+        return links.filter((link) => {
+            let slugData = parseSlug(link.slug)
+            return (slugData && slugData.code >= codeMin && slugData.code <= codeMax)
+        })
+    }
+    else {
+        return [];
+    }
 }
 
 // Create and return a custom object containing only needed information
 async function getLocationAlbums() {
     let sharedLinks = await getSharedLinksByCategory("location");
+
+    // Error handling if server is down
+    if (sharedLinks.length === 0) {
+        return [];
+    }
     let albums = []
 
     await Promise.all(sharedLinks.map(async (link) => {
@@ -169,7 +179,7 @@ async function getLocationAlbums() {
 
 async function getVisitedCities() {
     let cities = await getJsonResponse(`${API_URL}/api/cities?visited=1&visited=2&visited=3&visited=4&visited=5&category=1&category=2&category=3&category=4`);
-    if (!cities) return null;
+    if (!cities) return [];
 
     cities.forEach(city => {
         city.geojson = JSON.parse(city.geojson)
@@ -186,16 +196,18 @@ async function getJsonResponse(url) {
         }
         return await response.json();
     } catch (error) {
-        console.error(error.message)
+        console.error(`Error during GET. \n ${error.message} \n ${url}`)
         return null;
     }
 }
 
 export {
+    API_URL,
     IMAGES_URL,
     IMMICH_KEY,
     parseSlug,
     getLocationAlbums,
     getSharedLinksByCategory,
-    getVisitedCities
+    getVisitedCities,
+    getJsonResponse
 }
