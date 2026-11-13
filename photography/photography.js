@@ -1,5 +1,6 @@
-const URL_ROOT = "https://images.maxoakes.dev"
-const VIEW_KEY = "ZXACBRmfB2YEZWsxRu4S5tsxErUaTjPbeqqAK56UC4"
+const IMAGES_URL = "https://images.maxoakes.dev"
+const API_URL = "https://api.maxoakes.dev"
+const IMMICH_KEY = "ZXACBRmfB2YEZWsxRu4S5tsxErUaTjPbeqqAK56UC4"
 
 // Parse the slug URL and return its components. Expected in certain format
 function parseSlug(slug) {
@@ -95,7 +96,7 @@ async function getSharedLinksByCategory(category) {
         }
     }
 
-    let links = await getJsonResponse(`${URL_ROOT}/api/shared-links?apiKey=${VIEW_KEY}`);
+    let links = await getJsonResponse(`${IMAGES_URL}/api/shared-links?apiKey=${IMMICH_KEY}`);
     return links.filter((link) => {
         let slugData = parseSlug(link.slug)
         return (slugData && slugData.code >= codeMin && slugData.code <= codeMax)
@@ -110,7 +111,7 @@ async function getLocationAlbums() {
     await Promise.all(sharedLinks.map(async (link) => {
 
         // Get all album photo coordinates
-        const albumMapMarkers = await getJsonResponse(`${URL_ROOT}/api/albums/${link.album.id}/map-markers?apiKey=${VIEW_KEY}`);
+        const albumMapMarkers = await getJsonResponse(`${IMAGES_URL}/api/albums/${link.album.id}/map-markers?apiKey=${IMMICH_KEY}`);
 
         // Get the location of the cover image, or the first image that has a lat and lon if the cover doesn't
         let albumLocation = albumMapMarkers.find(marker => marker.id === link.album.albumThumbnailAssetId)
@@ -129,21 +130,26 @@ async function getLocationAlbums() {
             if (normalized.country == null || normalized.state == null) {
                 const osmUrl = `https://nominatim.openstreetmap.org/reverse?lat=${albumLocation.lat}&lon=${albumLocation.lon}&format=json&zoom=8`
                 let reverse = await getJsonResponse(osmUrl)
-                
-                // Only update the location names if they are null
-                if (normalized.country == null) {
-                    normalized.country = reverse.address.country;
-                }
+                if (reverse) {
 
-                if (normalized.state == null) {
-                    try {
-                        normalized.state = reverse.address.state
+                    // Only update the location names if they are null
+                    if (normalized.country == null) {
+                        normalized.country = reverse.address.country;
                     }
-                    catch {
-                        console.warn("OSM response does not contain address.state")
-                        normalized.state = reverse.address[reverse.addresstype];
-                    }                    
-                }                
+
+                    if (normalized.state == null) {
+                        try {
+                            normalized.state = reverse.address.state
+                        }
+                        catch {
+                            console.warn("OSM response does not contain address.state")
+                            normalized.state = reverse.address[reverse.addresstype];
+                        }                    
+                    }    
+                }
+                else {
+                    console.warn(`Failed to get additional location data for ${link.slug}`)
+                }
             }
         }
 
@@ -151,14 +157,24 @@ async function getLocationAlbums() {
             name: link.album.albumName,
             description: link.description,
             photoCount: albumMapMarkers.length,
-            hyperlink: `${URL_ROOT}/s/${link.slug}`,
+            hyperlink: `${IMAGES_URL}/s/${link.slug}`,
             slug: link.slug,
-            image: `${URL_ROOT}/api/assets/${link.album.albumThumbnailAssetId}/thumbnail?apiKey=${VIEW_KEY}`,
+            image: `${IMAGES_URL}/api/assets/${link.album.albumThumbnailAssetId}/thumbnail?apiKey=${IMMICH_KEY}`,
             ... normalized
         });
     }));
 
     return albums;
+}
+
+async function getVisitedCities() {
+    let cities = await getJsonResponse(`${API_URL}/api/cities?visited=1&visited=2&visited=3&visited=4&visited=5&category=1&category=2&category=3&category=4`);
+    if (!cities) return null;
+
+    cities.forEach(city => {
+        city.geojson = JSON.parse(city.geojson)
+    });
+    return cities;
 }
 
 // Generic HTTP GET -> JSON
@@ -171,13 +187,15 @@ async function getJsonResponse(url) {
         return await response.json();
     } catch (error) {
         console.error(error.message)
+        return null;
     }
 }
 
 export {
-    URL_ROOT,
-    VIEW_KEY,
+    IMAGES_URL,
+    IMMICH_KEY,
     parseSlug,
     getLocationAlbums,
-    getSharedLinksByCategory
+    getSharedLinksByCategory,
+    getVisitedCities
 }

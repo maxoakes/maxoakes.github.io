@@ -4,8 +4,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // Three.js Extensions
 import SlippyMapGlobe from 'https://esm.sh/three-slippy-map-globe?external=three';
@@ -18,19 +16,23 @@ import * as TravelPhotographyLibrary from "../photography.js"
 const PARAM_SETTINGS = new URLSearchParams(window.location.search);
 const START_LOCATION = "Marion"
 const EARTH_RADIUS = 6.3781 * 2;
+const CAMERA_SURFACE_CLEARANCE = 0.05;
 const FOCUS_NORMAL_OFFSET = EARTH_RADIUS * 2;
 const FOCUS_TAN_OFFSET = EARTH_RADIUS * 1;
 const PIN_COLORS = [
-    0xff0000,
-    0xffff00,
-    0xff00ff,
-    0x00ffff,
-    0x0000ff
+    0xee6055,
+    0x60d394,
+    0xaaf683,
+    0xffd97d,
+    0xff9b85
 ];
 
 //endregion
 
-//region Scene Creation
+//region Renderer/Camera
+
+// Scene
+const scene = new THREE.Scene();
 
 // Renderer
 export const renderer = new THREE.WebGLRenderer({
@@ -40,24 +42,20 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 document.getElementById('3d').appendChild(renderer.domElement);
 
-// Scene
-const scene = new THREE.Scene();
-scene.add(new THREE.AmbientLight(0xffffff, 1));
-scene.add(new THREE.DirectionalLight(0xffffff, 0.9 * Math.PI));
-
 // Camera
 const camera = new THREE.PerspectiveCamera();
 camera.aspect = window.innerWidth/window.innerHeight;
 camera.near = 1e-3;
-camera.far = EARTH_RADIUS * 10;
+camera.far = EARTH_RADIUS * 3;
 camera.updateProjectionMatrix();
+scene.add(camera);
 
 // Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.maxDistance = EARTH_RADIUS/2;
-controls.minDistance = EARTH_RADIUS/40;
+controls.maxDistance = EARTH_RADIUS * 1.5;
+controls.minDistance = EARTH_RADIUS / 40;
 controls.enableDamping = true;
-controls.dampingFactor = 0.1;
+controls.dampingFactor = 0.25;
 controls.rotateSpeed = 0.3;
 controls.zoomSpeed = 1.25;
 controls.panSpeed = 1;
@@ -69,21 +67,10 @@ controls.update();
 // Post-processing
 export const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-const outlinePass = new OutlinePass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight),
-    scene,
-    camera
-);
-outlinePass.edgeStrength = 5;
-outlinePass.edgeGlow = 1;
-outlinePass.edgeThickness = 2;
-outlinePass.pulsePeriod = 0;
-outlinePass.visibleEdgeColor.set(0xfff176);
-outlinePass.hiddenEdgeColor.set(0x5c4a18);
-composer.addPass(outlinePass);
-composer.addPass(new OutputPass());
 
-// Earth
+//endregion
+
+//region Earth
 export const earth = new SlippyMapGlobe(EARTH_RADIUS, {
   tileUrl: (X, Y, Z) => {
     switch (PARAM_SETTINGS.get("style")) {
@@ -96,10 +83,67 @@ export const earth = new SlippyMapGlobe(EARTH_RADIUS, {
         default: return `https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/${Z}/${Y}/${X}`
     }
   },
-  minLevel: 6,
+  minLevel: 0,
   maxLevel: 11
 });
 scene.add(earth);
+
+//endregion
+
+//region Camera Raycasting
+
+const cameraCollisionRaycaster = new THREE.Raycaster();
+const cameraCollisionOrigin = new THREE.Vector3();
+const cameraCollisionDirection = new THREE.Vector3();
+const cameraCollisionRayDirection = new THREE.Vector3();
+const earthWorldPosition = new THREE.Vector3();
+
+function keepCameraOutsideEarth() {
+    earth.getWorldPosition(earthWorldPosition);
+    cameraCollisionDirection.copy(camera.position).sub(earthWorldPosition);
+    const cameraDistance = cameraCollisionDirection.length();
+    if (cameraDistance < 1e-6) {
+        cameraCollisionDirection.set(0, 0, 1);
+    } else {
+        cameraCollisionDirection.normalize();
+    }
+
+    cameraCollisionOrigin.copy(earthWorldPosition)
+        .addScaledVector(cameraCollisionDirection, EARTH_RADIUS * 2);
+    cameraCollisionRayDirection.copy(cameraCollisionDirection).negate();
+    cameraCollisionRaycaster.set(cameraCollisionOrigin, cameraCollisionRayDirection);
+    cameraCollisionRaycaster.far = EARTH_RADIUS * 4;
+
+    const surfaceHit = cameraCollisionRaycaster.intersectObject(earth, false)[0];
+    const surfaceRadius = surfaceHit
+        ? surfaceHit.point.distanceTo(earthWorldPosition)
+        : EARTH_RADIUS;
+    const minimumCameraDistance = surfaceRadius + CAMERA_SURFACE_CLEARANCE;
+
+    if (cameraDistance < minimumCameraDistance) {
+        camera.position.copy(earthWorldPosition)
+            .addScaledVector(cameraCollisionDirection, minimumCameraDistance);
+        camera.lookAt(controls.target);
+    }
+}
+
+//endregion
+
+//region Lighting
+
+scene.add(new THREE.AmbientLight( 0xdec06f ))
+const sun1 = new THREE.DirectionalLight(0xffffff, 3.1);
+const sun2 = new THREE.DirectionalLight(0xffffff, 1.1);
+sun1.position.set(0, EARTH_RADIUS, 0);
+sun2.position.set(0, -EARTH_RADIUS, 0);
+sun1.target = earth
+sun2.target = earth
+scene.add(sun1);
+scene.add(sun2);
+
+//endregion
+
+//region Helpers
 
 if (PARAM_SETTINGS.get("helpers") === "true")
 {
@@ -108,13 +152,13 @@ if (PARAM_SETTINGS.get("helpers") === "true")
     earth.add(xyzAxis);
 
     // Widgets
-    let xCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0xff0000 }));
+    const xCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0xff0000 }));
     xCube.position.x = EARTH_RADIUS*2;
     xyzAxis.add(xCube);
-    let yCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0x00ff00 }));
+    const yCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0x00ff00 }));
     yCube.position.y = EARTH_RADIUS*2;
     xyzAxis.add(yCube);
-    let zCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0x0000ff }));
+    const zCube = new THREE.Mesh(new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshBasicMaterial( { color: 0x0000ff }));
     zCube.position.z = EARTH_RADIUS*2;
     xyzAxis.add(zCube);
 
@@ -124,11 +168,45 @@ if (PARAM_SETTINGS.get("helpers") === "true")
 
 //endregion
 
+//region Load Models
+
+const modelLoader = new GLTFLoader();
+const modelFiles = [
+    "src/glb/pin.glb",
+    "src/glb/polaroid.glb",
+    "src/glb/cluster-marker.glb",
+    "src/glb/house-marker.glb",
+    "src/glb/point-marker.glb",
+    "src/glb/rectangle-marker.glb"
+]
+const models = { }
+for (const model of modelFiles) {
+    const filename = model.split(/(\\|\/)/).pop().split('.').shift();
+    try {
+        models[filename] = await modelLoader.loadAsync(model);
+    } catch (error) {
+        console.error('Error loading pin model:', error);
+    }
+};
+
+function instantiateModel(model) {
+    const instance = model.scene.clone(true);
+    instance.traverse((child) => {
+        if (!child.isMesh) return;
+        child.material = Array.isArray(child.material)
+            ? child.material.map((material) => material.clone())
+            : child.material.clone();
+    });
+    return instance;
+}
+
+//endregion
+
 //region Album ForEach
 const sharedAlbums = await TravelPhotographyLibrary.getLocationAlbums();
 const albumObjects = [];
 
-let navMenu = []
+const navMenu = []
 for (const album of sharedAlbums) {
 
     function randomFromSeed(seed, min, max) {
@@ -141,18 +219,12 @@ for (const album of sharedAlbums) {
         continue;
     }
 
-    const modelLoader = new GLTFLoader();
-
     // Get position
-    let pos = getPositionFromLatLon(
-        album.lat * Math.PI / 180, 
-        album.lon * Math.PI / 180, 
-        EARTH_RADIUS
-    );
+    const pos = getPositionFromLatLon(album.lat, album.lon, EARTH_RADIUS);
 
     // Get rotation
     const surfaceNormal = pos.clone().sub(earth.getWorldPosition(new THREE.Vector3())).normalize();
-    let rot = new THREE.Euler(
+    const rot = new THREE.Euler(
         Math.asin(surfaceNormal.y), 
         Math.atan2(surfaceNormal.x, surfaceNormal.z), 
         0, 
@@ -162,7 +234,7 @@ for (const album of sharedAlbums) {
     // Helper
     if (PARAM_SETTINGS.get("helpers") === "true")
     {
-        let h = new THREE.AxesHelper(0.1);
+        const h = new THREE.AxesHelper(0.1);
         scene.add(h);
         h.position.set(pos.x, pos.y, pos.z);
         h.setRotationFromEuler(rot);
@@ -170,14 +242,7 @@ for (const album of sharedAlbums) {
 
     //region Create Pin
 
-    // Load model
-    let pinObject = null;
-    try {
-        const pinModel = await modelLoader.loadAsync('src/glb/pin.glb');
-        pinObject = pinModel.scene;
-    } catch (error) {
-        console.error('Error loading pin model:', error);
-    }
+    const pinObject = instantiateModel(models["pin"]);
     
     // Set pin color
     pinObject.traverse((child) => {
@@ -202,15 +267,8 @@ for (const album of sharedAlbums) {
     //endregion 
 
     //region Create Polaroid
-
-    let polaroidObject = null
-
-    try {
-        const polaroidModel = await modelLoader.loadAsync('src/glb/polaroid.glb');
-        polaroidObject = polaroidModel.scene;
-    } catch (error) {
-        console.error('Error loading polaroid model:', error);
-    }
+    
+    const polaroidObject = instantiateModel(models["polaroid"]);
 
     polaroidObject.traverse((child) => {
         if (child.isMesh && child.material.name === "image") {
@@ -223,20 +281,20 @@ for (const album of sharedAlbums) {
                 adjustTextureAspect(loadedTexture, 'cover');
             });
             
-            child.material = new THREE.MeshBasicMaterial({ map: texture });
+            child.material = new THREE.MeshLambertMaterial({ map: texture });
             child.material.needsUpdate = true; 
         }
     });
     pinObject.add(polaroidObject);
     polaroidObject.userData.metadata = album
-    polaroidObject.position.y = 0.02 + (Math.random() * 0.01);
+    polaroidObject.position.y = 0.027 + (Math.random() * 0.002);
     polaroidObject.position.z = 0.035;
     polaroidObject.rotation.y = THREE.MathUtils.degToRad((Math.random()-0.5) * 5);
     polaroidObject.rotation.x += THREE.MathUtils.degToRad(5);
     //endregion
 
     //region Add Writing
-    let text = new Text();
+    const text = new Text();
     text.text = album.name
     text.font = "./src/ttf/rock-salt-v24-latin-regular.ttf"
     text.maxWidth = 0.07;
@@ -263,18 +321,18 @@ for (const album of sharedAlbums) {
 
     //region Create Menu Obj
 
-    let newElementItem = {
+    const newElementItem = {
         name: album.name,
         link: album.hyperlink
     }
     if (navMenu.some(e => e.name === album.country)) {
-        let thisCountyIndex = navMenu.findIndex(e => e.name === album.country)
+        const thisCountyIndex = navMenu.findIndex(e => e.name === album.country)
         if (navMenu[thisCountyIndex].value.some(e => e.name === album.state)) {
-            let thisRegionIndex = navMenu[0].value.findIndex(e => e.name === album.state)
+            const thisRegionIndex = navMenu[0].value.findIndex(e => e.name === album.state)
             navMenu[thisCountyIndex].value[thisRegionIndex].value.push(newElementItem)
         }
         else {
-            let newRegionElement = {
+            const newRegionElement = {
                 name: album.state,
                 value: []
             }
@@ -283,11 +341,11 @@ for (const album of sharedAlbums) {
         }
     }
     else {
-        let newCountryElement = {
+        const newCountryElement = {
             name: album.country,
             value: []
         }
-        let newRegionElement = {
+        const newRegionElement = {
             name: album.state,
             value: []
         }
@@ -350,15 +408,96 @@ navMenu.toSorted((a, b) => {
 
 //region Create City Markers
 
+if (PARAM_SETTINGS.get("cities") === "true") {
+    const CITY_MODEL_SCALE = 0.005
+    const cities = await TravelPhotographyLibrary.getVisitedCities()
+    if (cities) {
+        for (const city of cities) {
+            let modelName;
+            switch (city.category_id) {
+                case 1: // City
+                    modelName = "cluster-marker"
+                    break;
+                default: // CDP
+                    modelName = "point-marker"
+                    break;
+            }
+
+            const marker = instantiateModel(models[modelName]);
+
+            const visitColor = (() => {
+                switch (city.visited_id) {
+                    case 1: return 0xd93232;
+                    case 2: return 0x74a120;
+                    case 3: return 0x9cd932;
+                    case 4: return 0x6ad932;
+                    case 5: return 0x4ba120;
+                    default: return 0xffffff;
+                }
+            })();
+
+            // Change color
+            marker.traverse((child) => {
+                if (!child.isMesh) return;
+                if (child.material.name === "steel") {
+                    child.material.color.set(visitColor);
+                    // child.material.roughness = 1;
+                    child.material.needsUpdate = true; 
+                }
+            });
+
+            // Get position
+            const pos = getPositionFromLatLon(
+                city.geojson.coordinates[0][1], 
+                city.geojson.coordinates[0][0], 
+                EARTH_RADIUS
+            );
+
+            // Get rotation
+            const surfaceNormal = pos.clone().sub(earth.getWorldPosition(new THREE.Vector3())).normalize();
+            const rot = new THREE.Euler(
+                Math.asin(surfaceNormal.y), 
+                Math.atan2(surfaceNormal.x, surfaceNormal.z), 
+                0, 
+                'YXZ'
+            );
+
+            // Helper
+            if (PARAM_SETTINGS.get("helpers") === "true")
+            {
+                const h = new THREE.AxesHelper(0.01);
+                scene.add(h);
+                h.position.set(pos.x, pos.y, pos.z);
+                h.setRotationFromEuler(rot);
+            }
+            
+            // Place marker
+            marker.name = city.city
+            marker.scale.set(CITY_MODEL_SCALE, CITY_MODEL_SCALE, CITY_MODEL_SCALE)
+            marker.position.set(pos.x, pos.y, pos.z);
+            marker.setRotationFromEuler(rot);
+            marker.rotateY(Math.random() * Math.PI * 2);
+            earth.add(marker);
+        }
+    }
+    else {
+        console.warn("Failed to GET from city database")
+    }
+}
+
 //endregion
 
 //region Helper Functions
 
 function getPositionFromLatLon(lat, lon, radius) {
+    const latitude = THREE.MathUtils.degToRad(lat);
+    const longitude = THREE.MathUtils.degToRad(lon);
+    const radiusAtLatitude = radius * Math.cos(latitude);
+
     return new THREE.Vector3(
-        radius * Math.cos(lat) * Math.sin(lon), 
-        radius * Math.sin(lat), 
-        radius * Math.cos(lat) * Math.cos(lon)
+        radiusAtLatitude * Math.sin(longitude),
+        radius * Math.sin(latitude),
+        radiusAtLatitude * Math.cos(longitude)
     );
 }
 
@@ -416,9 +555,15 @@ function animate() {
 }
 renderer.setAnimationLoop(animate);
 
+if (renderer.getContext() instanceof WebGL2RenderingContext && PARAM_SETTINGS.get("antialias") === "true") {
+    composer.renderTarget1.samples = 8;
+    composer.renderTarget2.samples = 8;
+}
+
 // Update pov when camera moves
 earth.updatePov(camera);
 controls.addEventListener('change', () => {
+    keepCameraOutsideEarth();
     earth.updatePov(camera);
 });
 
@@ -439,7 +584,7 @@ renderer.domElement.addEventListener('dblclick', (event) => {
     pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
     pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
-    let selectedObjects = raycaster.intersectObjects(albumObjects, true).filter(obj => obj.object.parent.name.includes("polaroid"))
+    const selectedObjects = raycaster.intersectObjects(albumObjects, true).filter(obj => obj.object.parent.name.includes("polaroid"))
 
     if (selectedObjects.length > 0) {
         try {

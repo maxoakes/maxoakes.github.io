@@ -15,11 +15,11 @@ function appendPolaroidFromApi(object) {
         class: 'photo random-rotate' 
     });
     const link = $('<a>', { 
-        href: `${TravelPhotographyLibrary.URL_ROOT}/s/${object.slug}`,
+        href: `${TravelPhotographyLibrary.IMAGES_URL}/s/${object.slug}`,
         target: "_blank"
     });
     const image = $('<img>', { 
-        src: `${TravelPhotographyLibrary.URL_ROOT}/api/assets/${object.album.albumThumbnailAssetId}/thumbnail?apiKey=${TravelPhotographyLibrary.VIEW_KEY}`, 
+        src: `${TravelPhotographyLibrary.IMAGES_URL}/api/assets/${object.album.albumThumbnailAssetId}/thumbnail?apiKey=${TravelPhotographyLibrary.IMMICH_KEY}`, 
         alt: "Thumbnail of " + object.album.albumName 
     });
     const title = $('<h2>', { 

@@ -13,6 +13,7 @@
     --polaroid-title-line-height: calc(var(--polaroid-scale) * 30px);
     --polaroid-subtitle-size: calc(var(--polaroid-scale) * 8pt);
     --polaroid-subtitle-line-height: calc(var(--polaroid-scale) * 12pt);
+    --vignette-color: #141b5ec0;
 }
 
 body {
@@ -30,6 +31,81 @@ ul {
 
 .introduction {
     padding: 0 var(--indent-size);
+}
+
+/* Presentation Buttons */
+.presentation {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.presentation > * {
+    display: block;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 400px;
+    height: 600px;
+    border-radius: 50px;
+    background-size: cover;
+    border: var(--vignette-color) 4px solid;
+}
+
+.presentation > *::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: inherit;
+    background-position: inherit;
+    background-size: inherit;
+    content: "";
+    filter: saturate(0.66);
+    transition: transform 400ms ease;
+}
+
+.presentation > *::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse at center, transparent 66%, var(--vignette-color) 100%);
+    content: "";
+    pointer-events: none;
+}
+
+.presentation > *:hover::before {
+    transform: scale(1.06);
+}
+
+.presentation > * > h3 {
+    position: absolute;
+    top: 75%;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    z-index: 1;
+    text-align: center;
+    transform: translateY(-50%);
+    font-size: 24pt !important;
+    text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.666);
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.collection {
+    background-color: red;
+    background-image: url("asset/collection.jpg");
+    background-position: center;
+}
+
+.globe {
+    background-color: blue;
+    background-image: url("asset/globe.png");
+    background-position: center;
 }
 
 /* Polaroid elements */
