@@ -305,50 +305,50 @@ header a, header a:hover, header a:visited, header a:active {
 }
 
 #steam-compare .image {
-    background-image: url("asset/project/steam-compare.jpg");
+    background-image: url("asset/img/cover-art/steam-compare.jpg");
     background-position: bottom;
 }
 
 #gamepad-driver .image {
-    background-image: url("asset/project/gamepad-driver.jpg");
+    background-image: url("asset/img/cover-art/gamepad-driver.jpg");
 }
 
 #asteroid .image {
-    background-image: url("asset/project/asteroid.jpg");
+    background-image: url("asset/img/cover-art/asteroid.jpg");
     background-size: center;
 }
 
 #irc .image {
     background-color: lightseagreen;
-    background-image: url("asset/project/irc.png");
+    background-image: url("asset/img/cover-art/irc.png");
     background-size: contain;
 }
 
 #cruelsun .image {
-    background-image: url("asset/project/cruelsun.jpg");
+    background-image: url("asset/img/cover-art/cruelsun.jpg");
     background-position: center;
 }
 
 #stargate .image {
-    background-image: url("asset/project/stargate-closeup.jpg");
+    background-image: url("asset/img/cover-art/stargate-closeup.jpg");
     background-position: center;
 }
 
 #gnu-radio .image {
-    background-image: url("asset/project/gnuradio.jpg");
+    background-image: url("asset/img/cover-art/gnuradio.jpg");
 }
 
 #arma .image {
-    background-image: url("asset/project/maze.jpg");
+    background-image: url("asset/img/cover-art/maze.jpg");
 }
 
 #jwst .image {
-    background-image: url("asset/project/space.jpg");
+    background-image: url("asset/img/cover-art/space.jpg");
     background-position: center;
 }
 
 #visualizer .image {
-    background-image: url("asset/project/visualizer.jpg");
+    background-image: url("asset/img/cover-art/visualizer.jpg");
     background-position: center;
 }
 

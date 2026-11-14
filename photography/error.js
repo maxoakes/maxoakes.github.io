@@ -12,7 +12,7 @@ function appendErrorMessage(error) {
     const message = $('<h2>').text("Photo album server not reachable :(");
 
     const image = $('<img>', { 
-        src: "/asset/error/sleep.svg", 
+        src: "/asset/img/error/sleep.svg", 
         alt: "Sleeping cat on a computer",
         class: "sleep-image"
     });

@@ -39,13 +39,13 @@
             <script type="text/javascript"> 
                 function pickRandomBackground() {
                     const backgrounds = [
-                        'asset/background/sky.jpg',
-                        'asset/background/waves.jpg',
-                        'asset/background/path.jpg',
-                        'asset/background/harbor.jpg',
-                        'asset/background/marsh.jpg',
-                        'asset/background/harney.jpg',
-                        'asset/background/sisters.jpg'
+                        'asset/img/background/sky.jpg',
+                        'asset/img/background/waves.jpg',
+                        'asset/img/background/path.jpg',
+                        'asset/img/background/harbor.jpg',
+                        'asset/img/background/marsh.jpg',
+                        'asset/img/background/harney.jpg',
+                        'asset/img/background/sisters.jpg'
                     ];
                     const randomIndex = Math.floor(Math.random() * backgrounds.length);
                     const backgroundDiv = document.getElementById('background');
@@ -72,9 +72,7 @@
                             console.log("Internet Explorer detected");
                             let messageForIE = document.createElement("p");
                             messageForIE.innerHTML = "<hr>I see you are using Internet Explorer. For a better viewing experience, \
-                            I recommend using a different web browser or going directly to my \
-                            <a href='https://github.com/maxoakes'>Github</a> or my \
-                            <a href='https://www.linkedin.com/in/max-o-017/'>LinkedIn</a>.";
+                            I recommend using a different web browser.";
                             document.getElementsByClassName("intro-text")[0].appendChild(messageForIE);
                         }    
                     }
@@ -85,7 +83,7 @@
             <div class=title-banner>
                 <h2 class="content-section-title">Résumé</h2>
                 <hr class=accent>
-                <p class="center-note">View my résumé as a <a href="/resume/resume.pdf" target="_blank">PDF</a></p>
+                <p class="center-note">View my résumé as a <a href="asset/resume/resume.pdf" target="_blank">PDF</a></p>
             </div>
             <div class=narrow>
                 <p class=resume-section-title>Education</p>
@@ -94,7 +92,7 @@
                     <p class="resume-position-details">
                         <span class="company">Portland State University</span>
                         <span class="duration">March 2021 - March 2023</span>
-                        <br><img src="asset/icon/psu.png" alt="Portland State University's Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/psu.png" alt="Portland State University's Logo" class="resume-logo">
                         <span class="position">Master of Science, Computer Science</span>
                         <span class="location">Portland, OR</span>
                         <span class="gpa">Graduate GPA: 4.00 of 4.00</span>
@@ -139,7 +137,7 @@
                     <p class="resume-position-details">
                         <span class="company">Portland Community College</span>
                         <span class="duration">January 2021 - March 2021</span>
-                        <br><img src="asset/icon/pcc.png" alt="PPC's Logo Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/pcc.png" alt="PPC's Logo Logo" class="resume-logo">
                         <span class="position">Assorted Courses</span>
                         <span class="location">Portland, OR</span>
                     </p>
@@ -159,7 +157,7 @@
                     <p class="resume-position-details">
                         <span class="company">University of Portland</span>
                         <span class="duration">August 2013 - May 2017</span>
-                        <br><img src="asset/icon/up.png" alt="University of Portland's Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/up.png" alt="University of Portland's Logo" class="resume-logo">
                         <span class="position">Bachelor of Science, Computer Science</span>
                         <span class="location">Portland, OR</span>
                         <span class="gpa">Major GPA: 3.41 of 4.00</span>
@@ -203,7 +201,7 @@
                     <p class="resume-position-details">
                         <span class="company">Marion County</span>
                         <span class="duration">June 2023 - Present</span>
-                        <br><img src="asset/icon/mc.png" alt="Marion County Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/mc.png" alt="Marion County Logo" class="resume-logo">
                         <span class="position">Programmer Analyst 1, Programmer Analyst 2</span>
                         <span class="location">Salem, OR</span>
                     </p>
@@ -264,7 +262,7 @@
                     <p class="resume-position-details">
                         <span class="company">Orbis Education</span>
                         <span class="duration">September 2018 - December 2020</span>
-                        <br><img src="asset/icon/orbis.png" alt="Orbis Education Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/orbis.png" alt="Orbis Education Logo" class="resume-logo">
                         <span class="position">Nursing Education Coordinator</span>
                         <span class="location">Portland, OR</span>
                     </p>
@@ -298,7 +296,7 @@
                     <p class="resume-position-details">
                         <span class="company">University of Portland</span>
                         <span class="duration">November 2016 - May 2017</span>
-                        <br><img src="asset/icon/up.png" alt="University of Portland's Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/up.png" alt="University of Portland's Logo" class="resume-logo">
                         <span class="position">Student Web Developer</span>
                         <span class="location">Portland, OR</span>
                     </p>
@@ -321,7 +319,7 @@
                     <p class="resume-position-details">
                         <span class="company">Free Geek</span>
                         <span class="duration">January 2010 - November 2013</span>
-                        <br><img src="asset/icon/free-geek.png" alt="Free Geek's Logo" class="resume-logo">
+                        <br><img src="asset/img/icon/free-geek.png" alt="Free Geek's Logo" class="resume-logo">
                         <span class="position">Hardware Evaluator</span>
                         <span class="location">Portland, OR</span>
                     </p>
@@ -373,7 +371,7 @@
                         The goal is to automate the pipeline of acquiring James Webb Space Telescope NIRCam imaging data,
                         combining it and displaying a full color RGB image.</p>
                         <p>Here is the <a href="https://github.com/maxoakes/JWST-FITS-Reader" target="_blank">source code</a>
-                            and <a href="asset/docs/imaging_report.pdf" target="_blank">report</a> of the project.</p>
+                            and <a href="asset/document/imaging_report.pdf" target="_blank">report</a> of the project.</p>
                         <p>
                             <span class="skill language">Python</span>
                             <span class="skill tool">NumPy</span>
@@ -406,7 +404,7 @@
                         <p><span class="project-title">Big Data: Known Asteroids</span>A project for my graduate DBMS course.
                         The goal was to fill a database with data of our choosing and answer questions based on the information
                         in that data. I wrote my own Python script to extract rows from a CSV file to fill a database table.</p>
-                        <p>Here is the <a href="asset/docs/db.pdf" target="_blank">presentation</a> of this project.</p>
+                        <p>Here is the <a href="asset/document/db.pdf" target="_blank">presentation</a> of this project.</p>
                         <p>
                             <span class="skill language">Python</span>
                             <span class="skill language">SQL</span>
@@ -506,7 +504,7 @@
                             programming. This is a rendering of a <a href="https://en.wikipedia.org/wiki/Stargate_(device)" target="_blank">Stargate</a>
                             that I made in <a href="https://www.blender.org/features/" target="_blank">Blender</a>. Nearly everything in
                             the image was made from scratch. I love playing with Blender, and this project is one that I particularly liked.
-                        <p>Here is the <a href="asset/docs/stargate24.jpg" target="_blank">completed render</a> of this project.</p>
+                        <p>Here is the <a href="asset/img/cover-art/stargate24.jpg" target="_blank">completed render</a> of this project.</p>
                         <p>
                             <span class="skill tool">Blender</span>
                             <span class="skill other">3D Rendering</span>
@@ -522,8 +520,8 @@
                             goal was to connect a Tektronix RSA (radio spectrum analyzer) to GNU Radio (a software
                             defined radio). Tekronix had only one piece of software to see waveforms, and nothing for
                             signal processing. This project opened the door for many possibilities for the Tektronix RSA.</p>
-                        <p>Here is our team's <a href="asset/docs/team_gnu_report.pdf" target="_blank">final report</a>
-                            and <a href="asset/docs/tek_presentation.pdf" target="_blank">presentation</a> we gave to Tektronix.</p>
+                        <p>Here is our team's <a href="asset/document/team_gnu_report.pdf" target="_blank">final report</a>
+                            and <a href="asset/document/tek_presentation.pdf" target="_blank">presentation</a> we gave to Tektronix.</p>
                         <p>
                             <span class="skill language">C++</span>
                             <span class="skill tool">Unix/Ubuntu</span>

@@ -1,0 +1,266 @@
+% !TeX program = xelatex
+\documentclass[11pt]{article}
+\usepackage[margin=0.8in]{geometry}
+% 0.66 is normal
+% fonts
+\usepackage{fontspec}
+% links
+\usepackage{hyperref}
+% text alignment (center)
+\usepackage{ragged2e}
+% underline
+\usepackage{ulem}
+\usepackage{contour}
+% multiple columns
+\usepackage{paracol}
+% paper bg
+\usepackage{eso-pic}
+% better itemize
+\usepackage{enumitem}
+% Capitalize words
+\usepackage{titlecaps}
+% horizontal line
+\usepackage{titlesec}
+% line spacing
+\usepackage{setspace}
+\usepackage{ifthen}
+
+\setmainfont{Cambria}
+\renewcommand{\baselinestretch}{1.0} 
+\hypersetup{colorlinks=false, pdfborder = {0 0 0}}
+\thispagestyle{empty}
+\raggedright
+
+% Basic Info
+\def\name{Maxwell J. Oakes}
+\def\addr{3220 SW 98th Ave, Portland, Oregon 97225}
+\def\email{\href{mailto:m.oakes017@gmail.com}
+    {m.oakes017@gmail.com}}
+\def\website{\href{https://maxoakes.github.io/}
+    {maxoakes.github.io}}
+\def\linkedin{\href{https://www.linkedin.com/in/max-o-017/}
+    {linkedin.com/in/max-o-017}}
+\def\phone{(503) 354-4264}
+
+% job specific
+\def\company{this company}
+\def\companytype{company type}
+\def\jobduty{design and build systems}
+\def\rolegeneric{developer}
+
+% Skills
+\def\langoop{Java, C\#}
+\def\langcfam{C/C++}
+\def\langweb{HTML/CSS}
+\def\langjs{Javascript, React, jQuery}
+\def\langsql{SQL (PostgreSQL, MySQL)}
+
+% Part Formats
+\def\competencies{
+    \toplistspacing
+    \underline{Competencies (KSAs):}
+    \toplistspacing
+}
+\def\accomplishments{
+    \toplistspacing
+    \underline{Accomplishments:}
+    \toplistspacing
+}
+\def\duties{
+    \toplistspacing
+    \underline{Duties:}
+    \toplistspacing
+}
+\newcommand{\header}[1]{
+    \begin{Center}
+        \LARGE
+        \textbf{#1}
+        \newline
+        \normalsize
+        \toplistspacing
+        \addr
+        \newline
+        \textbf{Email:} \email
+        \newline
+        \textbf{Phone:} \phone
+    \end{Center}
+    \vspace{-0.12in}
+}
+\newcommand{\sectiontitle}[1]{
+    \noindent\Large\textsc{#1}
+    \newline
+    \vspace{-0.18in}
+    \hrule   
+}
+
+\newcommand{\plainparagraph}[1]{
+    \topitemspacing
+    \noindent\normalsize#1
+}
+
+\newcommand{\school}[4]{
+    % Position, Company, Date Range
+    \topitemspacing
+    \normalsize\noindent\textbf{#1}
+    \hfill
+    \noindent#3
+    \newline
+    \noindent\textit{#2}
+    \hfill
+    \noindent\textit{#4}
+    \toplistspacing
+}
+
+\newcommand{\occupation}[7]{
+    % Position, Company, Date Range, address line 1, address line 2, work hours, supervisor
+    \topitemspacing
+    \normalsize
+    \noindent\textbf{#1}
+    \hfill
+    \noindent#3
+    \newline
+    \noindent#2
+    \hfill
+    \noindent#6
+    \newline\textit{#4}
+    \newline\textit{#5}
+    \ifthenelse{ \equal{#7}{} }
+    { \def\temp{} } 
+    { \def\temp{\newline Supervisor: \textit{#7}} }
+    \temp
+    \toplistspacing
+    \newline
+}
+
+\newcommand{\project}[3]{
+    % Title, Position, Year
+    \topitemspacing
+    \normalsize
+    \noindent\textbf{#1}, \textit{#2}
+    \hfill
+    \noindent#3
+    \toplistspacing
+}
+
+\newcommand{\inlinelist}[2]{
+    \topitemspacing
+    \noindent\normalsize\textbf{#1}: #2
+}
+
+\newcommand{\tab}{
+    \hspace{0.15in}
+}
+\newcommand{\sectionendspace}{
+    \vspace{0.1in}
+}
+\newcommand{\toplistspacing}{
+    \vspace{0.04in}
+}
+\newcommand{\topitemspacing}{
+    \vspace{0.1in}
+}
+
+\begin{document}
+    % Header section 
+    \header{\name}
+    % About Me, Objective
+    \sectiontitle{Professional Summary}
+    \plainparagraph{Tenacious and detail-oriented computer science graduate seeking to design, create and maintain complex tools and applications. A life-long learner who always desires to know more about recent developments in advanced technologies and innovations in computer science.}
+    \sectionendspace
+
+    % Education
+    \sectiontitle{Education}
+    % Portland State
+    \school{Master of Science, Computer Science}
+    {Portland State University}
+    {Mar 2021 -- Mar 2023 (Obtained)}
+    {Portland, Oregon}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item 4.0/4.0 GPA
+        \item 45 Quarter Credit Hours
+        \item \textbf{Relevant Coursework:} Database Management Systems, Fullstack Web Development, Unit Testing, Software Testing and Implementation, Internetworking Protocols, Computational Imaging
+    \end{itemize}
+    % University of Portland
+    \school{Bachelor of Science, Computer Science}
+    {University of Portland}
+    {Aug 2013 -- May 2017 (Obtained)}
+    {Portland, Oregon}
+    \begin{itemize}[noitemsep,nolistsep]
+        \item 3.28/4.0 Overall GPA; 3.41/4.0 Major GPA
+        \item 126 Semester Hours
+        \item \textbf{Relevant Coursework:} Analysis of Algorithms, Programming Languages, Data Structures, Object-Oriented Design, Remote Sensing \& GIS
+    \end{itemize}
+    \sectionendspace
+
+    \sectionendspace
+    % Work Experience
+    % Nursing Education Coordinator
+    \sectiontitle{Work Experience}
+    % \occupation{Nursing Education Coordinator (Administrative Coordinator)}
+    \occupation{Administrative Coordinator}{Orbis Education}
+    {Sept 2018 -- Dec 2020}
+    {9600 SW Barnes Rd \#300}{Portland, OR 97225}
+    {40 hours/week}
+    {Sabina Cosma, (503) 901-8674. Contact me first}
+    \duties
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Provide administrative support to academic team
+        \item Ensure students are in compliance with hospital clinical site health and safety standards
+        \item Orient students to vaccine and other health requirements
+        \item Assist in managing master schedule and academic calendar
+        \item Prepare, troubleshoot and maintain computers for student exams
+        \item Proctor student exams
+    \end{itemize}
+    \competencies
+    \begin{itemize}[noitemsep,nolistsep]
+        \item \textbf{Customer Service:} I communicated daily with students, instructors, and hospital partners in-person or via phone or email. This required cordial, helpful, and timely responses. Many conversations were to update existing student information, verify status of students' records, or to assist in troubleshooting of various computer issues. 
+        I was the go-to person for the latter issue, and was responsible for solving many technology-related issues for students and staff in the office given my computer science education and experience with technology.
+        \item \textbf{Oral Communication:} I was solely responsible for orienting incoming students to the numerous vaccine and health requirements needed for their hospital clinical visits and became a subject matter expert on this topic. I always presented the information as clear as possible and allowed students to ask clarifying questions. I also proctored student exams which required delivery of clear and concise instructions.
+        I also needed to be observant to student's nonverbals and movements to watch for possible cheating. I always welcomed feedback to improve my future communications. 
+        \item \textbf{Attention to Detail:} I ensured all enrolled students (up to 400+) are in compliance with more than a dozen health and vaccine requirements. This required organization and maintenance of all student records, and keeping up to date any new and expiring documents, and being ready to prompt students to provide any new requirements in a timely manner. Further, all documents needed to be quickly accessible and complete for initial onboarding, or possible audits from hospital partners.
+        I also send out long, detailed administrative emails to students that required proof-reading, and tracking and managing potentially dozens of responses.
+        \item \textbf{Problem Solving:} I was frequently the first person people came to for technical issues, since I was able to solve them quickly. Without being asked, I developed automated scripts via programming languages to speed up tedious and repetitive tasks, and provided alternative ideas and approaches to existing administrative processes.
+    \end{itemize}
+    \accomplishments
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Wrote a variety of programs using the Python programming language to automate previously tedious tasks, frequently saving several hours of work per week
+        \item Assisted in development of academic calendar used by over 400 concurrent students across multiple locations
+        \item Created workflow of all tasks performed by administrative team, allowing for timely task allocation in a growing nursing program
+        \item Collaborated with 2 other administrative coordinators to ensure 120 incoming students per semester were in compliance with mandatory hospital clinical site safety and vaccination standards
+    \end{itemize}
+    % Student Web Developer
+    \occupation{Student Web Developer}
+    {University of Portland}
+    {Nov 2016 -- May 2017}
+    {6601 N Van Houten Ave}{Portland, OR 97203}
+    {8 hours/week}{}
+    \duties
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Designed and maintained multiple Java programming language web apps that were used by university tutoring faculty and prospective students
+        \item Convened with university faculty to outline requirements for new web applications
+        \item Improved existing Java web applets by identifying and fixing several bugs and adding functionality
+    \end{itemize}
+    \competencies
+    \begin{itemize}[noitemsep,nolistsep]
+        \item \textbf{Oral Communication:} I occasionally met with staff from the university to discuss requirements and design of applications that they needed to help serve students. Required seeking enough clarification to build a computer application based on those meetings.
+        \item \textbf{Attention to Detail:} Much of the time, I looked for bugs, typos and other errors in existing applications, followed by fixing those errors and documenting those changes.
+    \end{itemize}
+    % Free Geek Volunteer
+    \occupation{Hardware Evaluator (Volunteer)}
+    {Free Geek}
+    {Jan 2010 -- Nov 2012}
+    {1731 SE 10th Ave}{Portland, OR 97214}
+    {5 hours/week}{}
+    \duties
+    \begin{itemize}[noitemsep,nolistsep]
+        \item Disassembled a variety of donated computers and determined whether parts are to be reused or recycled by following established procedures
+        \item Sorted computer components based on technical specifications, requiring the ability to quickly inspect physical hardware and BIOS information
+        \item Installed software and performed quality assurance on outgoing computers using the Ubuntu operating system
+    \end{itemize}
+    \competencies
+    \begin{itemize}[noitemsep,nolistsep]
+        \item \textbf{Attention to Detail:} I was responsible for taking donated computers, analyzing and identifying all components of a given computer, such as the hard drive CPU, memory, and other peripherals, and extract and sort those components.
+        I had to follow a pre-defined flowchart that would specify if each component was to be recycled or put into a different computer that would later be sold.
+    \end{itemize}
+    \sectionendspace
+\end{document}

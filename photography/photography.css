@@ -97,12 +97,12 @@ ul {
 }
 
 .collection {
-    background-image: url("asset/collection.jpg");
+    background-image: url("/asset/img/cover-art/collection.jpg");
     background-position: center;
 }
 
 .globe {
-    background-image: url("asset/globe.png");
+    background-image: url("/asset/img/cover-art/globe.png");
     background-position: center;
 }
 

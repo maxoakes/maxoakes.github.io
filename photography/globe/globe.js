@@ -53,7 +53,7 @@ scene.add(camera);
 // Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxDistance = EARTH_RADIUS * 1.5;
-controls.minDistance = EARTH_RADIUS / 40;
+controls.minDistance = EARTH_RADIUS / 80;
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.rotateSpeed = 0.3;
@@ -133,7 +133,7 @@ function keepCameraOutsideEarth() {
 
 scene.add(new THREE.AmbientLight( 0xdec06f ))
 const sun1 = new THREE.DirectionalLight(0xffffff, 3.1);
-const sun2 = new THREE.DirectionalLight(0xffffff, 1.1);
+const sun2 = new THREE.DirectionalLight(0xffffff, 0.1);
 sun1.position.set(0, EARTH_RADIUS, 0);
 sun2.position.set(0, -EARTH_RADIUS, 0);
 sun1.target = earth
@@ -172,15 +172,15 @@ if (PARAM_SETTINGS.get("helpers") === "true")
 
 const modelLoader = new GLTFLoader();
 const modelFiles = [
-    "src/glb/pin.glb",
-    "src/glb/polaroid.glb",
-    "src/glb/cluster-marker.glb",
-    "src/glb/house-marker.glb",
-    "src/glb/point-marker.glb",
-    "src/glb/rectangle-marker.glb",
-    "src/glb/blip-marker.glb",
-    "src/glb/box-marker.glb",
-    "src/glb/cylinder-marker.glb"
+    "/asset/glb/pin.glb",
+    "/asset/glb/polaroid.glb",
+    "/asset/glb/cluster-marker.glb",
+    "/asset/glb/house-marker.glb",
+    "/asset/glb/point-marker.glb",
+    "/asset/glb/rectangle-marker.glb",
+    "/asset/glb/blip-marker.glb",
+    "/asset/glb/box-marker.glb",
+    "/asset/glb/cylinder-marker.glb"
 ]
 const models = { }
 for (const model of modelFiles) {
@@ -253,6 +253,8 @@ for (const album of sharedAlbums) {
         if (!child.isMesh) return;
         if (child.material.name === "color") {
             child.material.color.set(PIN_COLORS[randomFromSeed(album.photoCount, 0, PIN_COLORS.length - 1)]);
+            child.material.metalness = 0.4;
+            child.material.roughness = 0.6;
             child.material.needsUpdate = true; 
         }
     });
@@ -300,7 +302,7 @@ for (const album of sharedAlbums) {
     //region Add Writing
     const text = new Text();
     text.text = album.name
-    text.font = "./src/ttf/rock-salt-v24-latin-regular.ttf"
+    text.font = "/asset/ttf/rock-salt-v24-latin-regular.ttf"
     text.maxWidth = 0.07;
     text.lineHeight = 1
     text.letterSpacing = -0.05
@@ -451,11 +453,11 @@ if (PARAM_SETTINGS.get("cities") === "true") {
 
             const visitColor = (() => {
                 switch (city.visited_id) {
-                    case 1: return 0xd93232;
-                    case 2: return 0x74a120;
-                    case 3: return 0x9cd932;
-                    case 4: return 0x6ad932;
-                    case 5: return 0x4ba120;
+                    case 1: return 0xfa2d11;
+                    case 2: return 0xfac811;
+                    case 3: return 0x6efa11;
+                    case 4: return 0x11fa2c;
+                    case 5: return 0x11fa66;
                     default: return 0xffffff;
                 }
             })();
@@ -542,7 +544,7 @@ function focusAlbumLocation(pin) {
     controls.target.copy(targetPosition);
     const cameraOffset = surfaceNormal.clone().multiplyScalar(FOCUS_NORMAL_OFFSET)
         .addScaledVector(tangentDirection, FOCUS_TAN_OFFSET)
-        .setLength(controls.minDistance*2);
+        .setLength(EARTH_RADIUS/20);
     camera.position.copy(targetPosition).add(cameraOffset);
     camera.lookAt(targetPosition);
     controls.update();
