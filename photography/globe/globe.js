@@ -15,7 +15,7 @@ import * as TravelPhotographyLibrary from "../photography.js"
 //region Scene Settings
 const PARAM_SETTINGS = new URLSearchParams(window.location.search);
 const START_LOCATION = "Marion"
-const EARTH_RADIUS = 6.3781 * 2;
+const EARTH_RADIUS = 6.3781 * 2.25;
 const CAMERA_SURFACE_CLEARANCE = 0.05;
 const FOCUS_NORMAL_OFFSET = EARTH_RADIUS * 2;
 const FOCUS_TAN_OFFSET = EARTH_RADIUS * 1;
@@ -52,8 +52,8 @@ scene.add(camera);
 
 // Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.maxDistance = EARTH_RADIUS * 1.5;
-controls.minDistance = EARTH_RADIUS / 80;
+controls.maxDistance = EARTH_RADIUS * 0.5;
+controls.minDistance = EARTH_RADIUS * 0.02;
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.rotateSpeed = 0.3;
@@ -83,7 +83,7 @@ export const earth = new SlippyMapGlobe(EARTH_RADIUS, {
         default: return `https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/${Z}/${Y}/${X}`
     }
   },
-  minLevel: 0,
+  minLevel: 6,
   maxLevel: 11
 });
 scene.add(earth);
