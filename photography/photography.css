@@ -277,8 +277,10 @@ h3.handwritten8 {
     justify-content: center;
     align-items: center;
     background-color: var(--color-background-secondary);
-    margin: 32px;
-    padding: 32px;
+    margin: auto;
+    padding: 48px;
+    width: max-content;
+    border-radius: 32px;
 }
 
 .message-container > * {

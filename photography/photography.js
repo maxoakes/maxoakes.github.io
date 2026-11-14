@@ -177,8 +177,18 @@ async function getLocationAlbums() {
     return albums;
 }
 
-async function getVisitedCities() {
-    let cities = await getJsonResponse(`${API_URL}/api/cities?visited=1&visited=2&visited=3&visited=4&visited=5&category=1&category=2&category=3&category=4`);
+async function getVisitedCities(includeGhostTowns, includeUnvisted, includeCommunities) {
+    let url = `${API_URL}/api/cities?visited=2&visited=3&visited=4&visited=5&category=1&category=2`
+    if (includeUnvisted) {
+        url += "&visited=1"
+    }
+    if (includeCommunities) {
+        url += "&category=3&category=4"
+    }
+    if (includeGhostTowns) {
+        url += "&category=10&category=11&category=12&category=13&category=14&category=15"
+    }
+    let cities = await getJsonResponse(url);
     if (!cities) return [];
 
     cities.forEach(city => {

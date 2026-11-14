@@ -1,8 +1,9 @@
 import * as TravelPhotographyLibrary from "./photography.js"
 
-const connectionTest = await TravelPhotographyLibrary.getJsonResponse(`${TravelPhotographyLibrary.API_URL}/ping`);
+const connectionTest = await TravelPhotographyLibrary.getJsonResponse(`${TravelPhotographyLibrary.IMAGES_URL}/api/server/ping`);
+console.log(connectionTest)
 if (!connectionTest) {
-    appendErrorMessage(`Could not get a response from ${TravelPhotographyLibrary.API_URL}`)
+    appendErrorMessage(`Could not get a response from ${TravelPhotographyLibrary.IMAGES_URL}`)
 }
 
 function appendErrorMessage(error) {

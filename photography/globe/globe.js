@@ -177,7 +177,10 @@ const modelFiles = [
     "src/glb/cluster-marker.glb",
     "src/glb/house-marker.glb",
     "src/glb/point-marker.glb",
-    "src/glb/rectangle-marker.glb"
+    "src/glb/rectangle-marker.glb",
+    "src/glb/blip-marker.glb",
+    "src/glb/box-marker.glb",
+    "src/glb/cylinder-marker.glb"
 ]
 const models = { }
 for (const model of modelFiles) {
@@ -410,17 +413,37 @@ navMenu.toSorted((a, b) => {
 //region Create City Markers
 
 if (PARAM_SETTINGS.get("cities") === "true") {
-    const CITY_MODEL_SCALE = 0.005
-    const cities = await TravelPhotographyLibrary.getVisitedCities()
+    
+    const cities = await TravelPhotographyLibrary.getVisitedCities(
+        (PARAM_SETTINGS.get("includeGhost") === "true"),
+        (PARAM_SETTINGS.get("includeUnvisited") === "true"),
+        (PARAM_SETTINGS.get("includeCommunities") === "true")
+    )
     if (cities.length > 0) {
+        
         for (const city of cities) {
             let modelName;
+            let scale = 0.005
             switch (city.category_id) {
                 case 1: // City
                     modelName = "cluster-marker"
+                    scale /= 1
                     break;
-                default: // CDP
-                    modelName = "point-marker"
+                case 2: // CDP
+                    modelName = "house-marker"
+                    scale /= 1.5
+                    break;
+                case 3: // Comm
+                    modelName = "blip-marker"
+                    scale /= 1.5
+                    break;
+                case 4:
+                    modelName = "blip-marker"
+                    scale /= 2.5
+                    break;
+                default:
+                    modelName = "box-marker"
+                    scale /= 4
                     break;
             }
 
@@ -474,7 +497,7 @@ if (PARAM_SETTINGS.get("cities") === "true") {
             
             // Place marker
             marker.name = city.city
-            marker.scale.set(CITY_MODEL_SCALE, CITY_MODEL_SCALE, CITY_MODEL_SCALE)
+            marker.scale.set(scale, scale, scale)
             marker.position.set(pos.x, pos.y, pos.z);
             marker.setRotationFromEuler(rot);
             marker.rotateY(Math.random() * Math.PI * 2);
